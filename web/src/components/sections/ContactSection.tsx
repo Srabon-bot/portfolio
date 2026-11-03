@@ -123,6 +123,8 @@ export function ContactSection({ profile }: ContactSectionProps) {
       <Container>
         <SectionHeading
           title="Keep in Touch"
+          index="05"
+          kicker="Correspondence"
           subtitle="Open to opportunities, collaborations and questions"
           id="contact-heading"
         />
@@ -133,7 +135,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
             {contactLinks.map((link) => (
               <div
                 key={link.label}
-                className="group rounded-xl p-4 flex items-center gap-3.5 transition-all duration-300 hover:border-accent/40 min-w-0"
+                className="group rounded-lg paper-shadow p-4 flex items-center gap-3.5 transition-all duration-300 hover:border-accent/40 min-w-0"
                 style={{
                   background: "var(--color-surface)",
                   border: "1px solid var(--color-border)",
@@ -283,7 +285,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
               <button
                 type="submit"
                 disabled={status === "loading" || status === "success"}
-                className="rounded-xl px-6 py-3 min-h-11 text-sm font-semibold text-on-accent transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed hover:opacity-95 flex items-center justify-center"
+                className="rounded-lg px-6 py-3 min-h-11 text-sm font-semibold text-on-accent transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed hover:opacity-95 flex items-center justify-center"
                 style={{ background: "var(--color-accent)" }}
               >
                 {status === "loading" ? (

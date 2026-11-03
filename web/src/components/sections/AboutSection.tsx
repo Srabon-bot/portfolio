@@ -25,6 +25,14 @@ interface AboutSectionProps {
 export function AboutSection({ profile }: AboutSectionProps) {
   const { currently, aboutParagraphs } = profile;
 
+  /*
+   * Editorial spread: the first paragraph becomes the serif pull-quote
+   * (ink, large), the rest stay as relaxed body copy. Same content —
+   * presentation only.
+   */
+  const leadParagraph = aboutParagraphs[0];
+  const bodyParagraphs = aboutParagraphs.slice(1);
+
   /* The "currently" list items */
   const currentlyItems = [
     { icon: "🔨", label: "Building", value: currently.building },
@@ -48,6 +56,8 @@ export function AboutSection({ profile }: AboutSectionProps) {
       <Container>
         <SectionHeading
           title="About Me"
+          index="03"
+          kicker="The Story"
           subtitle="The story behind the code"
           id="about-heading"
         />
@@ -62,7 +72,18 @@ export function AboutSection({ profile }: AboutSectionProps) {
         >
           {/* ── Main text column: bio paragraphs (limited to ~65ch) ─── */}
           <div className="flex flex-col gap-4 flex-1 max-w-[65ch] w-full min-w-0">
-            {aboutParagraphs.map((para, i) => (
+            {leadParagraph && (
+              <p
+                className="text-lg md:text-xl leading-snug text-text"
+                style={{ fontFamily: "var(--font-fraunces), Georgia, serif", overflowWrap: "anywhere" }}
+              >
+                {leadParagraph}
+              </p>
+            )}
+
+            <div aria-hidden="true" className="rule-gold" />
+
+            {bodyParagraphs.map((para, i) => (
               <p
                 key={i}
                 className="text-sm md:text-base leading-relaxed break-words"
@@ -119,8 +140,14 @@ export function AboutSection({ profile }: AboutSectionProps) {
               }}
             >
               <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
+                <span
+                  className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                  style={{ background: "var(--color-success)" }}
+                />
+                <span
+                  className="relative inline-flex rounded-full h-3 w-3"
+                  style={{ background: "var(--color-success)" }}
+                />
               </span>
               <div className="flex flex-col">
                 <span className="text-xs font-semibold" style={{ color: "var(--color-text)" }}>

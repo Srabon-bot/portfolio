@@ -139,14 +139,16 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
       <Container>
         <SectionHeading
           title="Skills"
+          index="02"
+          kicker="My Toolbox"
           subtitle="Technologies and tools I use to build scalable web applications"
           id="skills-heading"
         />
 
-        {/* Core stack (MERN) legend under subtitle */}
+              {/* Core stack (MERN) legend under subtitle */}
         <div className="flex items-center gap-2.5 -mt-6 mb-8" aria-label="Skill highlight legend">
           <span
-            className="inline-block w-2 h-2 rounded-full flex-shrink-0"
+            className="inline-block w-2 h-2 rotate-45 flex-shrink-0"
             style={{ background: "var(--color-accent)" }}
             aria-hidden="true"
           />
@@ -165,7 +167,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
               variants={cardVariants}
-              className="rounded-2xl p-5 md:p-6 flex flex-col gap-4 border transition-colors duration-200"
+              className="rounded-[10px] paper-shadow p-5 md:p-6 flex flex-col gap-4 border transition-colors duration-200"
               style={{
                 background: "var(--color-surface)",
                 borderColor: "var(--color-border)",

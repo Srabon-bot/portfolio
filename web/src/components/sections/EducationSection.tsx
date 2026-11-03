@@ -50,6 +50,8 @@ export function EducationSection() {
       <Container>
         <SectionHeading
           title="Education &amp; Achievements"
+          index="04"
+          kicker="Credentials"
           subtitle="Academic background and honors"
           id="education-heading"
         />
@@ -61,7 +63,7 @@ export function EducationSection() {
         >
           {/* ── Education Card ─────────────────────────────────────── */}
           <div
-            className="rounded-2xl p-5 md:p-8 transition-all duration-300 hover:border-accent/40"
+            className="rounded-[10px] paper-shadow p-5 md:p-8 transition-all duration-300 hover:border-accent/40"
             style={{
               background: "var(--color-surface)",
               border: "1px solid var(--color-border)",
@@ -178,7 +180,7 @@ export function EducationSection() {
           {/* ── Achievements Sub-block (Hidden while any field is TODO) ── */}
           {hasValidAchievements && (
             <div
-              className="rounded-2xl p-5 md:p-8 transition-all duration-300 hover:border-accent/40"
+              className="rounded-[10px] paper-shadow p-5 md:p-8 transition-all duration-300 hover:border-accent/40"
               style={{
                 background: "var(--color-surface)",
                 border: "1px solid var(--color-border)",

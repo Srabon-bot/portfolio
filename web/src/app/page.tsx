@@ -1,7 +1,8 @@
 /*
  * Home page (/) — one scrolling page with all six required sections.
  *
- * PRD §6: "Order top to bottom: TopBar, Hero, About, Skills, Projects, Contact, Footer."
+ * Hallmark editorial order (v2 redesign):
+ *   TopBar, Hero, Projects (01), Skills (02), About (03), Education (04), Contact (05), Footer.
  *
  * This is a Server Component (no "use client" directive). Server Components
  * render on the server and send fully-formed HTML to the browser, so the
@@ -10,9 +11,6 @@
  * The "use client" sections (TopBar, HeroSection, ContactSection) are
  * imported as Client Components inside this Server Component. Next.js
  * handles the boundary automatically.
- *
- * Phase 1: all data comes from the static seed file.
- * Phase 2: replace the seed imports with async API calls.
  */
 
 import { TopBar }          from "@/components/ui/TopBar";
@@ -58,8 +56,8 @@ export default async function HomePage() {
           totalPublished={all.filter((p) => p.status === "published").length}
         />
         <SkillsSection skills={skills} />
-        <EducationSection />
         <AboutSection profile={profile} />
+        <EducationSection />
         <ContactSection profile={profile} />
       </main>
 

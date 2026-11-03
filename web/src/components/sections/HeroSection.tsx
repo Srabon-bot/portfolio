@@ -53,44 +53,57 @@ export function HeroSection({ profile }: HeroSectionProps) {
         <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 lg:items-center gap-8 lg:gap-12">
 
         {/* ── Left / Bottom: text content ───────────────────────────── */}
-        <div className="flex flex-col gap-4 sm:gap-5 lg:gap-6">
+        <div className="flex flex-col gap-4 sm:gap-5 lg:gap-5">
 
-          {/* Badge: It's me */}
+          {/* (kicker row + masthead + rule are below) */}
+
+          {/* Kicker row — editorial "issue" marker */}
           <motion.div
             custom={0}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="flex items-center self-start"
+            className="flex items-center gap-3 self-start"
           >
-            {/* Speech-bubble badge "It's me" */}
-            <span
-              className="inline-flex items-center gap-2 text-xs font-medium px-3.5 py-1.5 rounded-full"
-              style={{
-                background: "var(--color-surface-2)",
-                border: "1px solid var(--color-border)",
-                color: "var(--color-muted)",
-              }}
-            >
-              <span aria-hidden="true">👋</span> It&apos;s me
+            <span className="kicker flex items-center gap-2">
+              <span
+                aria-hidden="true"
+                className="inline-block w-2 h-2 rotate-45 flex-shrink-0"
+                style={{ background: "var(--color-accent)" }}
+              />
+              It&apos;s me
             </span>
+            <span
+              aria-hidden="true"
+              className="inline-block h-px w-10"
+              style={{ background: "var(--color-accent)", opacity: 0.5 }}
+            />
           </motion.div>
 
-          {/* Name — large, tracked, weight 700 per PRD §5.3 */}
+          {/* Name — masthead-scale serif display (Fraunces via h1 rule) */}
           <motion.h1
             custom={0.1}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="font-bold leading-tight"
+            className="font-semibold leading-[1.05] text-text"
             style={{
-              fontSize: "clamp(2rem, 1.2rem + 3.5vw, 3.5rem)",
-              letterSpacing: "0.05em",
-              color: "var(--color-text)",
+              fontSize: "clamp(2.5rem, 1.4rem + 4.2vw, 4.25rem)",
+              letterSpacing: "-0.01em",
             }}
           >
             {profile.displayName}
           </motion.h1>
+
+          {/* Engraved gold hairline under the masthead */}
+          <motion.div
+            aria-hidden="true"
+            custom={0.15}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="rule-gold"
+          />
 
           {/* Role label — small-caps style, accent-soft, tracked (PRD §5.3) */}
           <motion.p
@@ -98,7 +111,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="font-mono text-sm font-semibold"
+            className="kicker font-semibold"
             style={{ color: "var(--color-accent-soft)", letterSpacing: "0.18em" }}
             aria-label={`Role: ${profile.role}`}
           >

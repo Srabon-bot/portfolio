@@ -6,7 +6,7 @@
  * Hiring-ready layout (3-column CSS grid):
  *   [SRABON wordmark]  |  [Projects link — truly centred]  |  [Resume pill]
  *
- * Order: Projects, Skills, Education, About, Contact
+ * Order: Projects, Skills, About, Education, Contact
  */
 
 import Link from "next/link";
@@ -21,8 +21,8 @@ interface TopBarProps {
 const navLinks = [
   { label: "Projects",   href: "#projects"   },
   { label: "Skills",     href: "#skills"     },
-  { label: "Education",  href: "#education"  },
   { label: "About",      href: "#about"      },
+  { label: "Education",  href: "#education"  },
   { label: "Contact",    href: "#contact"    },
 ];
 

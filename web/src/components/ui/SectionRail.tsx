@@ -7,7 +7,7 @@
  * - Horizontal labels with tooltips on hover (no vertical writing-mode)
  * - Gold diamond markers with active pulse / engraved labels on hover
  * - Full IntersectionObserver tracking
- * - Correct section order: Projects, Skills, Education, About, Contact
+ * - Correct section order: Projects, Skills, About, Education, Contact
  */
 
 import { useEffect, useState } from "react";
@@ -15,8 +15,8 @@ import { useEffect, useState } from "react";
 const sectionLinks = [
   { label: "Projects",   href: "#projects"   },
   { label: "Skills",     href: "#skills"     },
-  { label: "Education",  href: "#education"  },
   { label: "About",      href: "#about"      },
+  { label: "Education",  href: "#education"  },
   { label: "Contact",    href: "#contact"    },
 ];
 

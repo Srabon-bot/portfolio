@@ -43,16 +43,23 @@ export function ProjectsSection({
       <Container>
         <SectionHeading
           title="Projects"
+          index="01"
+          kicker="Selected Work"
           subtitle="Featured software projects and applications"
           id="projects-heading"
         />
 
-        {/* Project grid — self-adapting auto-fit grid */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] gap-5">
-        {featuredProjects.map((project) => (
-          <ProjectCard key={project._id} project={project} />
-        ))}
-      </div>
+        {/* Asymmetric editorial gallery — alternating wide (3/5) and narrow (2/5) spreads */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
+          {featuredProjects.map((project, i) => (
+            <div
+              key={project._id}
+              className={i % 4 === 0 || i % 4 === 3 ? "md:col-span-3" : "md:col-span-2"}
+            >
+              <ProjectCard project={project} />
+            </div>
+          ))}
+        </div>
 
       {/* "View all projects" link — shown only when more projects exist */}
       {hasMore && (
