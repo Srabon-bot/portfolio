@@ -1,21 +1,38 @@
 /*
  * SectionHeading — the title bar used at the top of every section.
  *
- * Renders: a heading tag + a 34×3px accent-colored underline bar below it.
- * Optional subtitle appears in muted color below the bar.
- *
- * PRD §5.3: "Section headings: weight 700, with a 34px by 3px accent underline bar below."
+ * Editorial treatment (hallmark redesign):
+ * - Optional numbered mono kicker row above the title, e.g. "01 — Selected Work".
+ * - Fraunces serif title (applied globally via the h2 base rule).
+ * - 34×3px gold foil underline bar below the title.
+ * - Optional subtitle in muted color.
  */
 
 interface SectionHeadingProps {
   title: string;
+  /** Chapter index rendered in mono, e.g. "01" alongside the kicker label */
+  index?: string;
+  /** Small mono label rendered next to the index, e.g. "Selected Work" */
+  kicker?: string;
   subtitle?: string;
   id?: string;          /* used for anchor links in the top nav */
 }
 
-export function SectionHeading({ title, subtitle, id }: SectionHeadingProps) {
+export function SectionHeading({ title, index, kicker, subtitle, id }: SectionHeadingProps) {
   return (
     <div className="mb-10" id={id}>
+      {(index || kicker) && (
+        <p className="kicker mb-3 flex items-center gap-2">
+          {index && <span aria-hidden="true">{index}</span>}
+          {kicker && (
+            <>
+              <span aria-hidden="true" style={{ opacity: 0.5 }}>—</span>
+              <span>{kicker}</span>
+            </>
+          )}
+        </p>
+      )}
+
       <h2
         className="font-bold text-text"
         style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2rem)" }}
@@ -23,7 +40,7 @@ export function SectionHeading({ title, subtitle, id }: SectionHeadingProps) {
         {title}
       </h2>
 
-      {/* The accent underline bar — 34px wide, 3px tall, accent amber */}
+      {/* The gold foil underline bar — 34px wide, 3px tall */}
       <div
         aria-hidden="true"
         style={{

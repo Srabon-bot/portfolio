@@ -28,7 +28,7 @@ export function MobileActionBar({}: MobileActionBarProps) {
     >
       <Link
         href="/resume"
-        className="flex-1 inline-flex items-center justify-center min-h-11 py-2.5 px-4 rounded-xl text-xs font-mono font-semibold text-on-accent transition-opacity hover:opacity-90 active:scale-[0.98]"
+        className="flex-1 inline-flex items-center justify-center min-h-11 py-2.5 px-4 rounded-lg text-xs font-mono font-semibold text-on-accent transition-opacity hover:opacity-90 active:scale-[0.98]"
         style={{ background: "var(--color-accent)" }}
       >
         <span>Resume</span>
@@ -36,7 +36,7 @@ export function MobileActionBar({}: MobileActionBarProps) {
 
       <Link
         href="#contact"
-        className="flex-1 inline-flex items-center justify-center min-h-11 py-2.5 px-4 rounded-xl text-xs font-mono font-semibold text-text transition-colors hover:border-accent active:scale-[0.98]"
+        className="flex-1 inline-flex items-center justify-center min-h-11 py-2.5 px-4 rounded-lg text-xs font-mono font-semibold text-text transition-colors hover:border-accent active:scale-[0.98]"
         style={{
           background: "var(--color-surface-2)",
           border: "1px solid var(--color-border)",

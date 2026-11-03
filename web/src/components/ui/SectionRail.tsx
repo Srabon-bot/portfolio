@@ -5,7 +5,7 @@
  *
  * Hiring-ready features:
  * - Horizontal labels with tooltips on hover (no vertical writing-mode)
- * - Dot indicators with active pulse / accent color
+ * - Gold diamond markers with active pulse / engraved labels on hover
  * - Full IntersectionObserver tracking
  * - Correct section order: Projects, Skills, Education, About, Contact
  */
@@ -89,26 +89,33 @@ export function SectionRail() {
                     {link.label}
                   </span>
 
-                  {/* Dot indicator */}
+                  {/* Gold diamond indicator (rotated square) */}
                   <span
                     aria-hidden="true"
-                    className="relative flex items-center justify-center w-3 h-3 flex-shrink-0"
+                    className="relative flex items-center justify-center w-3.5 h-3.5 flex-shrink-0"
                   >
                     {active && (
                       <span
-                        className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
-                        style={{ background: "var(--color-accent)" }}
+                        className="animate-ping absolute inline-flex h-full w-full opacity-50"
+                        style={{
+                          background: "var(--color-accent)",
+                          transform: "rotate(45deg)",
+                        }}
                       />
                     )}
                     <span
-                      className="block rounded-full transition-all duration-200"
                       style={{
                         width: active ? "8px" : "6px",
                         height: active ? "8px" : "6px",
+                        transform: "rotate(45deg)",
                         background: active
                           ? "var(--color-accent)"
-                          : "var(--color-border)",
+                          : "transparent",
+                        border: active
+                          ? "none"
+                          : "1px solid var(--color-border)",
                       }}
+                      className="block transition-all duration-200"
                     />
                   </span>
                 </a>

@@ -155,8 +155,8 @@ Each part is its own commit (`Part N` message above). Revert any part without lo
 - [x] Dual dark/light theme approved
 - [x] Document written (this file)
 - [x] Part 0 — plan committed to repo
-- [x] Part 1 — foundations (tokens, fonts, theme engine) — code complete; owner test + commit pending
-- [ ] Part 2 — UI kit treatment
+- [x] Part 1 — foundations (tokens, fonts, theme engine) — committed
+- [x] Part 2 — UI kit treatment — code complete; owner test + commit pending
 - [ ] Part 3 — home editorial rebuild
 - [ ] Part 4 — sub-pages
 - [ ] Part 5 — functionality polish

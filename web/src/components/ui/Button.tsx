@@ -3,7 +3,7 @@
 /*
  * Button — standard button component with solid and outline variants.
  *
- * Keeps the pill shape and Framer Motion hover/tap micro-interactions.
+ * Keeps the Framer Motion hover/tap micro-interactions.
  * Supports primary (filled accent) and secondary (outlined) variants.
  *
  * Usage:
@@ -46,7 +46,7 @@ export function Button({
     <motion.span
       whileHover={{ scale: disabled ? 1 : 1.02 }}
       whileTap={{ scale: disabled ? 1 : 0.98 }}
-      className={`relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold cursor-pointer select-none transition-all duration-200 text-sm md:text-base ${baseStyles} ${disabled ? "opacity-60 cursor-not-allowed" : ""} ${className}`}
+      className={`relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold cursor-pointer select-none transition-all duration-200 text-sm md:text-base ${baseStyles} ${disabled ? "opacity-60 cursor-not-allowed" : ""} ${className}`}
     >
       {children}
     </motion.span>
@@ -58,7 +58,7 @@ export function Button({
       <Link
         href={href}
         download={download || undefined}
-        className="focus-visible:outline-accent rounded-full inline-block"
+        className="focus-visible:outline-accent rounded-lg inline-block"
       >
         {inner}
       </Link>
@@ -70,7 +70,7 @@ export function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className="focus-visible:outline-accent rounded-full bg-transparent border-none p-0 inline-block disabled:cursor-not-allowed"
+      className="focus-visible:outline-accent rounded-lg bg-transparent border-none p-0 inline-block disabled:cursor-not-allowed"
     >
       {inner}
     </button>

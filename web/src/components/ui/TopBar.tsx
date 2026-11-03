@@ -47,8 +47,17 @@ function HamburgerIcon({ open }: { open: boolean }) {
 
 export function TopBar({ profile }: TopBarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const drawerRef  = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+
+  /* Warm paper shadow once the page is scrolled */
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -91,7 +100,7 @@ export function TopBar({ profile }: TopBarProps) {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full"
+      className={`sticky top-0 z-50 w-full transition-shadow duration-300 ${scrolled ? "paper-shadow" : ""}`}
       style={{
         background:   "var(--color-bg)",
         borderBottom: "1px solid var(--color-border)",

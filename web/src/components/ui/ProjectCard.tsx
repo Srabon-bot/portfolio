@@ -34,7 +34,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <motion.article
       whileHover={isPlaceholder ? {} : { y: -3 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="flex flex-col h-full rounded-2xl overflow-hidden transition-all duration-200 group"
+      className="flex flex-col h-full rounded-[10px] overflow-hidden transition-all duration-200 group paper-shadow"
       style={{
         background: "var(--color-surface)",
         border: "1px solid var(--color-border)",
@@ -65,9 +65,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         )}
 
-        {/* Optional Metric badge overlay */}
+        {/* Gold metric seal overlay */}
         {project.metric && (
-          <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md text-xs font-mono font-semibold text-emerald-400 bg-black/75 border border-emerald-500/30">
+          <div
+            className="absolute top-3 right-3 px-2.5 py-1 rounded-md text-xs font-mono font-semibold text-accent-soft bg-surface-2 border border-accent/40"
+            style={{ background: "var(--color-surface-2)" }}
+          >
             {project.metric}
           </div>
         )}
