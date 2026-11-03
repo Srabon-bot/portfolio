@@ -143,7 +143,7 @@ export default async function AllProjectsPage() {
                       href={project.repoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-semibold flex-shrink-0 px-3 py-1.5 rounded-lg border hover:text-white transition-colors"
+                      className="text-xs font-semibold flex-shrink-0 px-3 py-1.5 rounded-lg border hover:text-text transition-colors"
                       style={{
                         borderColor: "var(--color-border)",
                         color: "var(--color-accent-soft)",

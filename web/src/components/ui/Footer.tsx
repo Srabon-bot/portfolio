@@ -16,9 +16,9 @@ interface FooterProps {
   profile: Pick<Profile, "email" | "linkedin" | "github" | "instagram">;
 }
 
-/* The four strip segment colors from PRD §5.2 */
-/* Strip colors matching the amber accent palette */
-const STRIP_COLORS = ["#F5A524", "#FFC65C", "#FFE0A3", "#7A5414"] as const;
+/* The four strip segment colors — driven by --strip-* theme variables so
+   the cream and ink papers each get a matching gold family */
+const STRIP_VARS = ["var(--strip-1)", "var(--strip-2)", "var(--strip-3)", "var(--strip-4)"] as const;
 
 export function Footer({ profile }: FooterProps) {
   const currentYear = new Date().getFullYear();
@@ -45,7 +45,7 @@ export function Footer({ profile }: FooterProps) {
     <footer aria-label="Site footer" className="relative z-10">
       {/* Four-segment color strip */}
       <div className="flex h-2 w-full" aria-hidden="true">
-        {STRIP_COLORS.map((color) => (
+        {STRIP_VARS.map((color, i) => (
           <div
             key={color}
             className="flex-1"
@@ -68,7 +68,7 @@ export function Footer({ profile }: FooterProps) {
               aria-label="Go to home"
               className="inline-block transition-colors hover:text-accent-soft"
               style={{
-                fontFamily:    "var(--font-grotesk), system-ui, sans-serif",
+                fontFamily:    "var(--font-fraunces), Georgia, serif",
                 fontWeight:    800,
                 fontSize:      "1.15rem",
                 letterSpacing: "0.18em",

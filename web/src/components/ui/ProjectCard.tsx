@@ -115,7 +115,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Live demo of ${project.title}`}
-                className="inline-flex items-center gap-1 text-xs font-mono font-medium text-accent-soft hover:text-white transition-colors"
+                className="inline-flex items-center gap-1 text-xs font-mono font-medium text-accent-soft hover:text-text transition-colors"
               >
                 <span>Live demo</span>
                 <svg

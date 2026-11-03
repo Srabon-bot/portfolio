@@ -57,7 +57,7 @@ export default function AdminLoginPage() {
           <Link href="/" className="text-sm font-medium text-accent-soft hover:underline mb-2 block">
             ← Back to Portfolio
           </Link>
-          <h1 className="text-2xl font-bold text-white">Admin CMS Portal</h1>
+          <h1 className="text-2xl font-bold text-text">Admin CMS Portal</h1>
           <p className="text-xs text-muted">
             Authenticate to manage projects, skills, profile, and inquiries.
           </p>

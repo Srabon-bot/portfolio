@@ -52,7 +52,7 @@ export default async function ResumePage() {
           <a
             href="/Shahriar_Hossain_Srabon_Resume.docx"
             download="Shahriar_Hossain_Srabon_Resume.docx"
-            className="text-xs font-medium hover:text-white transition-colors underline"
+            className="text-xs font-medium hover:text-text transition-colors underline"
             style={{ color: "var(--color-muted)" }}
             title="Download Word (.docx) format"
           >
@@ -61,7 +61,7 @@ export default async function ResumePage() {
           <a
             href={downloadUrl}
             download={downloadFilename}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm text-on-accent shadow-lg transition-transform hover:scale-105 active:scale-95"
             style={{ background: "var(--color-accent)" }}
           >
             {/* Download icon */}
@@ -90,7 +90,7 @@ export default async function ResumePage() {
           style={{ borderColor: "var(--color-border)" }}
         >
           <div className="flex flex-col gap-2">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-text">
               Shahriar Hossain Srabon
             </h1>
             <p className="text-lg font-semibold" style={{ color: "var(--color-accent-soft)" }}>
@@ -131,15 +131,15 @@ export default async function ResumePage() {
           </h2>
           <div className="flex flex-col gap-1">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-text">
                 B.Sc. in Computer Science &amp; Engineering
               </h3>
               <span
                 className="text-xs px-2.5 py-0.5 rounded-full self-start sm:self-auto"
                 style={{
-                  background: "rgba(245,165,36,0.12)",
+                  background: "color-mix(in srgb, var(--color-accent) 12%, transparent)",
                   color: "var(--color-accent-soft)",
-                  border: "1px solid rgba(245,165,36,0.3)",
+                  border: "1px solid color-mix(in srgb, var(--color-accent) 30%, transparent)",
                 }}
               >
                 In Progress · Final Semester
@@ -164,7 +164,7 @@ export default async function ResumePage() {
             style={{ background: "var(--color-surface-2)", border: "1px solid var(--color-border)" }}
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-text">
                 Grand Prize Winner — KAIST Global Training Program
               </h3>
               <span className="text-xs text-accent-soft font-semibold">🥇 First Place</span>
@@ -195,7 +195,7 @@ export default async function ResumePage() {
                 style={{ background: "var(--color-surface-2)" }}
               >
                 <span className="text-xs font-semibold uppercase" style={{ color: "var(--color-faint)" }}>{label}</span>
-                <p className="text-white font-medium">{skills}</p>
+                <p className="text-text font-medium">{skills}</p>
               </div>
             ))}
           </div>
@@ -210,7 +210,7 @@ export default async function ResumePage() {
           {/* Project 1 — Haal Khata */}
           <div className="flex flex-col gap-1.5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-text">
                 Haal Khata (হাল খাতা) — Voice-First Digital Ledger
               </h3>
               <a
@@ -236,7 +236,7 @@ export default async function ResumePage() {
           {/* Project 2 — BazarDor */}
           <div className="flex flex-col gap-1.5 pt-4 border-t" style={{ borderColor: "var(--color-border)" }}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-text">
                 BazarDor (বাজার দর) — Commodity Price Tracker
               </h3>
               <a
@@ -262,7 +262,7 @@ export default async function ResumePage() {
           {/* Project 3 — FitLog */}
           <div className="flex flex-col gap-1.5 pt-4 border-t" style={{ borderColor: "var(--color-border)" }}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-text">
                 FitLog 🏋️ — Workout Library &amp; Session Planner
               </h3>
               <a
@@ -288,7 +288,7 @@ export default async function ResumePage() {
           {/* Project 4 — Yutnori */}
           <div className="flex flex-col gap-1.5 pt-4 border-t" style={{ borderColor: "var(--color-border)" }}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-text">
                 Yutnori (윷놀이) 3D — Korean Board Game Engine
               </h3>
               <a
@@ -321,7 +321,7 @@ export default async function ResumePage() {
             <span>🔬</span> Research &amp; Machine Learning
           </h2>
           <div className="flex flex-col gap-1">
-            <h3 className="text-sm font-bold text-white">
+            <h3 className="text-sm font-bold text-text">
               Deep Learning for River Basin Discharge &amp; Flood Risk Forecasting in Bangladesh
             </h3>
             <p className="text-xs" style={{ color: "var(--color-faint)" }}>

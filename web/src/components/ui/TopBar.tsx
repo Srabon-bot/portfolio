@@ -12,6 +12,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Profile } from "@/types";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface TopBarProps {
   profile: Profile;
@@ -108,10 +109,10 @@ export function TopBar({ profile }: TopBarProps) {
               aria-label="Go to home"
               className="flex items-center whitespace-nowrap shrink-0"
               style={{
-                fontFamily:    "var(--font-grotesk), system-ui, sans-serif",
-                fontWeight:    800,
-                fontSize:      "1.15rem",
-                letterSpacing: "0.18em",
+                fontFamily:    "var(--font-fraunces), Georgia, serif",
+                fontWeight:    700,
+                fontSize:      "1.2rem",
+                letterSpacing: "0.14em",
                 color:         "var(--color-text)",
                 transition:    "color 0.2s",
               }}
@@ -147,10 +148,13 @@ export function TopBar({ profile }: TopBarProps) {
               ))}
             </ul>
 
+            {/* Theme toggle (both breakpoints) */}
+            <ThemeToggle />
+
             {/* Resume pill button (navigates to /resume page) */}
             <Link
               href="/resume"
-              className="hidden md:inline-flex items-center justify-center text-xs font-mono font-semibold text-accent-soft hover:text-white border px-3 py-1 min-h-11 rounded-full transition-all hover:bg-accent/20 whitespace-nowrap shrink-0"
+              className="hidden md:inline-flex items-center justify-center text-xs font-mono font-semibold text-accent-soft hover:text-text border px-3 py-1 min-h-11 rounded-full transition-all hover:bg-accent/20 whitespace-nowrap shrink-0"
               style={{ borderColor: "color-mix(in srgb, var(--color-accent) 40%, transparent)" }}
             >
               Resume
@@ -216,6 +220,12 @@ export function TopBar({ profile }: TopBarProps) {
           >
             {profile.email}
           </a>
+
+          {/* Theme toggle in the drawer too, so mobile users can flip papers */}
+          <div className="flex items-center justify-between pt-1">
+            <span className="text-sm font-mono text-muted">Dark paper</span>
+            <ThemeToggle />
+          </div>
 
           {/* Social icons row */}
           <div className="flex items-center gap-5 pt-2">

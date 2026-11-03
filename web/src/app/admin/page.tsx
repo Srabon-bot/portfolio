@@ -289,7 +289,7 @@ export default function AdminDashboardPage() {
         }}
       >
         <div className="flex items-center gap-4">
-          <Link href="/" className="font-bold text-lg text-white tracking-wider">
+          <Link href="/" className="font-bold text-lg text-text tracking-wider">
             Srabon<span className="text-accent">.</span> CMS
           </Link>
           <span className="text-xs px-2.5 py-1 rounded-full bg-accent/20 text-accent-soft font-semibold">
@@ -301,7 +301,7 @@ export default function AdminDashboardPage() {
           <Link
             href="/"
             target="_blank"
-            className="text-xs font-semibold px-3 py-1.5 rounded-lg border text-muted hover:text-white transition-colors"
+            className="text-xs font-semibold px-3 py-1.5 rounded-lg border text-muted hover:text-text transition-colors"
             style={{ borderColor: "var(--color-border)" }}
           >
             View Live Site ↗
@@ -345,12 +345,12 @@ export default function AdminDashboardPage() {
               className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                 activeTab === item.id
                   ? "bg-accent text-on-accent shadow-lg shadow-amber-900/20"
-                  : "text-muted hover:bg-surface-2 hover:text-white"
+                  : "text-muted hover:bg-surface-2 hover:text-text"
               }`}
             >
               <span>{item.label}</span>
               {item.badge !== undefined && item.badge > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] bg-white/20 text-white font-bold">
+                <span className="px-2 py-0.5 rounded-full text-[10px] bg-on-accent/20 text-on-accent font-bold">
                   {item.badge}
                 </span>
               )}
@@ -363,23 +363,23 @@ export default function AdminDashboardPage() {
           {/* ── TAB 1: OVERVIEW ──────────────────────────────────────── */}
           {activeTab === "overview" && (
             <div className="flex flex-col gap-6">
-              <h2 className="text-xl font-bold text-white">System Overview</h2>
+              <h2 className="text-xl font-bold text-text">System Overview</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="p-5 rounded-2xl bg-surface border border-border flex flex-col gap-1">
                   <span className="text-xs text-faint uppercase font-semibold">Total Projects</span>
-                  <span className="text-2xl font-bold text-white">{projects.length}</span>
+                  <span className="text-2xl font-bold text-text">{projects.length}</span>
                   <span className="text-xs text-muted">
                     {featuredCount} / 4 featured slots filled
                   </span>
                 </div>
                 <div className="p-5 rounded-2xl bg-surface border border-border flex flex-col gap-1">
                   <span className="text-xs text-faint uppercase font-semibold">Skills Configured</span>
-                  <span className="text-2xl font-bold text-white">{skills.length}</span>
+                  <span className="text-2xl font-bold text-text">{skills.length}</span>
                   <span className="text-xs text-muted">Across 4 categories</span>
                 </div>
                 <div className="p-5 rounded-2xl bg-surface border border-border flex flex-col gap-1">
                   <span className="text-xs text-faint uppercase font-semibold">Unread Messages</span>
-                  <span className="text-2xl font-bold text-white">{unreadMessagesCount}</span>
+                  <span className="text-2xl font-bold text-text">{unreadMessagesCount}</span>
                   <span className="text-xs text-muted">Total: {messages.length}</span>
                 </div>
                 <div className="p-5 rounded-2xl bg-surface border border-border flex flex-col gap-1">
@@ -396,7 +396,7 @@ export default function AdminDashboardPage() {
 
               {/* GitHub Importer Strip */}
               <div className="p-6 rounded-2xl bg-surface border border-border flex flex-col gap-3">
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <h3 className="text-sm font-bold text-text flex items-center gap-2">
                   <span>⚡</span> One-Click GitHub Importer (PRD §10)
                 </h3>
                 <p className="text-xs text-muted">
@@ -409,7 +409,7 @@ export default function AdminDashboardPage() {
                     value={githubImportUrl}
                     onChange={(e) => setGithubImportUrl(e.target.value)}
                     placeholder="https://github.com/Srabon-bot/kaist-haalkhata"
-                    className="flex-1 rounded-xl px-4 py-2 text-xs outline-none bg-surface-2 border border-border text-white"
+                    className="flex-1 rounded-xl px-4 py-2 text-xs outline-none bg-surface-2 border border-border text-text"
                   />
                   <button
                     type="submit"
@@ -428,7 +428,7 @@ export default function AdminDashboardPage() {
             <div className="flex flex-col gap-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-xl font-bold text-white">Project Case Studies</h2>
+                  <h2 className="text-xl font-bold text-text">Project Case Studies</h2>
                   <p className="text-xs text-muted">
                     Featured: {featuredCount}/4 max • Enforces PRD §9 publish validation rules.
                   </p>
@@ -443,7 +443,7 @@ export default function AdminDashboardPage() {
                   >
                     <div className="flex flex-col gap-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-sm text-white">{p.title}</span>
+                        <span className="font-bold text-sm text-text">{p.title}</span>
                         <span
                           className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                             p.status === "published"
@@ -471,7 +471,7 @@ export default function AdminDashboardPage() {
                         className={`text-xs px-3 py-1.5 rounded-lg border font-semibold transition-colors ${
                           p.featured
                             ? "bg-accent/20 border-accent/40 text-accent-soft"
-                            : "border-border text-muted hover:text-white"
+                            : "border-border text-muted hover:text-text"
                         }`}
                       >
                         {p.featured ? "Unfeature" : "Feature (★)"}
@@ -480,8 +480,8 @@ export default function AdminDashboardPage() {
                         onClick={() => handleToggleStatus(p)}
                         className={`text-xs px-3 py-1.5 rounded-lg font-semibold transition-colors ${
                           p.status === "published"
-                            ? "bg-surface-2 border border-border text-muted hover:text-white"
-                            : "bg-emerald-600 text-white hover:bg-emerald-500"
+                            ? "bg-surface-2 border border-border text-muted hover:text-text"
+                            : "bg-emerald-600 text-text hover:bg-emerald-500"
                         }`}
                       >
                         {p.status === "published" ? "Unpublish" : "Publish"}
@@ -503,7 +503,7 @@ export default function AdminDashboardPage() {
           {/* ── TAB 3: SKILLS ────────────────────────────────────────── */}
           {activeTab === "skills" && (
             <div className="flex flex-col gap-6">
-              <h2 className="text-xl font-bold text-white">Skills &amp; Technologies</h2>
+              <h2 className="text-xl font-bold text-text">Skills &amp; Technologies</h2>
 
               {/* Add Skill Form */}
               <form
@@ -516,12 +516,12 @@ export default function AdminDashboardPage() {
                   value={newSkillName}
                   onChange={(e) => setNewSkillName(e.target.value)}
                   placeholder="e.g. Docker, GraphQL, Redis"
-                  className="flex-1 w-full rounded-xl px-4 py-2 text-xs outline-none bg-surface-2 border border-border text-white"
+                  className="flex-1 w-full rounded-xl px-4 py-2 text-xs outline-none bg-surface-2 border border-border text-text"
                 />
                 <select
                   value={newSkillCategory}
                   onChange={(e) => setNewSkillCategory(e.target.value as Skill["category"])}
-                  className="w-full sm:w-44 rounded-xl px-3 py-2 text-xs outline-none bg-surface-2 border border-border text-white"
+                  className="w-full sm:w-44 rounded-xl px-3 py-2 text-xs outline-none bg-surface-2 border border-border text-text"
                 >
                   <option value="frontend">Frontend</option>
                   <option value="backend">Backend (MERN)</option>
@@ -571,7 +571,7 @@ export default function AdminDashboardPage() {
           {/* ── TAB 4: PROFILE ───────────────────────────────────────── */}
           {activeTab === "profile" && (
             <div className="flex flex-col gap-6">
-              <h2 className="text-xl font-bold text-white">Profile &amp; Biography Settings</h2>
+              <h2 className="text-xl font-bold text-text">Profile &amp; Biography Settings</h2>
               <form onSubmit={handleSaveProfile} className="p-6 rounded-2xl bg-surface border border-border flex flex-col gap-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1">
@@ -580,7 +580,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={profile.displayName || ""}
                       onChange={(e) => setProfile({ ...profile, displayName: e.target.value })}
-                      className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-white outline-none"
+                      className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-text outline-none"
                     />
                   </div>
                   <div className="flex flex-col gap-1">
@@ -589,7 +589,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={profile.role || ""}
                       onChange={(e) => setProfile({ ...profile, role: e.target.value })}
-                      className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-white outline-none"
+                      className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-text outline-none"
                     />
                   </div>
                   <div className="flex flex-col gap-1">
@@ -598,7 +598,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={profile.location || ""}
                       onChange={(e) => setProfile({ ...profile, location: e.target.value })}
-                      className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-white outline-none"
+                      className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-text outline-none"
                     />
                   </div>
                   <div className="flex flex-col gap-1">
@@ -607,7 +607,7 @@ export default function AdminDashboardPage() {
                       type="email"
                       value={profile.email || ""}
                       onChange={(e) => setProfile({ ...profile, email: e.target.value })}
-                      className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-white outline-none"
+                      className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-text outline-none"
                     />
                   </div>
                   <div className="flex flex-col gap-1">
@@ -616,7 +616,7 @@ export default function AdminDashboardPage() {
                       type="url"
                       value={profile.linkedin || ""}
                       onChange={(e) => setProfile({ ...profile, linkedin: e.target.value })}
-                      className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-white outline-none"
+                      className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-text outline-none"
                     />
                   </div>
                   <div className="flex flex-col gap-1">
@@ -625,7 +625,7 @@ export default function AdminDashboardPage() {
                       type="url"
                       value={profile.github || ""}
                       onChange={(e) => setProfile({ ...profile, github: e.target.value })}
-                      className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-white outline-none"
+                      className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-text outline-none"
                     />
                   </div>
                 </div>
@@ -636,7 +636,7 @@ export default function AdminDashboardPage() {
                     rows={2}
                     value={profile.tagline || ""}
                     onChange={(e) => setProfile({ ...profile, tagline: e.target.value })}
-                    className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-white outline-none resize-none"
+                    className="rounded-xl px-4 py-2 text-xs bg-surface-2 border border-border text-text outline-none resize-none"
                   />
                 </div>
 
@@ -653,7 +653,7 @@ export default function AdminDashboardPage() {
           {/* ── TAB 5: MESSAGES ──────────────────────────────────────── */}
           {activeTab === "messages" && (
             <div className="flex flex-col gap-6">
-              <h2 className="text-xl font-bold text-white">Contact Inbox ({messages.length})</h2>
+              <h2 className="text-xl font-bold text-text">Contact Inbox ({messages.length})</h2>
               {messages.length === 0 ? (
                 <div className="p-8 rounded-2xl bg-surface border border-border text-center text-xs text-muted">
                   No inquiries received yet.
@@ -669,7 +669,7 @@ export default function AdminDashboardPage() {
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-sm text-white">{m.name}</span>
+                          <span className="font-bold text-sm text-text">{m.name}</span>
                           <span className="text-xs text-muted">({m.email})</span>
                           {!m.read && (
                             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">

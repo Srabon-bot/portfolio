@@ -2,41 +2,82 @@
 @import "tailwindcss";
 
 /*
- * @theme is Tailwind v4's way of defining design tokens that become
- * usable as Tailwind utility classes (e.g. bg-bg, text-accent).
- * Think of it as the replacement for tailwind.config.js `theme.extend`.
+ * Class-based dark mode: the site ships two "papers" of the same journal —
+ * a light Cream edition (:root) and a dark Ink edition (.dark on <html>).
+ * A pre-paint inline script in layout.tsx sets the class before first paint.
  */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
-  /* ── Fonts ──────────────────────────────────────────────────────── */
+  /* ── Fonts (variables injected by next/font in layout.tsx) ──────── */
   --font-sans:    var(--font-inter), system-ui, sans-serif;
   --font-mono:    var(--font-jetbrains), "Courier New", monospace;
-  --font-display: var(--font-grotesk), system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
 
-  /* ── Color palette — "Terminal Amber" (warm ink + engineering gold) ── */
-  --color-bg:          #0D0D0C;   /* page background — warm near-black           */
-  --color-surface:     #141413;   /* cards                                       */
-  --color-surface-2:   #1C1C19;   /* chips, inputs, image placeholders           */
-  --color-border:      #2B2B27;   /* card and input borders                      */
-  --color-text:        #F3F2EC;   /* primary text — warm off-white               */
-  --color-muted:       #A5A49B;   /* secondary text                              */
-  --color-faint:       #7E7D73;   /* captions, footer text                       */
-  --color-accent:      #F5A524;   /* fills: buttons, active underlines           */
-  --color-accent-soft: #FFC65C;   /* text: links, hover, active states           */
-  --color-on-accent:   #1C1408;   /* text placed ON an accent fill (contrast)    */
-  --color-success:     #4ADE80;   /* "Open to work" dot + form success ONLY      */
-  --color-danger:      #F87171;   /* form errors ONLY                            */
-
-  /* ── Border radius (sharper, terminal-flavored) ─────────────────── */
+  /* ── Border radius (sharper, print-flavored) ─────────────────────── */
   --radius-card: 10px;
-  --radius-chip: 4px;
+  --radius-chip:  4px;
 }
 
-/* ─── CSS custom properties (also usable outside Tailwind) ─────────── */
+/* ── Theme tokens — LIGHT ("Cream") values ───────────────────────────
+ * Tailwind emits these as :root custom properties, and utilities
+ * (bg-bg, text-muted, …) reference them as vars at runtime. The .dark
+ * block further down overrides the variables only — every component
+ * re-skins automatically because it is token-bound.                    */
+@theme {
+  --color-bg:          #FBF8F1;   /* paper — warm cream                          */
+  --color-surface:     #F4EFE4;   /* inserted leaves, cards                      */
+  --color-surface-2:   #EAE3D4;   /* chips, inputs, image placeholders           */
+  --color-border:      #DCD3C0;   /* hairline rules                              */
+  --color-text:        #2A261C;   /* warm ink                                    */
+  --color-muted:       #6E6759;   /* secondary text                              */
+  --color-faint:       #99927F;   /* captions, footer text                       */
+  --color-accent:      #A47612;   /* gold foil — fills, active bars, focus ring  */
+  --color-accent-soft: #8A6210;   /* gold TEXT roles: links, hovers, active      */
+  --color-on-accent:   #FFF9EC;   /* text placed ON a gold fill                  */
+  --color-success:     #1F8A4C;   /* "Open to work" dot + form success ONLY      */
+  --color-danger:      #C0392B;   /* form errors ONLY                            */
+}
+
+/* ── Theme tokens — DARK ("Ink") overrides ──────────────────────────── */
+.dark {
+  --color-bg:          #16130E;
+  --color-surface:     #1F1B14;
+  --color-surface-2:   #2A251B;
+  --color-border:      #3A3324;
+  --color-text:        #F3EFE4;
+  --color-muted:       #A8A18E;
+  --color-faint:       #7E7765;
+  --color-accent:      #F5A524;
+  --color-accent-soft: #FFC65C;
+  --color-on-accent:   #1C1408;
+  --color-success:     #4ADE80;
+  --color-danger:      #F87171;
+}
+
 :root {
   --font-inter:      "Inter", system-ui, sans-serif;
   --font-jetbrains:  "JetBrains Mono", "Courier New", monospace;
-  --font-grotesk:    "Space Grotesk", system-ui, sans-serif;
-  color-scheme: dark;             /* tells the browser: always dark mode */
+  --font-fraunces:   "Fraunces", Georgia, serif;
+
+  /* Mode-dependent gradients / strips (referenced by hero frame, footer strip) */
+  --gradient-frame: linear-gradient(135deg, rgba(164, 118, 18, 0.55) 0%, rgba(220, 211, 192, 0.35) 50%, rgba(138, 98, 16, 0.45) 100%);
+  --strip-1: #A47612;
+  --strip-2: #C49A32;
+  --strip-3: #E0C578;
+  --strip-4: #6B4F0E;
+
+  color-scheme: light;            /* browser: native widgets & scrollbars, light */
+}
+
+.dark {
+  --gradient-frame: linear-gradient(135deg, rgba(245, 165, 36, 0.75) 0%, rgba(58, 51, 36, 0.35) 50%, rgba(255, 198, 92, 0.55) 100%);
+  --strip-1: #F5A524;
+  --strip-2: #FFC65C;
+  --strip-3: #FFDf8A;
+  --strip-4: #7A5414;
+
+  color-scheme: dark;
 }
 
 /* ─── Base reset and typography inside @layer base ───────────────── */
@@ -60,9 +101,9 @@
     overflow-x: hidden;             /* no horizontal scroll at any width  */
   }
 
-  /* All headings carry the display face — one rule, applied sitewide */
+  /* All headings carry the serif display face — one rule, applied sitewide */
   h1, h2, h3 {
-    font-family: var(--font-grotesk), var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-fraunces), var(--font-inter), system-ui, serif;
   }
 
   @media (min-width: 768px) {
@@ -100,5 +141,40 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+  }
+}
+
+/* ─── Editorial ornaments (hallmark utility classes) ───────────────── */
+@layer components {
+  /* Mono caption for numbered section kickers: "01 — Selected Work" */
+  .kicker {
+    font-family: var(--font-jetbrains), "Courier New", monospace;
+    font-size: 0.75rem;             /* 12px minimum                     */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-accent-soft);
+  }
+
+  /* Engraved gold hairline rule */
+  .rule-gold {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-accent) 18%,
+      var(--color-accent) 82%,
+      transparent
+    );
+    opacity: 0.55;
+  }
+
+  /* Soft warm paper shadow for cards on cream (very subtle) */
+  .paper-shadow {
+    box-shadow: 0 1px 2px rgba(42, 38, 28, 0.06), 0 8px 24px rgba(42, 38, 28, 0.08);
+  }
+  .dark .paper-shadow {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 8px 24px rgba(0, 0, 0, 0.35);
   }
 }

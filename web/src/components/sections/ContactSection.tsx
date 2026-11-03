@@ -306,9 +306,9 @@ export function ContactSection({ profile }: ContactSectionProps) {
                     className="text-sm font-medium text-center rounded-xl px-4 py-3 flex items-center justify-center gap-2"
                     role="status"
                     style={{
-                      background: "rgba(52, 211, 153, 0.12)",
+                      background: "color-mix(in srgb, var(--color-success) 12%, transparent)",
                       color: "var(--color-success)",
-                      border: "1px solid rgba(52, 211, 153, 0.3)",
+                      border: "1px solid color-mix(in srgb, var(--color-success) 30%, transparent)",
                     }}
                   >
                     <span aria-hidden="true">✓</span>
@@ -321,9 +321,9 @@ export function ContactSection({ profile }: ContactSectionProps) {
                     className="text-sm font-medium text-center rounded-xl px-4 py-3 flex items-center justify-center gap-2"
                     role="alert"
                     style={{
-                      background: "rgba(248, 113, 113, 0.12)",
+                      background: "color-mix(in srgb, var(--color-danger) 12%, transparent)",
                       color: "var(--color-danger)",
-                      border: "1px solid rgba(248, 113, 113, 0.3)",
+                      border: "1px solid color-mix(in srgb, var(--color-danger) 30%, transparent)",
                     }}
                   >
                     <span aria-hidden="true">⚠</span>

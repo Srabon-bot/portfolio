@@ -78,7 +78,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-mono font-semibold px-3 py-1.5 rounded-full text-white transition-opacity hover:opacity-90"
+                className="text-xs font-mono font-semibold px-3 py-1.5 rounded-full text-on-accent transition-opacity hover:opacity-90"
                 style={{ background: "var(--color-accent)" }}
               >
                 Live Demo ↗
@@ -89,7 +89,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 href={project.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-mono font-medium px-3 py-1.5 rounded-full border transition-colors hover:text-white"
+                className="text-xs font-mono font-medium px-3 py-1.5 rounded-full border transition-colors hover:text-text"
                 style={{
                   borderColor: "var(--color-border)",
                   color: "var(--color-muted)",
@@ -463,7 +463,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-mono font-semibold px-5 py-2.5 rounded-full text-white transition-opacity hover:opacity-90"
+                className="text-sm font-mono font-semibold px-5 py-2.5 rounded-full text-on-accent transition-opacity hover:opacity-90"
                 style={{ background: "var(--color-accent)" }}
               >
                 Launch Live App ↗
