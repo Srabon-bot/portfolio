@@ -283,7 +283,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
               <button
                 type="submit"
                 disabled={status === "loading" || status === "success"}
-                className="rounded-xl px-6 py-3 min-h-11 text-sm font-semibold text-white transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed hover:opacity-95 flex items-center justify-center"
+                className="rounded-xl px-6 py-3 min-h-11 text-sm font-semibold text-on-accent transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed hover:opacity-95 flex items-center justify-center"
                 style={{ background: "var(--color-accent)" }}
               >
                 {status === "loading" ? (

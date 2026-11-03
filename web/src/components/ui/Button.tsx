@@ -39,7 +39,7 @@ export function Button({
   const isPrimary = variant === "primary";
 
   const baseStyles = isPrimary
-    ? "bg-accent text-white hover:bg-accent/90"
+    ? "bg-accent text-on-accent hover:bg-accent/90"
     : "bg-surface text-text border border-border hover:border-accent hover:text-accent-soft";
 
   const inner = (

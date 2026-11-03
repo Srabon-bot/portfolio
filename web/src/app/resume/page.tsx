@@ -137,9 +137,9 @@ export default async function ResumePage() {
               <span
                 className="text-xs px-2.5 py-0.5 rounded-full self-start sm:self-auto"
                 style={{
-                  background: "rgba(139,92,246,0.12)",
+                  background: "rgba(245,165,36,0.12)",
                   color: "var(--color-accent-soft)",
-                  border: "1px solid rgba(139,92,246,0.25)",
+                  border: "1px solid rgba(245,165,36,0.3)",
                 }}
               >
                 In Progress · Final Semester

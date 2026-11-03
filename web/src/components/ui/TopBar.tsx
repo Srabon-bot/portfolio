@@ -108,7 +108,7 @@ export function TopBar({ profile }: TopBarProps) {
               aria-label="Go to home"
               className="flex items-center whitespace-nowrap shrink-0"
               style={{
-                fontFamily:    "var(--font-syne), system-ui, sans-serif",
+                fontFamily:    "var(--font-grotesk), system-ui, sans-serif",
                 fontWeight:    800,
                 fontSize:      "1.15rem",
                 letterSpacing: "0.18em",

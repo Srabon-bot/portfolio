@@ -111,7 +111,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 rounded-xl py-3 text-sm font-semibold text-white transition-opacity disabled:opacity-60"
+            className="mt-2 rounded-xl py-3 text-sm font-semibold text-on-accent transition-opacity disabled:opacity-60"
             style={{ background: "var(--color-accent)" }}
           >
             {loading ? "Verifying Credentials…" : "Sign In to Admin"}

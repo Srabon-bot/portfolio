@@ -8,31 +8,34 @@
  */
 @theme inline {
   /* ── Fonts ──────────────────────────────────────────────────────── */
-  --font-sans:  var(--font-inter), system-ui, sans-serif;
-  --font-mono:  var(--font-jetbrains), "Courier New", monospace;
+  --font-sans:    var(--font-inter), system-ui, sans-serif;
+  --font-mono:    var(--font-jetbrains), "Courier New", monospace;
+  --font-display: var(--font-grotesk), system-ui, sans-serif;
 
-  /* ── Color palette ──────────────────────────────────────────────── */
-  --color-bg:          #0A0A0F;   /* page background — near-black                */
-  --color-surface:     #12121A;   /* cards                                       */
-  --color-surface-2:   #1A1A25;   /* chips, inputs, image placeholders           */
-  --color-border:      #262633;   /* card and input borders                      */
-  --color-text:        #F2F2F7;   /* primary text                                */
-  --color-muted:       #A1A1B5;   /* secondary text                              */
-  --color-faint:       #8585A0;   /* captions, footer text                       */
-  --color-accent:      #6C47FF;   /* fills: buttons, active underlines           */
-  --color-accent-soft: #A594FF;   /* text: links, hover, active states           */
-  --color-success:     #34D399;   /* "Open to work" dot + form success ONLY      */
+  /* ── Color palette — "Terminal Amber" (warm ink + engineering gold) ── */
+  --color-bg:          #0D0D0C;   /* page background — warm near-black           */
+  --color-surface:     #141413;   /* cards                                       */
+  --color-surface-2:   #1C1C19;   /* chips, inputs, image placeholders           */
+  --color-border:      #2B2B27;   /* card and input borders                      */
+  --color-text:        #F3F2EC;   /* primary text — warm off-white               */
+  --color-muted:       #A5A49B;   /* secondary text                              */
+  --color-faint:       #7E7D73;   /* captions, footer text                       */
+  --color-accent:      #F5A524;   /* fills: buttons, active underlines           */
+  --color-accent-soft: #FFC65C;   /* text: links, hover, active states           */
+  --color-on-accent:   #1C1408;   /* text placed ON an accent fill (contrast)    */
+  --color-success:     #4ADE80;   /* "Open to work" dot + form success ONLY      */
   --color-danger:      #F87171;   /* form errors ONLY                            */
 
-  /* ── Border radius ──────────────────────────────────────────────── */
-  --radius-card: 14px;
-  --radius-chip:  6px;
+  /* ── Border radius (sharper, terminal-flavored) ─────────────────── */
+  --radius-card: 10px;
+  --radius-chip: 4px;
 }
 
 /* ─── CSS custom properties (also usable outside Tailwind) ─────────── */
 :root {
   --font-inter:      "Inter", system-ui, sans-serif;
   --font-jetbrains:  "JetBrains Mono", "Courier New", monospace;
+  --font-grotesk:    "Space Grotesk", system-ui, sans-serif;
   color-scheme: dark;             /* tells the browser: always dark mode */
 }
 
@@ -55,6 +58,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;             /* no horizontal scroll at any width  */
+  }
+
+  /* All headings carry the display face — one rule, applied sitewide */
+  h1, h2, h3 {
+    font-family: var(--font-grotesk), var(--font-inter), system-ui, sans-serif;
   }
 
   @media (min-width: 768px) {

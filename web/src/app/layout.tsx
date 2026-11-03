@@ -6,7 +6,7 @@
  * at runtime (better privacy and performance).
  */
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Syne } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 /* Load Inter as primary sans font */
@@ -25,11 +25,10 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-/* Load Syne for the wordmark — wide, distinctive display face */
-const syne = Syne({
+/* Load Space Grotesk for headings — engineering-forward display face */
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["700", "800"],
-  variable: "--font-syne",
+  variable: "--font-grotesk",
   display: "swap",
 });
 
@@ -82,7 +81,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} ${syne.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable}`}
     >
       <body>
         {children}

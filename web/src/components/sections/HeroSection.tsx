@@ -193,8 +193,8 @@ export function HeroSection({ profile }: HeroSectionProps) {
               className="relative p-[3px] rounded-2xl overflow-hidden shadow-2xl transition-all duration-300"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(108,71,255,0.7) 0%, rgba(58,42,138,0.3) 50%, rgba(201,190,255,0.5) 100%)",
-                boxShadow: "0 20px 40px -15px rgba(10,10,15,0.8)",
+                  "linear-gradient(135deg, rgba(245,165,36,0.75) 0%, rgba(122,84,20,0.35) 50%, rgba(255,198,92,0.55) 100%)",
+                boxShadow: "0 20px 40px -15px rgba(13,13,12,0.8)",
               }}
             >
               {/* Inner container holding the squared image */}

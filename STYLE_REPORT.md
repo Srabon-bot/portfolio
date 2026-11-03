@@ -12,7 +12,7 @@
 |---|---|
 | Framework | Next.js 16 (App Router, Server + Client Components, Turbopack) |
 | CSS | Tailwind CSS **v4** (`@import "tailwindcss"` + `@theme inline` — no `tailwind.config.js`) |
-| Fonts | `next/font/google` (Inter, JetBrains Mono, Syne — self-hosted, no runtime request) |
+| Fonts | `next/font/google` (Inter, JetBrains Mono, Space Grotesk — self-hosted, no runtime request) |
 | Animation | Framer Motion (`motion.div`, `motion.span`, spring & ease micro-interactions) |
 | Icons | Inline SVG only — **strictly no external icon libraries** |
 | Language | TypeScript strict |
@@ -25,31 +25,35 @@ All tokens are defined in `web/src/app/globals.css` under `@theme inline` (Tailw
 
 | Token | CSS Variable | Hex | Usage |
 |---|---|---|---|
-| Background | `--color-bg` | `#0A0A0F` | Page background — near-black |
-| Surface | `--color-surface` | `#12121A` | Cards, modals, drawers |
-| Surface 2 | `--color-surface-2` | `#1A1A25` | Chips, inputs, icon badges, secondary containers |
-| Border | `--color-border` | `#262633` | Card, input, divider, and rail borders |
-| Text | `--color-text` | `#F2F2F7` | Primary body text |
-| Muted | `--color-muted` | `#A1A1B5` | Secondary text, descriptions, subtitles |
-| Faint | `--color-faint` | `#8585A0` | Captions, uppercase tags, footer text, rail icons |
-| Accent | `--color-accent` | `#6C47FF` | Primary indigo — button fills, active bars, focus ring |
-| Accent Soft | `--color-accent-soft` | `#A594FF` | Text links, hover states, active indicators |
-| Success | `--color-success` | `#34D399` | **ONLY** for "Open to work" status dot & form success |
+| Background | `--color-bg` | `#0D0D0C` | Page background — warm near-black |
+| Surface | `--color-surface` | `#141413` | Cards, modals, drawers |
+| Surface 2 | `--color-surface-2` | `#1C1C19` | Chips, inputs, icon badges, secondary containers |
+| Border | `--color-border` | `#2B2B27` | Card, input, divider, and rail borders |
+| Text | `--color-text` | `#F3F2EC` | Primary body text — warm off-white |
+| Muted | `--color-muted` | `#A5A49B` | Secondary text, descriptions, subtitles |
+| Faint | `--color-faint` | `#7E7D73` | Captions, uppercase tags, footer text, rail icons |
+| Accent | `--color-accent` | `#F5A524` | Primary amber — button fills, active bars, focus ring |
+| Accent Soft | `--color-accent-soft` | `#FFC65C` | Text links, hover states, active indicators |
+| On Accent | `--color-on-accent` | `#1C1408` | Text placed ON an accent fill (contrast rule) |
+| Success | `--color-success` | `#4ADE80` | **ONLY** for "Open to work" status dot & form success |
 | Danger | `--color-danger` | `#F87171` | **ONLY** for form errors & critical alerts |
 
 > **Removed Token:** `--color-blob` has been removed. Fills use solid `--color-accent` or sleek layered gradients.
+
+### Accent contrast rule
+Amber is a light fill: never place white text on it. Use `text-on-accent` (`--color-on-accent`, `#1C1408`) on `bg-accent` fills (buttons, MobileActionBar "Resume", contact submit).
 
 ### Tailwind Usage
 Usable directly as Tailwind utility classes:
 ```
 bg-bg          text-text        bg-surface       border-border
 text-muted     text-faint       text-accent      text-accent-soft
-bg-accent      text-success     text-danger
+bg-accent      text-success     text-danger      text-on-accent
 ```
 
 ### Footer Color Strip
 Four decorative segments in the footer top strip:
-`#6C47FF` · `#A594FF` · `#C9BEFF` · `#3A2A8A`
+`#F5A524` · `#FFC65C` · `#FFE0A3` · `#7A5414`
 
 ---
 
@@ -60,9 +64,9 @@ Three fonts loaded via `next/font/google` in `layout.tsx`:
 
 | Font | Variable | Weights | Used for |
 |---|---|---|---|
-| **Inter** | `--font-inter` | 400, 500, 600, 700 | Primary sans body font, headings, paragraphs |
+| **Inter** | `--font-inter` | 400, 500, 600, 700 | Primary sans body font, paragraphs |
 | **JetBrains Mono** | `--font-jetbrains` | 400, 500, 600 | Chip labels, uppercase captions, tech tags, hero stack |
-| **Syne** | `--font-syne` | 700, 800 | TopBar "SRABON" wordmark only |
+| **Space Grotesk** | `--font-grotesk` | variable | All h1/h2/h3 headings (global base rule) and the "SRABON" wordmark |
 
 ### Scale & Minimum Size Rules
 - Heading 1: `text-4xl md:text-5xl lg:text-6xl`, font-bold, tracking-tight.
@@ -112,7 +116,7 @@ Three fonts loaded via `next/font/google` in `layout.tsx`:
 
 ### Button (`web/src/components/ui/Button.tsx`)
 Replaces legacy `BlobButton`.
-- `variant="primary"`: Solid `--color-accent` background, white text.
+- `variant="primary"`: Solid `--color-accent` background with `--color-on-accent` text (amber needs dark text for contrast).
 - `variant="secondary"`: Outlined `--color-border`, surface background, hover border accent.
 - Micro-interactions: Framer motion `whileHover={{ scale: 1.02 }}`, `whileTap={{ scale: 0.98 }}`.
 
@@ -177,7 +181,7 @@ web/
     ├── app/
     │   ├── globals.css            # Tailwind v4 entry point + design tokens (@theme inline)
     │   ├── globals.legacy.css     # Backup reference of legacy theme (not imported)
-    │   ├── layout.tsx             # Root layout: Inter + JetBrains Mono + Syne, SEO metadata
+    │   ├── layout.tsx             # Root layout: Inter + JetBrains Mono + Space Grotesk, SEO metadata
     │   ├── page.tsx               # Home page: Hero -> Projects -> Skills -> Education -> About -> Contact
     │   ├── robots.ts              # Search engine crawler directives
     │   ├── sitemap.ts             # XML sitemap generator

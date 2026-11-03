@@ -1,7 +1,7 @@
 /*
  * FooterStrip — four-segment colored strip + links row + copyright.
  *
- * PRD §5.2: strip colors: #5B2FC9, #8B5CF6, #C4B5FD, #3B2A7A
+ * Strip colors: amber family matching --color-accent (see STYLE_REPORT.md §2).
  * PRD §5.4: "FooterStrip: four colored segments, then a row of links and copyright."
  * PRD §5.4 (SocialRail): on mobile, social links are moved into the footer.
  *
@@ -17,8 +17,8 @@ interface FooterProps {
 }
 
 /* The four strip segment colors from PRD §5.2 */
-/* New strip colors matching the redesigned accent palette */
-const STRIP_COLORS = ["#6C47FF", "#A594FF", "#C9BEFF", "#3A2A8A"] as const;
+/* Strip colors matching the amber accent palette */
+const STRIP_COLORS = ["#F5A524", "#FFC65C", "#FFE0A3", "#7A5414"] as const;
 
 export function Footer({ profile }: FooterProps) {
   const currentYear = new Date().getFullYear();
@@ -68,7 +68,7 @@ export function Footer({ profile }: FooterProps) {
               aria-label="Go to home"
               className="inline-block transition-colors hover:text-accent-soft"
               style={{
-                fontFamily:    "var(--font-syne), system-ui, sans-serif",
+                fontFamily:    "var(--font-grotesk), system-ui, sans-serif",
                 fontWeight:    800,
                 fontSize:      "1.15rem",
                 letterSpacing: "0.18em",

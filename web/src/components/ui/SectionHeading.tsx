@@ -23,7 +23,7 @@ export function SectionHeading({ title, subtitle, id }: SectionHeadingProps) {
         {title}
       </h2>
 
-      {/* The accent underline bar — 34px wide, 3px tall, accent purple */}
+      {/* The accent underline bar — 34px wide, 3px tall, accent amber */}
       <div
         aria-hidden="true"
         style={{
