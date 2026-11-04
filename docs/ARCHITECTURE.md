@@ -36,7 +36,7 @@ This document details the architecture, design choices, data flows, and security
 | Layer | Technology | Justification |
 |-------|------------|---------------|
 | **Frontend** | Next.js 16 + React 19 + TypeScript | Server Components allow zero-JS initial render and instant SEO indexing. Client boundaries handle Framer Motion interactivity. |
-| **Styling** | Tailwind CSS v4 | Modular design tokens (`--color-bg`, `--color-surface`, `--color-accent`) matching the warm ink + amber "terminal" aesthetic. |
+| **Styling** | Tailwind CSS v4 | Modular dual-theme design tokens (`--color-bg`, `--color-surface`, `--color-accent`) switching between a cream (light) and ink (dark) "paper" — see `STYLE_REPORT.md`. |
 | **Backend** | Express 4 + Node.js + TypeScript | High-performance, lightweight REST API with clear separation of concerns (routes, middleware, models). |
 | **Database** | MongoDB Atlas + Mongoose | Flexible document model for structured case studies, dynamic project ordering, and nested tech stacks. |
 | **Auth** | JWT + bcryptjs | Secure admin access via httpOnly cookies or Authorization Bearer tokens. Password hashes never returned. |

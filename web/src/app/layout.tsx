@@ -7,6 +7,7 @@
  */
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Fraunces } from "next/font/google";
+import { ProgressRule, BackToTop } from "@/components/ui/ScrollMarker";
 import "./globals.css";
 
 /* Load Inter as primary sans font */
@@ -93,6 +94,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
+        {/* Editorial scroll furniture — gold reading progress + back-to-top */}
+        <ProgressRule />
+        <BackToTop />
         {children}
       </body>
     </html>

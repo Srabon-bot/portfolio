@@ -1,8 +1,9 @@
-# Srabon Portfolio — Theme & Style Reference (Hiring Redesign)
+# Srabon Portfolio — Theme & Style Reference (Hallmark Editorial Redesign)
 
 > **Copy this entire document into your context** before making any UI or style changes to the codebase.
 > Stack: **Next.js 16 (App Router) · Tailwind CSS v4 · TypeScript · Framer Motion**
 > Root: `d:\Projects\portfolio 2.0\web\`
+> Full redesign plan & changelog: `docs/REDESIGN_PLAN.md`
 
 ---
 
@@ -12,36 +13,34 @@
 |---|---|
 | Framework | Next.js 16 (App Router, Server + Client Components, Turbopack) |
 | CSS | Tailwind CSS **v4** (`@import "tailwindcss"` + `@theme inline` — no `tailwind.config.js`) |
-| Fonts | `next/font/google` (Inter, JetBrains Mono, Space Grotesk — self-hosted, no runtime request) |
+| Fonts | `next/font/google` (Fraunces, Inter, JetBrains Mono — self-hosted, no runtime request) |
 | Animation | Framer Motion (`motion.div`, `motion.span`, spring & ease micro-interactions) |
 | Icons | Inline SVG only — **strictly no external icon libraries** |
 | Language | TypeScript strict |
+| Theming | Dual "papers": light **Cream** edition (default) + dark **Ink** edition, class-based |
 
 ---
 
-## 2. Color Palette
+## 2. Color Palette — dual theme
 
-All tokens are defined in `web/src/app/globals.css` under `@theme inline` (Tailwind v4) and as CSS variables:
+All tokens are defined in `web/src/app/globals.css`. Light values sit in `@theme`
+(emitted as `:root` custom properties); the `.dark` block overrides the same variable
+names, so **every component is token-bound and re-skins automatically**.
 
-| Token | CSS Variable | Hex | Usage |
-|---|---|---|---|
-| Background | `--color-bg` | `#0D0D0C` | Page background — warm near-black |
-| Surface | `--color-surface` | `#141413` | Cards, modals, drawers |
-| Surface 2 | `--color-surface-2` | `#1C1C19` | Chips, inputs, icon badges, secondary containers |
-| Border | `--color-border` | `#2B2B27` | Card, input, divider, and rail borders |
-| Text | `--color-text` | `#F3F2EC` | Primary body text — warm off-white |
-| Muted | `--color-muted` | `#A5A49B` | Secondary text, descriptions, subtitles |
-| Faint | `--color-faint` | `#7E7D73` | Captions, uppercase tags, footer text, rail icons |
-| Accent | `--color-accent` | `#F5A524` | Primary amber — button fills, active bars, focus ring |
-| Accent Soft | `--color-accent-soft` | `#FFC65C` | Text links, hover states, active indicators |
-| On Accent | `--color-on-accent` | `#1C1408` | Text placed ON an accent fill (contrast rule) |
-| Success | `--color-success` | `#4ADE80` | **ONLY** for "Open to work" status dot & form success |
-| Danger | `--color-danger` | `#F87171` | **ONLY** for form errors & critical alerts |
-
-> **Removed Token:** `--color-blob` has been removed. Fills use solid `--color-accent` or sleek layered gradients.
-
-### Accent contrast rule
-Amber is a light fill: never place white text on it. Use `text-on-accent` (`--color-on-accent`, `#1C1408`) on `bg-accent` fills (buttons, MobileActionBar "Resume", contact submit).
+| Token | CSS Variable | Light ("Cream") | Dark ("Ink") | Usage |
+|---|---|---|---|---|
+| Background | `--color-bg` | `#FBF8F1` | `#16130E` | Page background — warm paper |
+| Surface | `--color-surface` | `#F4EFE4` | `#1F1B14` | Cards, modals, drawers |
+| Surface 2 | `--color-surface-2` | `#EAE3D4` | `#2A251B` | Chips, inputs, icon badges |
+| Border | `--color-border` | `#DCD3C0` | `#3A3324` | Hairline rules, card/input borders |
+| Text | `--color-text` | `#2A261C` | `#F3EFE4` | Primary body text (warm ink / cream) |
+| Muted | `--color-muted` | `#6E6759` | `#A8A18E` | Secondary text, descriptions |
+| Faint | `--color-faint` | `#99927F` | `#7E7765` | Captions, uppercase tags, footer |
+| Accent | `--color-accent` | `#A47612` | `#F5A524` | Gold foil — button fills, active bars, focus ring |
+| Accent Soft | `--color-accent-soft` | `#8A6210` | `#FFC65C` | Gold TEXT roles: links, hover, active |
+| On Accent | `--color-on-accent` | `#FFF9EC` | `#1C1408` | Text ON a gold fill (contrast rule) |
+| Success | `--color-success` | `#1F8A4C` | `#4ADE80` | **ONLY** "Open to work" dot + form success |
+| Danger | `--color-danger` | `#C0392B` | `#F87171` | **ONLY** form errors & critical alerts |
 
 ### Tailwind Usage
 Usable directly as Tailwind utility classes:
@@ -50,10 +49,25 @@ bg-bg          text-text        bg-surface       border-border
 text-muted     text-faint       text-accent      text-accent-soft
 bg-accent      text-success     text-danger      text-on-accent
 ```
+Opacity modifiers work on token colors (`bg-accent/20`, `bg-success/15`) — use `color-mix`
+with tokens for inline styles (`color-mix(in srgb, var(--color-accent) 30%, transparent)`).
 
-### Footer Color Strip
-Four decorative segments in the footer top strip:
-`#F5A524` · `#FFC65C` · `#FFE0A3` · `#7A5414`
+### Theme engine rules
+- Class-based: `.dark` on `<html>`, plus `@custom-variant dark` in globals.css
+- A pre-paint inline script in `layout.tsx` sets the class — priority:
+  `localStorage["theme"]` → then OS `prefers-color-scheme`. **No theme flash.**
+- The only way to change themes is the `ThemeToggle` component (sun/moon inline SVG)
+  present in the TopBar, the mobile drawer, and the sub-page headers; it persists the
+  explicit choice. **Do not introduce another theme library.**
+- `color-scheme` is `light`/`dark` respectively (native widgets & scrollbars follow).
+
+### Accent contrast rule
+Gold fill + white text is forbidden. Text on any `bg-accent` fill uses `text-on-accent`
+(cream in light mode, dark ink in dark mode).
+
+### Mode-dependent gradients & strips
+- `--gradient-frame` — hero portrait frame gradient (two-tone, defined per paper)
+- `--strip-1 … --strip-4` — footer strip gold family (`#A47612 · #C49A32 · #E0C578 · #6B4F0E` in light)
 
 ---
 
@@ -62,110 +76,120 @@ Four decorative segments in the footer top strip:
 ### Fonts
 Three fonts loaded via `next/font/google` in `layout.tsx`:
 
-| Font | Variable | Weights | Used for |
-|---|---|---|---|
-| **Inter** | `--font-inter` | 400, 500, 600, 700 | Primary sans body font, paragraphs |
-| **JetBrains Mono** | `--font-jetbrains` | 400, 500, 600 | Chip labels, uppercase captions, tech tags, hero stack |
-| **Space Grotesk** | `--font-grotesk` | variable | All h1/h2/h3 headings (global base rule) and the "SRABON" wordmark |
+| Font | Variable | Used for |
+|---|---|---|
+| **Fraunces** (serif, variable) | `--font-fraunces` | All h1/h2/h3 headings (global base rule), mastheads, pull-quotes, "SRABON" wordmark, works-index titles |
+| **Inter** | `--font-inter` | Primary sans body font, paragraphs |
+| **JetBrains Mono** | `--font-jetbrains` | The "ledger" voice: kickers, chip labels, tech tags, chapter TOCs, section rails |
 
 ### Scale & Minimum Size Rules
-- Heading 1: `text-4xl md:text-5xl lg:text-6xl`, font-bold, tracking-tight.
-- Heading 2: `text-2xl md:text-3xl`, font-bold with 34×3px `--color-accent` underline bar.
+- Heading 1 (masthead): Fraunces `clamp(2.5rem, 1.4rem + 4.2vw, 4.25rem)`, weight 600, leading `1.05`.
+- Heading 2: `clamp(1.5rem, 1.2rem + 1vw, 2rem)`, font-bold with 34×3px gold underline bar.
 - Heading 3: `text-base md:text-lg`, font-bold.
 - Body: `text-base` (16px), line-height 1.6.
-- Small: `text-xs` (12px) — **Minimum size everywhere**. Never use sub-12px (`text-[11px]`).
+- Small: `text-xs` (12px) — **Minimum size everywhere**. Never sub-12px (`text-[11px]`).
+
+### Editorial ornaments (globals.css `@layer components`)
+- `.kicker` — mono uppercase numbered chapter label (`01 — Selected Work`), gold
+- `.rule-gold` — engraved fading gold hairline
+- `.paper-shadow` — warm paper shadow, deeper variant in `.dark`
 
 ---
 
 ## 4. Layout & Spacing
 
-### Section Order (Hiring-First Hierarchy)
-1. **Hero** (`#hero`) — Introduction, "Open to work" badge, core stack chips, two CTAs.
-2. **Projects** (`#projects`) — Featured 16:9 ProjectCards, problem/outcome, metrics, code/demo links.
-3. **Skills** (`#skills`) — 2-column balanced grid across 4 groups with MERN highlight chips and legend.
-4. **Education & Achievements** (`#education`) — Academic history at UITS and verified honors.
-5. **About** (`#about`) — Background, CSE degree status, and live "Currently" list.
-6. **Contact** (`#contact`) — Direct links with SVG icons + accessible contact form.
+### Section Order (home page, hallmark editorial)
+1. **Hero** (`#hero`) — masthead: serif name, gold rules, kicker row, CTAs, portrait with engraved frame
+2. **Projects** (`#projects`) — `01 — Selected Work`, asymmetric 3/5–2/5 gallery + Research & ML strip
+3. **Skills** (`#skills`) — `02 — My Toolbox`, 2-column engraved panels, MERN highlight chips
+4. **About** (`#about`) — `03 — The Story`, serif pull-quote (first bio paragraph) + Currently list
+5. **Education** (`#education`) — `04 — Credentials`, engraved cards
+6. **Contact** (`#contact`) — `05 — Correspondence`, info cards + accessible form
 
-### Breakpoint Strategy (Tailwind v4 Default Breakpoints)
+Numbering continues across **sub-pages**: `/projects` is the unnumbered **Index** (Table of Works),
+case studies use chapter TOCs `1. Problem … 7. Local Setup`.
 
-| Breakpoint | Range | Navigation & Layout Behavior |
-|---|---|---|
-| `< sm` | `< 640px` | Single-column grids everywhere; CTAs stack; Hamburger + drawer navigation; sticky bottom bar active; touch targets ≥ 44×44px. |
-| `sm` | `640px – 767px` | 2×2 Skills grid; 2×2 Contact info cards; row CTAs in Hero; sticky bottom bar active. |
-| `md` | `768px – 1023px` | Sticky bottom bar hidden; Footer displays in row; TopBar retains hamburger + drawer (< 1024px) to prevent 5 inline links crowding. |
-| `lg` | `1024px – 1279px` | TopBar inline links visible; Hamburger hidden; rails hidden (no overlap); 2-column Hero (min-height `100dvh - 3.5rem`); About "Currently" beside bio; Contact form beside cards. |
-| `xl` | `1280px – 1535px` | Rails visible (`SectionRail` and `SocialRail`). `SectionRail` renders dots only (no labels) so 1100px content is never overlapped. |
-| `2xl` | `≥ 1536px` | `SectionRail` displays horizontal labels on hover/active. Container max width expands up to 1200px. |
+### Breakpoint Strategy (Tailwind v4 defaults)
+| Breakpoint | Behavior |
+|---|---|
+| `< sm` | Single-column everything; CTAs stack; hamburger + drawer; sticky bottom bar; touch targets ≥ 44px |
+| `sm` | 2×2 Skills grid; 2×2 contact cards; row CTAs |
+| `md` | Sticky bottom bar hidden; footer in row; asymmetric project spans engage (`md:grid-cols-5`) |
+| `lg` | TopBar inline links; hamburger hidden; rails hidden; 2-col Hero; case-study study grid + sticky ChapterNav; About "Currently" beside bio |
+| `xl` | Rails visible (`SectionRail` diamonds, `SocialRail`); works index rows two-sided |
+| `2xl` | Rail labels on hover/active; container expands to 1200px |
 
 ### Fluid Sizing Rules
-- **Container Padding:** `px-4 sm:px-6 lg:px-8`, max-width `1100px` (`2xl:max-w-[1200px]`), centered.
-- **Section Padding:** `py-12 sm:py-16 lg:py-24`.
-- **Hero Title Clamp:** `clamp(2rem, 1.2rem + 3.5vw, 3.5rem)`.
-- **Section Heading Clamp:** `clamp(1.5rem, 1.2rem + 1vw, 2rem)` with 34×3px `--color-accent` bar.
-- **Body Text:** Strict `16px` (`text-base`), line-height 1.6.
-- **Hero Avatar Size:** `clamp(120px, 22vw, 280px)`.
-- **Block Spacing:** `gap-4 sm:gap-5 lg:gap-6`.
-- **Sticky TopBar Offset:** `scrollMarginTop: "4.5rem"` on each section so headings are never covered.
-- **Touch Target Minimum:** At least `44×44px` for all interactive elements via `min-h-11` or padding.
-- **Overflow Prevention:** `overflow-wrap: anywhere` and `break-words` on all dynamic card titles and descriptions.
+- **Container padding:** `px-4 sm:px-6 lg:px-8`, max-width `1100px` (`2xl::1200px`), centered
+- **Section padding:** `py-12 sm:py-16 lg:py-24`
+- **Block spacing:** `gap-4 sm:gap-5 lg:gap-6`
+- **Portrait size:** `clamp(120px, 22vw, 280px)`
+- **Sticky TopBar offset:** `scroll-margin-top: 4.5rem` on every section
+- **Print corners:** cards `rounded-[10px]` (`--radius-card`), chips radius 4px pills, inputs/buttons `rounded-lg`
+- **Overflow prevention:** `overflow-wrap: anywhere` on all dynamic titles/descriptions
 
 ---
 
 ## 5. Components
 
-### Button (`web/src/components/ui/Button.tsx`)
-Replaces legacy `BlobButton`.
-- `variant="primary"`: Solid `--color-accent` background with `--color-on-accent` text (amber needs dark text for contrast).
-- `variant="secondary"`: Outlined `--color-border`, surface background, hover border accent.
-- Micro-interactions: Framer motion `whileHover={{ scale: 1.02 }}`, `whileTap={{ scale: 0.98 }}`.
+### ThemeToggle (`ui/ThemeToggle.tsx`)
+- Sun/moon inline SVG flip; shows the paper you would switch TO
+- Persists to `localStorage["theme"]`; aria-pressed; 44×44 target
 
-### ProjectCard (`web/src/components/ui/ProjectCard.tsx`)
-- 16:9 screenshot preview with `next/image`.
-- One-line problem / outcome statement.
-- Optional key metric badge (e.g. "40% faster rendering").
-- Stack chips using JetBrains Mono.
-- Direct links for Live demo ↗, GitHub code ↗, and Case study →.
+### ScrollMarker (`ui/ScrollMarker.tsx`)
+- `ProgressRule`: 2px gold hairline, top of viewport, rAF-throttled reading progress
+- `BackToTop`: engraved circular arrow after 600px; cleared of the mobile action bar
 
-### Chip (`web/src/components/ui/Chip.tsx`)
-- JetBrains Mono tech badge with `TechIcon`.
-- Size options: `sm`, `md` (standard in Skills cards), `lg`.
-- `highlight` prop: Core MERN stack items (MongoDB, Express, React, Node.js) styled with `border-color: color-mix(in srgb, var(--color-accent) 50%, transparent)` and `text-text`.
+### Button (`ui/Button.tsx`)
+- `primary`: gold fill + `text-on-accent`; `secondary`: surface + hairline border
+- Print corners (`rounded-lg`), Framer Motion scale 1.02/0.98
 
-### SkillsSection (`web/src/components/sections/SkillsSection.tsx`)
-- 2-column balanced grid (`grid-cols-1 md:grid-cols-2 gap-4 md:gap-5`).
-- 4 balanced categories:
-  - Frontend (7)
-  - Backend & Database (7)
-  - Tooling & Deployment (6)
-  - AI/ML & Languages (9)
-- Core stack (MERN) legend under section subtitle with 8px accent dot.
-- Subtle card border hover (`color-mix(in srgb, var(--color-accent) 30%, transparent)`).
-- 0.05s staggered entrance animation respecting `prefers-reduced-motion`.
+### SectionHeading (`ui/SectionHeading.tsx`)
+- Optional `index` + `kicker` → `.kicker`-styled numbered chapter label above title
+- Optional subtitle in muted; gold 34×3px underline seal
 
-### SectionRail (`web/src/components/ui/SectionRail.tsx`)
-- Horizontal tooltips and labels (no vertical `writing-mode`).
-- Active indicator dot with pulsing ring.
-- IntersectionObserver tracking corresponding to the 6 page sections.
+### ProjectCard (`ui/ProjectCard.tsx`)
+- 16:9 `next/image` preview, engr-paper card (`rounded-[10px]`, `paper-shadow`)
+- Gold metric seal (`text-accent-soft` on surface-2, accent/40 border)
+- Stack chips (mono) + Live / Code / Case-study links
 
-### ContactSection (`web/src/components/sections/ContactSection.tsx`)
-- Inline SVG external link icons (`aria-hidden="true"`).
-- Working contact form with honeypot bot trap.
-- Loading spinner and accessible live region (`aria-live="polite"`).
-- State messages using `--color-success` and `--color-danger`.
+### WorksIndex (`works/WorksIndex.tsx`) — `/projects`
+- Client-side filter chips: All / Full-Stack / Frontend / Research & ML (counts inside)
+- Numbered rows (`No. 01`), serif titles, mono stack ledger, Live ↗ / Code ↗ / Study →
+
+### ChapterNav (`works/ChapterNav.tsx`) — case studies
+- Sticky mono chapter TOC; IntersectionObserver active gold diamond + `aria-current`
+
+### SectionRail (`ui/SectionRail.tsx`) · SocialRail (`ui/SocialRail.tsx`)
+- Gold diamond markers with active pulse; engraved labels at 2xl; correct chapter order
+- Left social rail: inline SVG, gold hover, inert on mobile (footer renders them)
+
+### TopBar (`ui/TopBar.tsx`) · MobileActionBar (`ui/MobileActionBar.tsx`)
+- 3-col bar: Fraunces wordmark | centered Projects link | links + ThemeToggle + Resume pill
+- Warm `paper-shadow` appears after scrolling; mobile bottom bar: gold Resume + surface Contact
+
+### ContactSection (`sections/ContactSection.tsx`)
+- Contact cards (engraved), honeypot bot trap, spinner, `aria-live` status using
+  success/danger ONLY — status pills use `color-mix` with the tokens so both papers pass
 
 ---
 
 ## 6. What NOT to Do
 
-1. **NO blur or backdrop-blur**: Do not use `backdrop-blur-*` or `blur-*` classes anywhere. Use clean, high-contrast solid surfaces (`--color-surface`, `--color-surface-2`) with subtle borders.
-2. **Success & Danger rule**: Use `--color-success` (`#34D399`) **ONLY** for the "Open to work" status dot and form success state. Use `--color-danger` (`#F87171`) **ONLY** for form error states. Do not invent arbitrary colors.
-3. **NO icon libraries**: Do not install or import Lucide, React Icons, FontAwesome, etc. Write clean inline SVG icons with `aria-hidden="true"`.
-4. **NO sub-12px text**: Always maintain a minimum font size of `text-xs` (12px).
-5. **NO percentage progress bars in Skills**: Skills are grouped into clean chip tags.
-6. **NO horizontal scroll**: Verify `overflow-x: hidden` and check responsiveness at 360px viewport width.
-7. **NO invented personal data**: Mark placeholder information with `// TODO:`.
-8. **NO arrow icons in navigation**: All nav buttons and links (TopBar wordmark, centered "Projects" link, Resume pill, inline links, mobile drawer, SectionRail, SocialRail, Footer nav links, and MobileActionBar) have NO arrow icons (`↗`, `→`, `->`, `↓`, chevrons). Nav buttons and links show clean text only (plus existing social SVG logos on social links). Where links open in a new tab, accessibility is preserved with `aria-label="Resume (opens in a new tab)"` and `target="_blank" rel="noopener noreferrer"`. Arrows remain permitted only in content components (Hero CTAs, ProjectCard links, Contact cards).
+1. **NO blur/backdrop-blur**: solid surfaces + hairline borders only.
+2. **Success & Danger rule**: success ONLY for the "Open to work" dot and form success;
+   danger ONLY for form errors and destructive admin actions. No arbitrary new colors —
+   use tokens (incl. `color-mix`), never raw hexes outside `globals.css`/`--strip-*`/`--gradient-frame`.
+3. **NO icon libraries**: inline SVG with `aria-hidden="true"` only.
+4. **NO sub-12px text**: minimum `text-xs` (12px) everywhere.
+5. **NO white text on gold**: any accent fill gets `text-on-accent` (both papers).
+6. **NO hardcoded `text-white`/`text-black`**: use `text-text` / `text-on-accent`.
+7. **NO percentage progress bars in Skills**: grouped mono chips only.
+8. **NO horizontal scroll**: verified at 360px; `overflow-wrap: anywhere` on dynamic text.
+9. **NO invented personal data**: placeholder content must be flagged (TODO/PLACEHOLDER) and hidden where the sections already do (e.g. Education achievements block).
+10. **NO arrow icons in navigation** (TopBar, rails, drawer, footer, mobile bar). Arrows allowed only in content links (hero CTAs, project links, works-index rows).
+11. **NO theme flash**: only the pre-paint script touches the theme before hydration; suppressHydrationWarning stays on `<html>`.
+12. **Respect `prefers-reduced-motion`**: gate JS-driven motion (e.g. `useReducedMotion()` in HeroSection); CSS handles the rest.
 
 ---
 
@@ -174,35 +198,36 @@ Replaces legacy `BlobButton`.
 ```
 web/
 ├── public/
-│   ├── og.png                     # OpenGraph preview image (placeholder, see OG_IMAGE_TODO.txt)
-│   ├── resume.pdf                 # Recruiter-facing PDF resume
-│   └── projects/                  # Project screenshots and assets
+│   ├── og.png                     # OpenGraph preview (placeholder, see OG_IMAGE_TODO.txt)
+│   ├── resume.pdf / .docx         # Recruiter-facing downloads
+│   └── projects/                  # Project screenshots
 └── src/
     ├── app/
-    │   ├── globals.css            # Tailwind v4 entry point + design tokens (@theme inline)
-    │   ├── globals.legacy.css     # Backup reference of legacy theme (not imported)
-    │   ├── layout.tsx             # Root layout: Inter + JetBrains Mono + Space Grotesk, SEO metadata
-    │   ├── page.tsx               # Home page: Hero -> Projects -> Skills -> Education -> About -> Contact
-    │   ├── robots.ts              # Search engine crawler directives
-    │   ├── sitemap.ts             # XML sitemap generator
-    │   └── projects/[slug]/page.tsx # Detailed case study route (Problem, Architecture, Auth, Deployment, Hard problem)
+    │   ├── globals.css            # Tailwind v4 entry + dual-theme tokens + ornaments
+    │   ├── layout.tsx             # Root layout: Fraunces/Inter/JetBrains, theme bootstrap, ProgressRule, BackToTop
+    │   ├── page.tsx               # Home: Hero → Projects 01 → Skills 02 → About 03 → Education 04 → Contact 05
+    │   ├── robots.ts / sitemap.ts
+    │   ├── resume/page.tsx        # Letterhead CV view + PDF/DOCX download
+    │   ├── projects/page.tsx      # Index — works index header + <WorksIndex/>
+    │   ├── projects/[slug]/page.tsx # Case-study spread + sticky ChapterNav (5-section README structure)
+    │   └── admin/**               # Private dashboard (functionality frozen, hall-retinted)
     ├── components/
     │   ├── sections/
-    │   │   ├── HeroSection.tsx    # Introduction, Open to work badge, stack chips, dual CTAs
-    │   │   ├── ProjectsSection.tsx# Featured works grid
-    │   │   ├── SkillsSection.tsx  # 2-column balanced grid across 4 groups with MERN highlights
-    │   │   ├── EducationSection.tsx # Merged Education & Achievements section
-    │   │   ├── AboutSection.tsx   # Biography and current pursuits
-    │   │   └── ContactSection.tsx # Contact channels and form with accessible status
+    │   │   ├── HeroSection.tsx    # Masthead hero (useReducedMotion-gated levitation)
+    │   │   ├── ProjectsSection.tsx# 01 — Selected Work: asymmetric gallery + ML strip
+    │   │   ├── SkillsSection.tsx  # 02 — My Toolbox panels
+    │   │   ├── AboutSection.tsx   # 03 — The Story: pull-quote + Currently
+    │   │   ├── EducationSection.tsx # 04 — Credentials
+    │   │   └── ContactSection.tsx # 05 — Correspondence
     │   └── ui/
-    │       ├── Button.tsx         # Primary and secondary button component (Framer Motion)
-    │       ├── Chip.tsx           # JetBrains Mono tech badge with TechIcon
-    │       ├── MobileActionBar.tsx# Mobile-only sticky bottom bar for Resume & Contact
-    │       ├── ProjectCard.tsx    # 16:9 card with metric & links
-    │       ├── SectionHeading.tsx # Section title + 34x3px accent underline bar
-    │       ├── SectionRail.tsx    # Desktop right-side nav with horizontal labels
-    │       ├── SocialRail.tsx     # Desktop left-side social links
-    │       └── TopBar.tsx         # 3-col navbar with centered Projects link & wordmark
-    └── types/
-        └── index.ts               # Shared TypeScript interfaces (Project, Profile, Skill, etc.)
+    │   │   ├── Button.tsx  Chip.tsx  Container.tsx  Footer.tsx
+    │   │   ├── MobileActionBar.tsx  ProjectCard.tsx  SectionHeading.tsx
+    │   │   ├── SectionRail.tsx  SocialRail.tsx  TechIcon.tsx  TopBar.tsx
+    │   │   ├── ThemeToggle.tsx    # sun/moon paper switch (localStorage)
+    │   │   └── ScrollMarker.tsx   # ProgressRule + BackToTop
+    │   └── works/
+    │       ├── WorksIndex.tsx     # Numbered table of works + filters
+    │       └── ChapterNav.tsx     # Sticky case-study chapter TOC
+    ├── lib/ (api.ts, seed-data.ts)
+    └── types/index.ts
 ```

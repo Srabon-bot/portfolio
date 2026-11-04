@@ -158,6 +158,12 @@ Each part is its own commit (`Part N` message above). Revert any part without lo
 - [x] Part 1 — foundations (tokens, fonts, theme engine) — committed
 - [x] Part 2 — UI kit treatment — committed
 - [x] Part 3 — home editorial rebuild — committed
-- [x] Part 4 — sub-pages — code complete; owner test + commit pending
-- [ ] Part 5 — functionality polish
-- [ ] Part 6 — docs & closure
+- [x] Part 4 — sub-pages — committed
+- [x] Part 5 — functionality polish — committed
+- [x] Part 6 — docs & closure — done (STYLE_REPORT.md rewritten for dual-theme hallmark system; README + ARCHITECTURE updated; final build green)
+
+---
+
+## ✅ Redesign complete — all parts committed.
+
+Full revert to the pre-redesign state: `git reset --hard <terminal-amber-checkpoint-hash>`. — **in progress**

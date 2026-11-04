@@ -320,8 +320,8 @@ export default function AdminDashboardPage() {
         <div
           className={`fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl shadow-2xl text-xs font-medium border ${
             feedback.type === "error"
-              ? "bg-red-950/90 border-red-500 text-red-200"
-              : "bg-amber-950/90 border-amber-500 text-amber-100"
+              ? "bg-danger/15 border-danger/40 text-danger"
+              : "bg-success/15 border-success/40 text-success"
           }`}
         >
           {feedback.text}

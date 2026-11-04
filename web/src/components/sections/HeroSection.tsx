@@ -18,7 +18,7 @@
  */
 
 import Image from "next/image";
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { Container } from "@/components/ui/Container";
@@ -42,6 +42,7 @@ const fadeUp: Variants = {
 const HERO_STACK = ["React", "Next.js", "TypeScript", "Node.js", "MongoDB"];
 
 export function HeroSection({ profile }: HeroSectionProps) {
+  const reduceMotion = useReducedMotion();
   return (
     <section
       id="hero"
@@ -184,22 +185,26 @@ export function HeroSection({ profile }: HeroSectionProps) {
           animate="visible"
           className="flex justify-center lg:justify-end"
         >
-          {/* Outer floating wrapper with smooth infinite levitation animation */}
+          {/* Outer floating wrapper — levitation only when motion is welcome */}
           <motion.div
             className="relative group cursor-pointer"
-            animate={{
-              y: [-7, 7, -7],
-            }}
-            transition={{
-              duration: 5.5,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-            }}
-            whileHover={{
-              scale: 1.025,
-              transition: { duration: 0.3, ease: "easeOut" },
-            }}
+            animate={reduceMotion ? undefined : { y: [-7, 7, -7] }}
+            transition={
+              reduceMotion
+                ? undefined
+                : {
+                    duration: 5.5,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    ease: "easeInOut",
+                  }
+            }
+            whileHover={
+              reduceMotion ? undefined : {
+                scale: 1.025,
+                transition: { duration: 0.3, ease: "easeOut" },
+              }
+            }
           >
             {/* Gradient border frame — squared with sleek modern rounded corners */}
             <div

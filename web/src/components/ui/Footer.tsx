@@ -1,7 +1,7 @@
 /*
  * FooterStrip — four-segment colored strip + links row + copyright.
  *
- * Strip colors: amber family matching --color-accent (see STYLE_REPORT.md §2).
+ * Strip colors: gold family matching --color-accent, via --strip-* theme variables (see STYLE_REPORT.md §2).
  * PRD §5.4: "FooterStrip: four colored segments, then a row of links and copyright."
  * PRD §5.4 (SocialRail): on mobile, social links are moved into the footer.
  *

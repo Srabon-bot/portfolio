@@ -6,6 +6,7 @@ import { getProjectBySlug, getProjects } from "@/lib/api";
 import { Chip } from "@/components/ui/Chip";
 import { TechIcon } from "@/components/ui/TechIcon";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { ChapterNav } from "@/components/works/ChapterNav";
 
 /* Sticky chapters for the mono table of contents (5-section README structure) */
 const CHAPTERS = [
@@ -118,26 +119,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
       {/* Main Case Study Article — feature spread with sticky chapter TOC */}
       <div className="max-w-4xl mx-auto lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-10 px-4 md:px-8">
         {/* Sticky chapter TOC (desktop) */}
-        <aside
-          aria-label="Case study chapters"
-          className="hidden lg:block"
-        >
-          <nav className="sticky top-24 flex flex-col gap-3 py-12">
-            <span className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--color-faint)" }}>
-              Chapters
-            </span>
-            <div aria-hidden="true" className="rule-gold" />
-            {CHAPTERS.map((c) => (
-              <a
-                key={c.id}
-                href={`#${c.id}`}
-                className="text-xs font-mono font-medium hover:text-accent-soft transition-colors"
-                style={{ color: "var(--color-muted)" }}
-              >
-                {c.label}
-              </a>
-            ))}
-          </nav>
+        <aside aria-label="Case study chapters" className="hidden lg:block">
+          <ChapterNav chapters={CHAPTERS} />
         </aside>
 
         <article className="py-12 md:py-16 flex flex-col gap-10 min-w-0">
