@@ -132,8 +132,8 @@ export function TopBar({ profile }: TopBarProps) {
             </Link>
           </div>
 
-          {/* Centre — Projects anchor link (centered in page on desktop) */}
-          <div className="hidden md:flex flex-none justify-center">
+          {/* Centre — Projects anchor link (centered on xl+ only; drawer covers below) */}
+          <div className="hidden xl:flex flex-none justify-center">
             <a
               href="#projects"
               className="inline-flex items-center text-xs font-mono font-semibold uppercase tracking-wider text-muted hover:text-accent-soft transition-colors text-center px-3 py-1 rounded-full hover:bg-surface whitespace-nowrap shrink-0"
@@ -142,9 +142,9 @@ export function TopBar({ profile }: TopBarProps) {
             </a>
           </div>
 
-          {/* Right — mid-range nav links (lg to xl) + Resume pill + Hamburger (anchored to right corner) */}
+          {/* Right — inline chapter links (xl+) + ThemeToggle (md+) + Resume pill (md+) + Hamburger (<xl) */}
           <div className="flex-1 flex items-center justify-end gap-3 sm:gap-4">
-            <ul className="hidden lg:flex xl:hidden items-center gap-4 list-none">
+            <ul className="hidden xl:flex items-center gap-4 list-none">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
@@ -157,8 +157,10 @@ export function TopBar({ profile }: TopBarProps) {
               ))}
             </ul>
 
-            {/* Theme toggle (both breakpoints) */}
-            <ThemeToggle />
+            {/* Theme toggle (md and up — phones flip papers in the drawer) */}
+            <div className="hidden md:inline-flex">
+              <ThemeToggle />
+            </div>
 
             {/* Resume pill button (navigates to /resume page) */}
             <Link
@@ -173,7 +175,7 @@ export function TopBar({ profile }: TopBarProps) {
             <button
               ref={triggerRef}
               id="mobile-menu-trigger"
-              className="lg:hidden flex items-center justify-center p-2.5 min-w-11 min-h-11 -mr-2 text-text"
+              className="xl:hidden flex items-center justify-center p-2.5 min-w-11 min-h-11 -mr-2 text-text"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu-panel"
@@ -193,29 +195,35 @@ export function TopBar({ profile }: TopBarProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"
-          className="lg:hidden flex flex-col px-6 py-5 gap-4 overflow-y-auto"
+          className="xl:hidden flex flex-col px-6 py-5 gap-4 overflow-y-auto"
           style={{
             background:   "var(--color-surface)",
             borderTop:    "1px solid var(--color-border)",
             maxHeight:    "calc(100dvh - 3.5rem)",
           }}
         >
-          {navLinks.map((link) => (
+          {/* Journal-style numbered contents */}
+          {navLinks.map((link, i) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-mono font-medium text-muted hover:text-text transition-colors py-1"
+              className="flex items-baseline gap-3 text-sm font-mono text-muted hover:text-text transition-colors py-1.5"
               onClick={closeMenu}
             >
-              {link.label}
+              <span aria-hidden="true" className="text-xs font-semibold" style={{ color: "var(--color-accent-soft)" }}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span>{link.label}</span>
             </a>
           ))}
 
-          <div style={{ height: "1px", background: "var(--color-border)" }} aria-hidden="true" />
+          <div aria-hidden="true" className="rule-gold" />
 
+          {/* Resume — gold pill */}
           <Link
             href="/resume"
-            className="text-sm font-mono font-semibold text-accent-soft py-1 hover:text-accent transition-colors"
+            className="self-start inline-flex items-center px-5 py-2.5 min-h-11 rounded-full text-xs font-mono font-semibold text-on-accent transition-opacity hover:opacity-90"
+            style={{ background: "var(--color-accent)" }}
             onClick={closeMenu}
           >
             Resume

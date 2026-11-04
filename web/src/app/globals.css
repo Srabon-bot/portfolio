@@ -60,6 +60,13 @@
   --font-jetbrains:  "JetBrains Mono", "Courier New", monospace;
   --font-fraunces:   "Fraunces", Georgia, serif;
 
+  /* ── Fluid rhythm ─────────────────────────────────────────────────
+   * Layout, spacing and type scale smoothly with the viewport instead
+   * of jumping at breakpoints. Small text is still floored at 12px.   */
+  --space-section:   clamp(3rem, 2.2rem + 3.2vw, 6rem);
+  --space-block:     clamp(1rem, 0.85rem + 0.6vw, 1.5rem);
+  --pad-container:   clamp(1rem, 0.55rem + 1.8vw, 2rem);
+
   /* Mode-dependent gradients / strips (referenced by hero frame, footer strip) */
   --gradient-frame: linear-gradient(135deg, rgba(164, 118, 18, 0.55) 0%, rgba(220, 211, 192, 0.35) 50%, rgba(138, 98, 16, 0.45) 100%);
   --strip-1: #A47612;
@@ -146,6 +153,10 @@
 
 /* ─── Editorial ornaments (hallmark utility classes) ───────────────── */
 @layer components {
+  /* Fluid vertical section rhythm — replaces py-12 sm:py-16 lg:py-24 */
+  .section-pad {
+    padding-block: var(--space-section);
+  }
   /* Mono caption for numbered section kickers: "01 — Selected Work" */
   .kicker {
     font-family: var(--font-jetbrains), "Courier New", monospace;

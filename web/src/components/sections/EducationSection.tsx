@@ -44,7 +44,7 @@ export function EducationSection() {
     <section
       id="education"
       aria-labelledby="education-heading"
-      className="py-12 sm:py-16 lg:py-24"
+      className="section-pad"
       style={{ scrollMarginTop: "4.5rem" }}
     >
       <Container>

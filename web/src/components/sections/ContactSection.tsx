@@ -117,7 +117,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
     <section
       id="contact"
       aria-label="Contact Srabon"
-      className="py-12 sm:py-16 lg:py-24"
+      className="section-pad"
       style={{ scrollMarginTop: "4.5rem" }}
     >
       <Container>
@@ -129,7 +129,10 @@ export function ContactSection({ profile }: ContactSectionProps) {
           id="contact-heading"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+        <div
+          className="grid grid-cols-1 lg:grid-cols-2 items-start"
+          style={{ gap: "clamp(2.5rem, 1.5rem + 2.6vw, 4rem)" }}
+        >
           {/* ── Left / Top: contact info cards (1 col < sm, 2x2 >= sm) ──── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {contactLinks.map((link) => (

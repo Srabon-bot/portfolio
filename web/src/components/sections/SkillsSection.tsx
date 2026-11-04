@@ -133,7 +133,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
     <section
       id="skills"
       aria-label="Skills and technologies"
-      className="py-12 sm:py-16 lg:py-24"
+      className="section-pad"
       style={{ scrollMarginTop: "4.5rem" }}
     >
       <Container>
@@ -167,10 +167,11 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
               variants={cardVariants}
-              className="rounded-[10px] paper-shadow p-5 md:p-6 flex flex-col gap-4 border transition-colors duration-200"
+              className="rounded-[10px] paper-shadow p-5 md:p-6 flex flex-col border transition-colors duration-200"
               style={{
                 background: "var(--color-surface)",
                 borderColor: "var(--color-border)",
+                gap: "var(--space-block)",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor =

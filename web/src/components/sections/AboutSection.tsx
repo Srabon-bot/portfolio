@@ -50,7 +50,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
     <section
       id="about"
       aria-label="About Srabon"
-      className="py-12 sm:py-16 lg:py-24"
+      className="section-pad"
       style={{ scrollMarginTop: "4.5rem" }}
     >
       <Container>
@@ -64,14 +64,15 @@ export function AboutSection({ profile }: AboutSectionProps) {
 
         {/* Card wrapper — README-style, matches PRD §5.4 Card spec */}
         <div
-          className="rounded-2xl p-5 md:p-8 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start"
+          className="rounded-2xl p-5 md:p-8 flex flex-col lg:flex-row items-start"
           style={{
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)",
+            gap: "clamp(2.5rem, 1.5rem + 2.6vw, 4rem)",
           }}
         >
           {/* ── Main text column: bio paragraphs (limited to ~65ch) ─── */}
-          <div className="flex flex-col gap-4 flex-1 max-w-[65ch] w-full min-w-0">
+          <div className="flex flex-col min-w-0" style={{ gap: "var(--space-block)", flex: 1, maxWidth: "65ch", width: "100%" }}>
             {leadParagraph && (
               <p
                 className="text-lg md:text-xl leading-snug text-text"

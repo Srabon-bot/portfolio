@@ -112,21 +112,29 @@ case studies use chapter TOCs `1. Problem … 7. Local Setup`.
 ### Breakpoint Strategy (Tailwind v4 defaults)
 | Breakpoint | Behavior |
 |---|---|
-| `< sm` | Single-column everything; CTAs stack; hamburger + drawer; sticky bottom bar; touch targets ≥ 44px |
-| `sm` | 2×2 Skills grid; 2×2 contact cards; row CTAs |
-| `md` | Sticky bottom bar hidden; footer in row; asymmetric project spans engage (`md:grid-cols-5`) |
-| `lg` | TopBar inline links; hamburger hidden; rails hidden; 2-col Hero; case-study study grid + sticky ChapterNav; About "Currently" beside bio |
-| `xl` | Rails visible (`SectionRail` diamonds, `SocialRail`); works index rows two-sided |
+| `< sm` | Single-column everything; CTAs stack; drawer only; sticky bottom "correspondence slip" (social monograms + Resume/Contact); touch targets ≥ 44px |
+| `md` | ThemeToggle appears in TopBar (phones flip papers via drawer row); sticky slip hidden; footer in row; asymmetric project spans engage (`md:grid-cols-5`) |
+| `lg` | 2-col Hero; case-study study grid + sticky ChapterNav; About "Currently" beside bio |
+| `xl` | TopBar inline links + centered Projects link; hamburger/drawer retired (drawer lives < xl); rails visible (`SectionRail` diamonds, `SocialRail`); works index rows two-sided |
 | `2xl` | Rail labels on hover/active; container expands to 1200px |
 
+**Nav declutter rule (Part 7):** below `xl` the TopBar carries only wordmark · ThemeToggle (md+) · Resume pill (md+) · hamburger — the drawer is the navigation (numbered mono contents `01…05`, gold Resume pill, email, socials). Like the rails, inline links exist only in the roomy ≥1280px band.
+
 ### Fluid Sizing Rules
-- **Container padding:** `px-4 sm:px-6 lg:px-8`, max-width `1100px` (`2xl::1200px`), centered
-- **Section padding:** `py-12 sm:py-16 lg:py-24`
-- **Block spacing:** `gap-4 sm:gap-5 lg:gap-6`
-- **Portrait size:** `clamp(120px, 22vw, 280px)`
-- **Sticky TopBar offset:** `scroll-margin-top: 4.5rem` on every section
-- **Print corners:** cards `rounded-[10px]` (`--radius-card`), chips radius 4px pills, inputs/buttons `rounded-lg`
-- **Overflow prevention:** `overflow-wrap: anywhere` on all dynamic titles/descriptions
+- **Fluid rhythm (Part 7):** spacing and gutters scale continuously with the viewport via
+  `clamp()` tokens — no jumps at breakpoints:
+  - `--space-section: clamp(3rem, 2.2rem + 3.2vw, 6rem)` — applied via the `.section-pad`
+    component class on every home section + case-study article
+  - `--space-block: clamp(1rem, 0.85rem + 0.6vw, 1.5rem)` — card/list/grid block gaps
+  - `--pad-container: clamp(1rem, 0.55rem + 1.8vw, 2rem)` — `Container.tsx` gutters (inline style)
+  - Hero/About/Contact column gaps use inline `clamp(2rem…3rem)` / `clamp(2.5rem…4rem)`
+- Container max-width `1100px` (`2xl::1200px`), centered
+- Portrait size: `clamp(120px, 22vw, 280px)`
+- Masthead fluid clamp (`clamp(2.5rem, 1.4rem + 4.2vw, 4.25rem)`), H2 clamp
+- Small text floored at 12px (`text-xs`) — never below
+- Sticky TopBar offset: `scroll-margin-top: 4.5rem` on every section
+- Print corners: cards `rounded-[10px]` (`--radius-card`), chips radius 4px pills, inputs/buttons `rounded-lg`
+- Overflow prevention: `overflow-wrap: anywhere` on all dynamic titles/descriptions
 
 ---
 
@@ -165,8 +173,14 @@ case studies use chapter TOCs `1. Problem … 7. Local Setup`.
 - Left social rail: inline SVG, gold hover, inert on mobile (footer renders them)
 
 ### TopBar (`ui/TopBar.tsx`) · MobileActionBar (`ui/MobileActionBar.tsx`)
-- 3-col bar: Fraunces wordmark | centered Projects link | links + ThemeToggle + Resume pill
-- Warm `paper-shadow` appears after scrolling; mobile bottom bar: gold Resume + surface Contact
+- 3-col bar: Fraunces wordmark | centered Projects link (xl-only) | inline links (xl+) + ThemeToggle (md+) + Resume pill (md+) + hamburger (<xl)
+- Warm `paper-shadow` appears after scrolling; drawer = journal contents (numbered mono chapters, gold Resume pill, email, socials, dark-paper row)
+- `MobileActionBar` = mobile "correspondence slip" (`md:hidden`): LinkedIn/GitHub monogram icons + gold Resume + Contact buttons, all ≥ 44px
+
+### Hero signature block (`HeroSection.tsx`)
+- Engraved social monogram row (gold diamond · LinkedIn · GitHub · Email) at the foot of the
+  hero text column — "letter signature" placement, visible on **every** breakpoint,
+  crosses the mobile slip + footer + drawer as a third social surface
 
 ### ContactSection (`sections/ContactSection.tsx`)
 - Contact cards (engraved), honeypot bot trap, spinner, `aria-live` status using

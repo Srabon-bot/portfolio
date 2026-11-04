@@ -37,7 +37,7 @@ export function ProjectsSection({
     <section
       id="projects"
       aria-label="Projects and case studies"
-      className="py-12 sm:py-16 lg:py-24"
+      className="section-pad"
       style={{ scrollMarginTop: "4.5rem" }}
     >
       <Container>

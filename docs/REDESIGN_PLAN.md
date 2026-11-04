@@ -160,7 +160,9 @@ Each part is its own commit (`Part N` message above). Revert any part without lo
 - [x] Part 3 — home editorial rebuild — committed
 - [x] Part 4 — sub-pages — committed
 - [x] Part 5 — functionality polish — committed
-- [x] Part 6 — docs & closure — done (STYLE_REPORT.md rewritten for dual-theme hallmark system; README + ARCHITECTURE updated; final build green)
+- [x] Part 6 — docs & closure — done
+- [x] Part 7 — responsive fluidity — code complete; owner test + commit pending
+      (fluid rhythm tokens + `.section-pad`; hamburger/drawer at <xl, links xl+; journal drawer; correspondence slip socials; hero signature block; STYLE_REPORT updated)
 
 ---
 
