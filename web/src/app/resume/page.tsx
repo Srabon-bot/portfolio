@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getProfile } from "@/lib/api";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Resume — Shahriar Hossain Srabon | Full-Stack Developer",
@@ -35,7 +36,7 @@ export default async function ResumePage() {
   return (
     <div className="min-h-screen py-12 px-4 md:px-8" style={{ background: "var(--color-bg)" }}>
 
-      {/* ── Top bar: back link + download button ───────────────── */}
+      {/* ── Top bar: back link + theme + download button ─────────── */}
       <div
         className="max-w-4xl mx-auto flex items-center justify-between mb-8 pb-4 border-b"
         style={{ borderColor: "var(--color-border)" }}
@@ -48,7 +49,8 @@ export default async function ResumePage() {
           ← Back to Portfolio
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
           <a
             href="/Shahriar_Hossain_Srabon_Resume.docx"
             download="Shahriar_Hossain_Srabon_Resume.docx"
@@ -61,7 +63,7 @@ export default async function ResumePage() {
           <a
             href={downloadUrl}
             download={downloadFilename}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm text-on-accent shadow-lg transition-transform hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm text-on-accent shadow-lg transition-transform hover:scale-105 active:scale-95"
             style={{ background: "var(--color-accent)" }}
           >
             {/* Download icon */}
@@ -75,9 +77,9 @@ export default async function ResumePage() {
         </div>
       </div>
 
-      {/* ── CV Card ────────────────────────────────────────────── */}
+      {/* ── Letterhead sheet ─────────────────────────────────────── */}
       <main
-        className="max-w-4xl mx-auto rounded-2xl p-8 md:p-14 shadow-2xl border flex flex-col gap-10"
+        className="max-w-4xl mx-auto rounded-[10px] p-8 md:p-14 paper-shadow border flex flex-col gap-10"
         style={{
           background: "var(--color-surface)",
           borderColor: "var(--color-border)",

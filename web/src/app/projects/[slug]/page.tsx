@@ -5,6 +5,18 @@ import { notFound } from "next/navigation";
 import { getProjectBySlug, getProjects } from "@/lib/api";
 import { Chip } from "@/components/ui/Chip";
 import { TechIcon } from "@/components/ui/TechIcon";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
+
+/* Sticky chapters for the mono table of contents (5-section README structure) */
+const CHAPTERS = [
+  { id: "problem",       label: "1. Problem" },
+  { id: "architecture",  label: "2. Architecture" },
+  { id: "auth",          label: "3. Auth" },
+  { id: "deployment",    label: "4. Deployment" },
+  { id: "hard-problem",  label: "5. Hard Problem" },
+  { id: "gallery",       label: "6. Gallery" },
+  { id: "setup",         label: "7. Local Setup" },
+];
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -72,7 +84,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           >
             ← Back to Projects
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
             {project.liveUrl && !project.liveUrl.startsWith("PLACEHOLDER") && (
               <a
                 href={project.liveUrl}
@@ -102,8 +115,32 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         </div>
       </header>
 
-      {/* Main Case Study Article */}
-      <article className="max-w-4xl mx-auto px-4 md:px-8 py-12 md:py-16 flex flex-col gap-10">
+      {/* Main Case Study Article — feature spread with sticky chapter TOC */}
+      <div className="max-w-4xl mx-auto lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-10 px-4 md:px-8">
+        {/* Sticky chapter TOC (desktop) */}
+        <aside
+          aria-label="Case study chapters"
+          className="hidden lg:block"
+        >
+          <nav className="sticky top-24 flex flex-col gap-3 py-12">
+            <span className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--color-faint)" }}>
+              Chapters
+            </span>
+            <div aria-hidden="true" className="rule-gold" />
+            {CHAPTERS.map((c) => (
+              <a
+                key={c.id}
+                href={`#${c.id}`}
+                className="text-xs font-mono font-medium hover:text-accent-soft transition-colors"
+                style={{ color: "var(--color-muted)" }}
+              >
+                {c.label}
+              </a>
+            ))}
+          </nav>
+        </aside>
+
+        <article className="py-12 md:py-16 flex flex-col gap-10 min-w-0">
         {/* Title, Badge & Tagline */}
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
@@ -145,10 +182,10 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         {/* Cover image */}
         {project.coverImage && (
           <div
-            className="relative w-full rounded-2xl overflow-hidden shadow-2xl border"
+            className="relative w-full rounded-[10px] overflow-hidden shadow-2xl border"
             style={{
               aspectRatio: "16/9",
-              borderColor: "var(--color-border)",
+              borderColor: "color-mix(in srgb, var(--color-accent) 35%, transparent)",
               background: "var(--color-surface)",
             }}
           >
@@ -165,7 +202,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
         {/* ── 1. Problem Statement ──────────────────────────────────── */}
         <section
-          className="rounded-2xl p-6 md:p-8 flex flex-col gap-4"
+          id="problem"
+          className="rounded-[10px] p-6 md:p-8 flex flex-col gap-4"
           style={{
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)",
@@ -203,7 +241,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
         {/* ── 2. Architecture (React -> Express -> MongoDB) ─────────── */}
         <section
-          className="rounded-2xl p-6 md:p-8 flex flex-col gap-5"
+          id="architecture"
+          className="rounded-[10px] p-6 md:p-8 flex flex-col gap-5"
           style={{
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)",
@@ -244,7 +283,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             <div className="text-muted ml-6">
               ▼ Controller validation (Zod schemas) &amp; Business Logic Service
             </div>
-            <div className="text-emerald-400 font-semibold ml-6">
+            <div className="font-semibold ml-6" style={{ color: "var(--color-success)" }}>
               ▼ [Database: MongoDB / Neon Postgres] (Mongoose models, compound indexes, atomic writes)
             </div>
           </div>
@@ -272,7 +311,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
         {/* ── 3. Auth ───────────────────────────────────────────────── */}
         <section
-          className="rounded-2xl p-6 md:p-8 flex flex-col gap-4"
+          id="auth"
+          className="rounded-[10px] p-6 md:p-8 flex flex-col gap-4"
           style={{
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)",
@@ -303,7 +343,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
         {/* ── 4. Deployment ─────────────────────────────────────────── */}
         <section
-          className="rounded-2xl p-6 md:p-8 flex flex-col gap-4"
+          id="deployment"
+          className="rounded-[10px] p-6 md:p-8 flex flex-col gap-4"
           style={{
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)",
@@ -334,7 +375,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
         {/* ── 5. Hard Problem Solved ─────────────────────────────────── */}
         <section
-          className="rounded-2xl p-6 md:p-8 flex flex-col gap-4"
+          id="hard-problem"
+          className="rounded-[10px] p-6 md:p-8 flex flex-col gap-4"
           style={{
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)",
@@ -347,7 +389,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             >
               <span>⚡</span> 5. Hard Problem Solved
             </h2>
-            <span className="text-xs font-mono text-emerald-400 uppercase">Key Technical Win</span>
+            <span className="text-xs font-mono text-accent-soft uppercase">Key Technical Win</span>
           </div>
 
           <div className="space-y-3 text-sm md:text-base leading-relaxed" style={{ color: "var(--color-muted)" }}>
@@ -376,7 +418,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         {/* Key Features & Visual Showcase */}
         {project.screenshots && project.screenshots.length > 0 && (
           <section
-            className="rounded-2xl p-6 md:p-8 flex flex-col gap-6"
+            id="gallery"
+            className="rounded-[10px] p-6 md:p-8 flex flex-col gap-6"
             style={{
               background: "var(--color-surface)",
               border: "1px solid var(--color-border)",
@@ -413,7 +456,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
         {/* Local Setup Instructions */}
         <section
-          className="rounded-2xl p-6 md:p-8 flex flex-col gap-4"
+          id="setup"
+          className="rounded-[10px] p-6 md:p-8 flex flex-col gap-4"
           style={{
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)",
@@ -472,6 +516,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           </div>
         </div>
       </article>
+      </div>
     </div>
   );
 }

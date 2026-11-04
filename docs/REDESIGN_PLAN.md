@@ -157,7 +157,7 @@ Each part is its own commit (`Part N` message above). Revert any part without lo
 - [x] Part 0 — plan committed to repo
 - [x] Part 1 — foundations (tokens, fonts, theme engine) — committed
 - [x] Part 2 — UI kit treatment — committed
-- [x] Part 3 — home editorial rebuild — code complete; owner test + commit pending
-- [ ] Part 4 — sub-pages
+- [x] Part 3 — home editorial rebuild — committed
+- [x] Part 4 — sub-pages — code complete; owner test + commit pending
 - [ ] Part 5 — functionality polish
 - [ ] Part 6 — docs & closure

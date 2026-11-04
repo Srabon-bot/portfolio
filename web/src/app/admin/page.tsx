@@ -308,7 +308,7 @@ export default function AdminDashboardPage() {
           </Link>
           <button
             onClick={handleLogout}
-            className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-red-500/20 text-red-300 hover:bg-red-500/30 transition-colors"
+            className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-danger/15 text-danger hover:bg-danger/25 transition-colors"
           >
             Log Out
           </button>
@@ -447,7 +447,7 @@ export default function AdminDashboardPage() {
                         <span
                           className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                             p.status === "published"
-                              ? "bg-emerald-500/20 text-emerald-300"
+                              ? "bg-success/15 text-success"
                               : "bg-yellow-500/20 text-yellow-300"
                           }`}
                         >
@@ -481,7 +481,7 @@ export default function AdminDashboardPage() {
                         className={`text-xs px-3 py-1.5 rounded-lg font-semibold transition-colors ${
                           p.status === "published"
                             ? "bg-surface-2 border border-border text-muted hover:text-text"
-                            : "bg-emerald-600 text-text hover:bg-emerald-500"
+                            : "bg-success text-on-accent hover:opacity-90"
                         }`}
                       >
                         {p.status === "published" ? "Unpublish" : "Publish"}
@@ -554,7 +554,7 @@ export default function AdminDashboardPage() {
                             {s.name}
                             <button
                               onClick={() => s._id && handleDeleteSkill(s._id)}
-                              className="text-faint hover:text-red-400 font-bold ml-1"
+                              className="text-faint hover:text-danger font-bold ml-1"
                             >
                               ×
                             </button>
@@ -672,7 +672,7 @@ export default function AdminDashboardPage() {
                           <span className="font-bold text-sm text-text">{m.name}</span>
                           <span className="text-xs text-muted">({m.email})</span>
                           {!m.read && (
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-success/15 text-success">
                               NEW
                             </span>
                           )}
@@ -686,7 +686,7 @@ export default function AdminDashboardPage() {
                           </button>
                           <button
                             onClick={() => m._id && handleDeleteMessage(m._id)}
-                            className="text-xs text-red-400 hover:underline"
+                            className="text-xs text-danger hover:underline"
                           >
                             Delete
                           </button>
