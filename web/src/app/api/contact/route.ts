@@ -66,22 +66,34 @@ export async function POST(req: NextRequest) {
     /* ── Fallback: forward to Express API ─────────────────────────── */
     const apiBase = process.env.NEXT_PUBLIC_API_URL;
     if (apiBase) {
-      const apiRes = await fetch(`${apiBase}/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message, website: "" }),
-        signal: AbortSignal.timeout(8000),
-      });
+      try {
+        const apiRes = await fetch(`${apiBase}/contact`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, message, website: "" }),
+          signal: AbortSignal.timeout(8000),
+        });
 
-      if (!apiRes.ok) {
-        const errData = await apiRes.json().catch(() => ({}));
+        if (!apiRes.ok) {
+          const errData = await apiRes.json().catch(() => ({}));
+          return NextResponse.json(
+            { error: errData.error || "Failed to send message." },
+            { status: apiRes.status }
+          );
+        }
+
+        return NextResponse.json({ ok: true });
+      } catch {
+        /* Backend unreachable (offline/cold start) — degrade gracefully
+           instead of surfacing a generic 500 to the sender. */
         return NextResponse.json(
-          { error: errData.error || "Failed to send message." },
-          { status: apiRes.status }
+          {
+            error:
+              "Message service unreachable right now. Please email srabon361@gmail.com directly.",
+          },
+          { status: 503 }
         );
       }
-
-      return NextResponse.json({ ok: true });
     }
 
     /* ── No backend configured ─────────────────────────────────────── */

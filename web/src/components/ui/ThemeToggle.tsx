@@ -10,7 +10,7 @@
  * - 44×44px touch target per the style guide.
  */
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
@@ -33,20 +33,38 @@ function MoonIcon() {
   );
 }
 
-export function ThemeToggle({ className = "" }: { className?: string }) {
-  const [theme, setTheme] = useState<Theme>("light");
-  const [mounted, setMounted] = useState(false);
+/*
+ * The DOM is the single source of truth for the current paper:
+ * the pre-paint bootstrap script (layout.tsx) and this toggle both mutate
+ * the `dark` class on <html>. We observe it — no setState-in-effect needed.
+ */
+const observeTheme = (onChange: () => void) => {
+  const obs = new MutationObserver(onChange);
+  obs.observe(document.documentElement, { attributeFilter: ["class"] });
+  return () => obs.disconnect();
+};
 
-  useEffect(() => {
-    setMounted(true);
-    setTheme(
-      document.documentElement.classList.contains("dark") ? "dark" : "light"
-    );
-  }, []);
+const THEME_NOOP = () => () => {};
+
+export function ThemeToggle({ className = "" }: { className?: string }) {
+  /* false during render + hydration, true as soon as we're on the client */
+  const mounted = useSyncExternalStore(
+    THEME_NOOP,
+    () => true,
+    () => false
+  );
+
+  const theme = useSyncExternalStore(
+    observeTheme,
+    () =>
+      document.documentElement.classList.contains("dark") ? "dark" : "light",
+    () => "light"
+  );
 
   const toggle = () => {
     const next: Theme = theme === "dark" ? "light" : "dark";
-    setTheme(next);
+    /* Mutating the class is the state change — the MutationObserver
+       notifies React, and every ThemeToggle instance re-renders. */
     document.documentElement.classList.toggle("dark", next === "dark");
     try {
       localStorage.setItem("theme", next);

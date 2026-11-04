@@ -45,7 +45,7 @@ export function Footer({ profile }: FooterProps) {
     <footer aria-label="Site footer" className="relative z-10">
       {/* Four-segment color strip */}
       <div className="flex h-2 w-full" aria-hidden="true">
-        {STRIP_VARS.map((color, i) => (
+        {STRIP_VARS.map((color) => (
           <div
             key={color}
             className="flex-1"
