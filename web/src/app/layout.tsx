@@ -92,7 +92,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}
       suppressHydrationWarning
     >
-      <body>
+      {/* suppressHydrationWarning: browser extensions (e.g. Grammarly) mutate
+          this element's attributes before hydration; also our theme bootstrap
+          may adjust the html class pre-paint. Only silences for this element. */}
+      <body suppressHydrationWarning>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
         {/* Editorial scroll furniture — gold reading progress + back-to-top */}
         <ProgressRule />
