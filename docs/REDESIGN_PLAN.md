@@ -161,11 +161,17 @@ Each part is its own commit (`Part N` message above). Revert any part without lo
 - [x] Part 4 — sub-pages — committed
 - [x] Part 5 — functionality polish — committed
 - [x] Part 6 — docs & closure — done
-- [x] Part 7 — responsive fluidity — code complete; owner test + commit pending
+- [x] Part 7 — responsive fluidity — committed
       (fluid rhythm tokens + `.section-pad`; hamburger/drawer at <xl, links xl+; journal drawer; correspondence slip socials; hero signature block; STYLE_REPORT updated)
+- [x] Part 8 — Vercel setup — done
+      (Atlas M0 cluster + `portfolio_admin` user + `0.0.0.0/0` allowlist; `web/.env` with MONGODB_URI / ADMIN_JWT_SECRET / NEXT_PUBLIC_SITE_URL=portfolio2-0-seven-liart.app → import via Vercel Raw Editor; pre-push audit: contact-API graceful 503 fallback, lint-clean ThemeToggle via `useSyncExternalStore`, body suppressHydrationWarning)
+- [x] **Part 9 — Vercel-native admin core** — code complete; owner test + commit pending
+      (serverless mongoose w/ global cache; models incl. new Education; jose-JWT httpOnly cookie login w/ bootstrap-on-first-verified-login + rate limit; proxy.ts guard + noindex headers; Blob upload endpoint; full admin CRUD: projects/skills/education/profile/messages + reorder; lib/api.ts → direct Atlas reads w/ `revalidateTag(tag,"max")`; contact → saves to Atlas inbox; admin creds generated in web/.env — env `$` escaping gotcha documented)
+- [ ] Part 10 — full editing suite (admin UI)
+      (Projects CRUD + case-study editor + screenshot gallery + reorder; Profile form + avatar; Skills reorder; Education editor; Resume replace upload; Messages inbox)
 
 ---
 
-## ✅ Redesign complete — all parts committed.
+## ✅ Rebuild — Part 8 closed 2025-11; Parts 9–10 in flight (original terminal-amber revert point intact).
 
-Full revert to the pre-redesign state: `git reset --hard <terminal-amber-checkpoint-hash>`. — **in progress**
+Full revert to the pre-redesign state: `git reset --hard <terminal-amber-checkpoint-hash>`.

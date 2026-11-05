@@ -13,6 +13,24 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+import { connectDB } from "@/lib/db";
+import { Message } from "@/lib/models/Message";
+
+/** Save the message into the admin inbox; false when Atlas is down */
+async function saveToInbox(
+  name: string,
+  email: string,
+  message: string
+): Promise<boolean> {
+  try {
+    if (!(await connectDB())) return false;
+    await Message.create({ name, email, message });
+    return true;
+  } catch (err) {
+    console.error("[contact] inbox save failed:", err);
+    return false;
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -39,7 +57,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    /* ── Formspree (works on Vercel free tier, no backend needed) ─── */
+    /* ── Formspree (optional secondary channel) ────────────────────── */
     const formspreeEndpoint = process.env.FORMSPREE_ENDPOINT;
     if (formspreeEndpoint) {
       const fRes = await fetch(formspreeEndpoint, {
@@ -54,6 +72,10 @@ export async function POST(req: NextRequest) {
       if (!fRes.ok) {
         const errData = await fRes.json().catch(() => ({}));
         console.error("Formspree error:", errData);
+        /* Formspree failed — still try the inbox before failing hard */
+        if (await saveToInbox(name, email, message)) {
+          return NextResponse.json({ ok: true });
+        }
         return NextResponse.json(
           { error: "Failed to deliver message. Please email me directly." },
           { status: 502 }
@@ -63,44 +85,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true });
     }
 
-    /* ── Fallback: forward to Express API ─────────────────────────── */
-    const apiBase = process.env.NEXT_PUBLIC_API_URL;
-    if (apiBase) {
-      try {
-        const apiRes = await fetch(`${apiBase}/contact`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, message, website: "" }),
-          signal: AbortSignal.timeout(8000),
-        });
-
-        if (!apiRes.ok) {
-          const errData = await apiRes.json().catch(() => ({}));
-          return NextResponse.json(
-            { error: errData.error || "Failed to send message." },
-            { status: apiRes.status }
-          );
-        }
-
-        return NextResponse.json({ ok: true });
-      } catch {
-        /* Backend unreachable (offline/cold start) — degrade gracefully
-           instead of surfacing a generic 500 to the sender. */
-        return NextResponse.json(
-          {
-            error:
-              "Message service unreachable right now. Please email srabon361@gmail.com directly.",
-          },
-          { status: 503 }
-        );
-      }
+    /* ── Save to the admin inbox (MongoDB Atlas) ──────────────────── */
+    if (await saveToInbox(name, email, message)) {
+      return NextResponse.json({ ok: true });
     }
 
-    /* ── No backend configured ─────────────────────────────────────── */
+    /* ── No storage configured ────────────────────────────────────── */
     return NextResponse.json(
       {
         error:
-          "Contact service not configured. Please email srabon361@gmail.com directly.",
+          "Message service not configured. Please email srabon361@gmail.com directly.",
       },
       { status: 503 }
     );
