@@ -2,92 +2,77 @@
 @import "tailwindcss";
 
 /*
- * Class-based dark mode: the site ships two "papers" of the same journal —
- * a light Cream edition (:root) and a dark Ink edition (.dark on <html>).
- * A pre-paint inline script in layout.tsx sets the class before first paint.
+ * CLAY PLAYFUL theme (branch redesign/clay-playful).
+ * Re-skins the original "Hallmark Editorial" token system with the
+ * uupm.cc "Educational Platform" claymorphism recipe:
+ *   - Fredoka (round display) + Nunito (soft body)
+ *   - pastel palette (peach / sky / mint / lavender) + green CTA
+ *   - clay cards: thick ink borders, hard offset shadows, press-on-hover
+ * The branch is LIGHT-ONLY for now: the .dark overrides are intentionally
+ * dormant (nothing sets a dark palette), the toggle is removed in Phase 2.
  */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   /* ── Fonts (variables injected by next/font in layout.tsx) ──────── */
-  --font-sans:    var(--font-inter), system-ui, sans-serif;
-  --font-mono:    var(--font-jetbrains), "Courier New", monospace;
-  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans:    var(--font-nunito), system-ui, sans-serif;
+  --font-display: var(--font-fredoka), "Comic Sans MS", system-ui, sans-serif;
+  /* Code blocks & tooling still get a real mono stack — no webfont needed */
+  --font-mono:    ui-monospace, "Cascadia Code", Consolas, "Courier New", monospace;
 
-  /* ── Border radius (sharper, print-flavored) ─────────────────────── */
-  --radius-card: 10px;
-  --radius-chip:  4px;
+  /* ── Border radius (plump clay shapes) ──────────────────────────── */
+  --radius-card: 24px;
+  --radius-chip: 16px;
 }
 
-/* ── Theme tokens — LIGHT ("Cream") values ───────────────────────────
- * Tailwind emits these as :root custom properties, and utilities
- * (bg-bg, text-muted, …) reference them as vars at runtime. The .dark
- * block further down overrides the variables only — every component
- * re-skins automatically because it is token-bound.                    */
+/* ── Theme tokens — "Clay" values (light only in this branch) ─────────
+ * Same token NAMES as the editorial theme so every component re-skins
+ * from this file alone. New tokens below only ADD roles.              */
 @theme {
-  --color-bg:          #FBF8F1;   /* paper — warm cream                          */
-  --color-surface:     #F4EFE4;   /* inserted leaves, cards                      */
-  --color-surface-2:   #EAE3D4;   /* chips, inputs, image placeholders           */
-  --color-border:      #DCD3C0;   /* hairline rules                              */
-  --color-text:        #2A261C;   /* warm ink                                    */
-  --color-muted:       #6E6759;   /* secondary text                              */
-  --color-faint:       #99927F;   /* captions, footer text                       */
-  --color-accent:      #A47612;   /* gold foil — fills, active bars, focus ring  */
-  --color-accent-soft: #8A6210;   /* gold TEXT roles: links, hovers, active      */
-  --color-on-accent:   #FFF9EC;   /* text placed ON a gold fill                  */
-  --color-success:     #1F8A4C;   /* "Open to work" dot + form success ONLY      */
-  --color-danger:      #C0392B;   /* form errors ONLY                            */
-}
+  --color-bg:          #FFF9F5;   /* warm cream page background            */
+  --color-surface:     #FFFFFF;   /* card clay faces                       */
+  --color-surface-2:   #F1F5F9;   /* chips, inputs, soft fills             */
+  --color-border:      #E2E8F0;   /* soft hairline (form frames, rails)    */
+  --color-ink:         #2D3748;   /* clay OUTLINES + hard shadow color     */
+  --color-text:        #2D3748;   /* primary text (same ink)               */
+  --color-muted:       #64748B;   /* secondary text                        */
+  --color-faint:       #94A3B8;   /* captions, footers                     */
+  --color-accent:      #22C55E;   /* CTA green — button fills, focus ring  */
+  --color-accent-soft: #16A34A;   /* green TEXT roles: links, hover, kbd   */
+  --color-on-accent:   #FFFFFF;   /* text placed ON a green fill           */
 
-/* ── Theme tokens — DARK ("Ink") overrides ──────────────────────────── */
-.dark {
-  --color-bg:          #16130E;
-  --color-surface:     #1F1B14;
-  --color-surface-2:   #2A251B;
-  --color-border:      #3A3324;
-  --color-text:        #F3EFE4;
-  --color-muted:       #A8A18E;
-  --color-faint:       #7E7765;
-  --color-accent:      #F5A524;
-  --color-accent-soft: #FFC65C;
-  --color-on-accent:   #1C1408;
-  --color-success:     #4ADE80;
-  --color-danger:      #F87171;
+  /* Pastel clay fill roles (cards, badges, decorative blobs)           */
+  --color-peach:       #FDBCB4;
+  --color-peach-deep:  #F5A69D;
+  --color-sky:         #ADD8E6;
+  --color-sky-deep:    #8BC4D6;
+  --color-mint:        #98FF98;
+  --color-lavender:    #E6E6FA;
+
+  --color-success:     #16A34A;   /* form success + "Open to work" dot     */
+  --color-danger:      #EF4444;   /* form errors ONLY                      */
 }
 
 :root {
-  --font-inter:      "Inter", system-ui, sans-serif;
-  --font-jetbrains:  "JetBrains Mono", "Courier New", monospace;
-  --font-fraunces:   "Fraunces", Georgia, serif;
+  --font-nunito:  "Nunito", system-ui, sans-serif;
+  --font-fredoka: "Fredoka", "Comic Sans MS", system-ui, sans-serif;
 
-  /* ── Fluid rhythm ─────────────────────────────────────────────────
-   * Layout, spacing and type scale smoothly with the viewport instead
-   * of jumping at breakpoints. Small text is still floored at 12px.   */
+  /* ── Fluid rhythm (unchanged mechanics from the editorial theme) ── */
   --space-section:   clamp(3rem, 2.2rem + 3.2vw, 6rem);
   --space-block:     clamp(1rem, 0.85rem + 0.6vw, 1.5rem);
   --pad-container:   clamp(1rem, 0.55rem + 1.8vw, 2rem);
 
-  /* Mode-dependent gradients / strips (referenced by hero frame, footer strip) */
-  --gradient-frame: linear-gradient(135deg, rgba(164, 118, 18, 0.55) 0%, rgba(220, 211, 192, 0.35) 50%, rgba(138, 98, 16, 0.45) 100%);
-  --strip-1: #A47612;
-  --strip-2: #C49A32;
-  --strip-3: #E0C578;
-  --strip-4: #6B4F0E;
+  /* Mode-dependent decorations, restyled for clay (light values only)  */
+  --gradient-frame: linear-gradient(135deg, #FDBCB4 0%, #ADD8E6 50%, #98FF98 100%);
+  --strip-1: #FDBCB4;
+  --strip-2: #ADD8E6;
+  --strip-3: #98FF98;
+  --strip-4: #E6E6FA;
 
-  color-scheme: light;            /* browser: native widgets & scrollbars, light */
+  color-scheme: light;            /* browser: native widgets & scrollbars */
 }
 
-.dark {
-  --gradient-frame: linear-gradient(135deg, rgba(245, 165, 36, 0.75) 0%, rgba(58, 51, 36, 0.35) 50%, rgba(255, 198, 92, 0.55) 100%);
-  --strip-1: #F5A524;
-  --strip-2: #FFC65C;
-  --strip-3: #FFDf8A;
-  --strip-4: #7A5414;
-
-  color-scheme: dark;
-}
-
-/* ─── Base reset and typography inside @layer base ───────────────── */
+/* ─── Base reset and typography ───────────────────────────────────── */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -96,10 +81,10 @@
   body {
     background-color: var(--color-bg);
     color: var(--color-text);
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-nunito), system-ui, sans-serif;
     font-size: 1rem;                /* 16px */
     line-height: 1.6;
-    font-weight: 400;
+    font-weight: 500;               /* Nunito reads soft — medium base     */
     min-height: 100dvh;
     /* Extra bottom padding for the mobile sticky action bar */
     padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
@@ -108,9 +93,10 @@
     overflow-x: hidden;             /* no horizontal scroll at any width  */
   }
 
-  /* All headings carry the serif display face — one rule, applied sitewide */
+  /* All headings carry the round display face — one rule, sitewide    */
   h1, h2, h3 {
-    font-family: var(--font-fraunces), var(--font-inter), system-ui, serif;
+    font-family: var(--font-fredoka), var(--font-nunito), system-ui, sans-serif;
+    font-weight: 600;
   }
 
   @media (min-width: 768px) {
@@ -120,9 +106,9 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 3px solid var(--color-accent);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 8px;
   }
 
   a {
@@ -151,41 +137,69 @@
   }
 }
 
-/* ─── Editorial ornaments (hallmark utility classes) ───────────────── */
+/* ─── Clay component utilities ────────────────────────────────────── */
 @layer components {
-  /* Fluid vertical section rhythm — replaces py-12 sm:py-16 lg:py-24 */
+  /* Fluid vertical section rhythm */
   .section-pad {
     padding-block: var(--space-section);
   }
-  /* Mono caption for numbered section kickers: "01 — Selected Work" */
+
+  /* Playful badge/label voice (replaces the editorial mono kicker).
+     Rendered as inline flex pill where SectionHeading uses it.        */
   .kicker {
-    font-family: var(--font-jetbrains), "Courier New", monospace;
-    font-size: 0.75rem;             /* 12px minimum                     */
-    font-weight: 600;
+    font-family: var(--font-nunito), system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.14em;
     color: var(--color-accent-soft);
   }
 
-  /* Engraved gold hairline rule */
+  /* Soft pastel divider (replaces the engraved gold hairline)          */
   .rule-gold {
-    height: 1px;
+    height: 6px;
     width: 100%;
+    border-radius: 9999px;
     background: linear-gradient(
       90deg,
       transparent,
-      var(--color-accent) 18%,
-      var(--color-accent) 82%,
+      var(--color-peach) 15%,
+      var(--color-sky) 50%,
+      var(--color-mint) 85%,
       transparent
     );
-    opacity: 0.55;
+    opacity: 0.8;
   }
 
-  /* Soft warm paper shadow for cards on cream (very subtle) */
-  .paper-shadow {
-    box-shadow: 0 1px 2px rgba(42, 38, 28, 0.06), 0 8px 24px rgba(42, 38, 28, 0.08);
+  /* ── Clay shapes (core of the theme) ─────────────────────────────── */
+
+  .clay-card {
+    background: var(--color-surface);
+    border: 3px solid var(--color-ink);
+    border-radius: var(--radius-card);
+    box-shadow: 6px 6px 0 var(--color-ink), inset 0 -4px 0 rgb(0 0 0 / 0.10);
+    transition: box-shadow 0.2s, transform 0.2s;
   }
-  .dark .paper-shadow {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 8px 24px rgba(0, 0, 0, 0.35);
+  .clay-card:hover {
+    box-shadow: 4px 4px 0 var(--color-ink), inset 0 -4px 0 rgb(0 0 0 / 0.10);
+    transform: translate(2px, 2px);
+  }
+
+  /* Borderless soft clay (inputs, quiet panels)                        */
+  .clay-soft {
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: 0 8px 30px rgb(0 0 0 / 0.08), inset 0 -4px rgb(0 0 0 / 0.05);
+  }
+
+  /* Legacy card shadow — remapped to the clay press shadow so every
+     existing paper-shadow usage goes clay immediately in Phase 1.      */
+  .paper-shadow {
+    box-shadow: 4px 4px 0 var(--color-ink);
+  }
+
+  /* Decorative blob shapes (hero accents) */
+  .blob {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
 }
