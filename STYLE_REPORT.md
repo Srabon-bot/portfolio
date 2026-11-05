@@ -186,6 +186,18 @@ case studies use chapter TOCs `1. Problem … 7. Local Setup`.
 - Contact cards (engraved), honeypot bot trap, spinner, `aria-live` status using
   success/danger ONLY — status pills use `color-mix` with the tokens so both papers pass
 
+### Admin console (`app/admin` + `components/admin/*`) — same design language, tooling only
+- The admin reuses the site tokens; nothing from an external component kit
+- Layout: top bar (wordmark + session pill + "View site"/danger-tinted Log out) +
+  tab rail (active tab = `bg-accent` fill + `text-on-accent`, badges as accent-mix pills)
+- Forms: `AdminField` 12px uppercase mono labels; inputs = `surface-2` fill + hairline
+  `color-border`; print-corner radii (`rounded-[10px]`, `rounded-lg`); NO blur
+- Rows/accordion editors: engraved `rounded-[10px]` paper-shadow cards; open editor gets
+  an accent-mixed border; reorder buttons are text ("Up"/"Down") 11×44px hit areas —
+  these are tool buttons, so the no-arrow rule does not apply to them
+- Toast: bottom-right, success/danger ONLY via `color-mix` on tokens (`aria-live`)
+- Destructive buttons (delete) use danger text on `color-mix` tint; confirm() before acting
+
 ---
 
 ## 6. What NOT to Do

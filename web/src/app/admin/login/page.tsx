@@ -17,11 +17,10 @@ export default function AdminLoginPage() {
     setError("");
 
     try {
-      const apiBase = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-      const res = await fetch(`${apiBase}/auth/login`, {
+      /* Same-origin login httpOnly cookie — no token storage anywhere */
+      const res = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 
@@ -30,12 +29,8 @@ export default function AdminLoginPage() {
         throw new Error(data.error || "Login failed");
       }
 
-      // Save token locally for authorization headers
-      if (data.token) {
-        localStorage.setItem("admin_token", data.token);
-      }
-
-      router.push("/admin");
+      const next = new URLSearchParams(window.location.search).get("next");
+      router.push(next && next.startsWith("/") ? next : "/admin");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Invalid email or password";
       setError(msg);
@@ -55,7 +50,7 @@ export default function AdminLoginPage() {
       >
         <div className="flex flex-col gap-1 text-center">
           <Link href="/" className="text-sm font-medium text-accent-soft hover:underline mb-2 block">
-            ← Back to Portfolio
+            Back to Portfolio
           </Link>
           <h1 className="text-2xl font-bold text-text">Admin CMS Portal</h1>
           <p className="text-xs text-muted">

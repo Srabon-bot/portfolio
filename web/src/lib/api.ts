@@ -17,12 +17,14 @@ import {
   seedSkills,
   seedProjects,
   seedMlProjects,
+  seedEducation,
 } from "./seed-data";
-import type { Profile, Skill, Project } from "@/types";
+import type { Profile, Skill, Project, Education } from "@/types";
 import { connectDB } from "./db";
 import { Profile as ProfileModel } from "./models/Profile";
 import { Skill as SkillModel } from "./models/Skill";
 import { Project as ProjectModel } from "./models/Project";
+import { Education as EducationModel } from "./models/Education";
 import { CONTENT_TAG } from "./content";
 
 /* lean() docs contain ObjectId/Date instances — normalize to plain JSON
@@ -46,7 +48,12 @@ const dbProfile = unstable_cache(
 export async function getProfile(): Promise<Profile> {
   try {
     const fromDb = await dbProfile();
-    if (fromDb) return fromDb;
+    if (fromDb) {
+      /* DB doc wins on what it defines; seed guarantees the baseline
+         (name, links, currently) so a partially-saved admin profile can
+         never blank out components that require those fields. */
+      return { ...seedProfile, ...fromDb };
+    }
   } catch {
     /* Atlas down — fall through to seed */
   }
@@ -160,3 +167,28 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
   }
   return [...seedProjects, ...seedMlProjects].find((p) => p.slug === slug) || null;
 }
+
+/* ── Education (published only; seed fallback) ───────────────────────── */
+
+const dbEducation = unstable_cache(
+  async (): Promise<Education[]> => {
+    if (!(await connectDB())) return [];
+    const docs = await EducationModel.find({ published: true })
+      .sort({ order: 1 })
+      .lean();
+    return JSON.parse(JSON.stringify(docs)) as Education[];
+  },
+  ["api-education"],
+  { revalidate: 60, tags: [CONTENT_TAG] }
+);
+
+export async function getEducation(): Promise<Education[]> {
+  try {
+    const fromDb = await dbEducation();
+    if (fromDb.length > 0) return fromDb;
+  } catch {
+    /* fallback */
+  }
+  return seedEducation;
+}
+

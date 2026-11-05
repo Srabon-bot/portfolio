@@ -167,11 +167,11 @@ Each part is its own commit (`Part N` message above). Revert any part without lo
       (Atlas M0 cluster + `portfolio_admin` user + `0.0.0.0/0` allowlist; `web/.env` with MONGODB_URI / ADMIN_JWT_SECRET / NEXT_PUBLIC_SITE_URL=portfolio2-0-seven-liart.app → import via Vercel Raw Editor; pre-push audit: contact-API graceful 503 fallback, lint-clean ThemeToggle via `useSyncExternalStore`, body suppressHydrationWarning)
 - [x] **Part 9 — Vercel-native admin core** — code complete; owner test + commit pending
       (serverless mongoose w/ global cache; models incl. new Education; jose-JWT httpOnly cookie login w/ bootstrap-on-first-verified-login + rate limit; proxy.ts guard + noindex headers; Blob upload endpoint; full admin CRUD: projects/skills/education/profile/messages + reorder; lib/api.ts → direct Atlas reads w/ `revalidateTag(tag,"max")`; contact → saves to Atlas inbox; admin creds generated in web/.env — env `$` escaping gotcha documented)
-- [ ] Part 10 — full editing suite (admin UI)
-      (Projects CRUD + case-study editor + screenshot gallery + reorder; Profile form + avatar; Skills reorder; Education editor; Resume replace upload; Messages inbox)
+- [x] **Part 10 — full editing suite (admin UI)** — done; owner test + commit pending
+      (Education & Inbox tabs join Projects/Profile/Skills; dashboard shell rebuilt same-origin cookie-auth — session via GET /api/admin/me, unwrapped `{projects|skills|education|profile|messages,unread}` payloads, tab rail w/ badges, success/danger color-mix toast, legacy localStorage/API_URL/GitHub-import/link-check removed; login page → same-origin API w/ `?next=`; public Education section now DB-driven w/ seed fallback; `getProfile()` merges DB doc over seed baseline so partial profile saves can't blank required fields; TopBar de-duplicated — chapter links are the true center column)
 
 ---
 
-## ✅ Rebuild — Part 8 closed 2025-11; Parts 9–10 in flight (original terminal-amber revert point intact).
+## ✅ Rebuild — Part 8 closed 2025-11; Parts 9–10 done (original terminal-amber revert point intact).
 
 Full revert to the pre-redesign state: `git reset --hard <terminal-amber-checkpoint-hash>`.

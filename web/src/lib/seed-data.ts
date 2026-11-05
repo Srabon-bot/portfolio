@@ -8,7 +8,7 @@
  * Use only what is in the PRD; mark unknown fields PLACEHOLDER.
  */
 
-import type { Profile, Skill, Project } from "@/types";
+import type { Profile, Skill, Project, Education } from "@/types";
 
 /* ─── Profile ──────────────────────────────────────────────────────── */
 export const seedProfile: Profile = {
@@ -303,5 +303,23 @@ export const seedMlProjects: Project[] = [
     featured: false,
     order: 4,
     status: "published",
+  },
+];
+
+/* ─── Education (editable in the admin console; NEW for Vercel-native) ─
+ * Real verified facts only — matches the pre-existing static card.
+ * Achievements are NOT seeded (never invent unverified details);
+ * the admin console is the authoring surface for those.               */
+export const seedEducation: Education[] = [
+  {
+    _id: "seed-education-uits",
+    institution: "University of Information Technology & Sciences (UITS)",
+    degree: "Bachelor of Science in Computer Science & Engineering",
+    period: "March 2023 — January 2027 (Expected)",
+    location: "Dhaka, Bangladesh",
+    description:
+      "Currently completing my final semester, building a foundation in software engineering, full-stack development, and machine learning.",
+    achievements: [],
+    published: true,
   },
 ];

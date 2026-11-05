@@ -83,6 +83,19 @@ export interface SkillGroups {
   mlData: Skill[];
 }
 
+/** Education card — editable in the admin console (new for Vercel-native) */
+export interface Education {
+  _id: string;
+  institution: string;
+  degree: string;
+  /** Display string, e.g. "March 2023 — January 2027 (Expected)" */
+  period: string;
+  location?: string;
+  description?: string;
+  achievements: string[];
+  published: boolean;
+}
+
 export interface Message {
   _id?: string;
   name: string;

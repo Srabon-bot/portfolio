@@ -20,22 +20,24 @@ import { HeroSection }     from "@/components/sections/HeroSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { SkillsSection }   from "@/components/sections/SkillsSection";
 import { AboutSection }    from "@/components/sections/AboutSection";
-import { EducationSection } from "@/components/sections/EducationSection";
-import { ContactSection }  from "@/components/sections/ContactSection";
+import { EducationSection } from "@/components/sections/EducationSection";import { ContactSection }  from "@/components/sections/ContactSection";
 import { Footer }          from "@/components/ui/Footer";
 import { MobileActionBar } from "@/components/ui/MobileActionBar";
 import {
   getProfile,
   getSkills,
   getProjects,
+  getEducation,
 } from "@/lib/api";
 
 export default async function HomePage() {
-  const [profile, skills, { featured, mlProjects, all }] = await Promise.all([
-    getProfile(),
-    getSkills(),
-    getProjects(),
-  ]);
+  const [profile, skills, { featured, mlProjects, all }, education] =
+    await Promise.all([
+      getProfile(),
+      getSkills(),
+      getProjects(),
+      getEducation(),
+    ]);
 
   return (
     <>
@@ -57,7 +59,7 @@ export default async function HomePage() {
         />
         <SkillsSection skills={skills} />
         <AboutSection profile={profile} />
-        <EducationSection />
+        <EducationSection education={education} />
         <ContactSection profile={profile} />
       </main>
 

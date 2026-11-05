@@ -4,9 +4,9 @@
  * TopBar — sticky navigation bar at the top of every page.
  *
  * Hiring-ready layout (3-column CSS grid):
- *   [SRABON wordmark]  |  [Projects link — truly centred]  |  [Resume pill]
+ *   [SRABON wordmark]  |  [Chapter links — truly centred]  |  [Theme + Resume]
  *
- * Order: Projects, Skills, About, Education, Contact
+ * Chapters: Projects, Skills, About, Education, Contact
  */
 
 import Link from "next/link";
@@ -132,31 +132,25 @@ export function TopBar({ profile }: TopBarProps) {
             </Link>
           </div>
 
-          {/* Centre — Projects anchor link (centered on xl+ only; drawer covers below) */}
-          <div className="hidden xl:flex flex-none justify-center">
-            <a
-              href="#projects"
-              className="inline-flex items-center text-xs font-mono font-semibold uppercase tracking-wider text-muted hover:text-accent-soft transition-colors text-center px-3 py-1 rounded-full hover:bg-surface whitespace-nowrap shrink-0"
-            >
-              <span>Projects</span>
-            </a>
-          </div>
-
-          {/* Right — inline chapter links (xl+) + ThemeToggle (md+) + Resume pill (md+) + Hamburger (<xl) */}
-          <div className="flex-1 flex items-center justify-end gap-3 sm:gap-4">
-            <ul className="hidden xl:flex items-center gap-4 list-none">
+          {/* Centre — the five chapter links, truly centred (xl+ only;
+              drawer covers below) */}
+          <div className="hidden xl:flex flex-1 justify-center">
+            <ul className="flex items-center gap-6 list-none">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-xs font-mono font-medium uppercase tracking-wider text-muted hover:text-text transition-colors"
+                    className="text-xs font-mono font-medium uppercase tracking-wider text-muted hover:text-text transition-colors whitespace-nowrap"
                   >
                     {link.label}
                   </a>
                 </li>
               ))}
             </ul>
+          </div>
 
+          {/* Right — ThemeToggle (md+) + Resume pill (md+) + Hamburger (<xl) */}
+          <div className="flex-1 flex items-center justify-end gap-3 sm:gap-4">
             {/* Theme toggle (md and up — phones flip papers in the drawer) */}
             <div className="hidden md:inline-flex">
               <ThemeToggle />
