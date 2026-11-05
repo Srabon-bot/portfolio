@@ -45,11 +45,11 @@ export function ProgressRule() {
   return (
     <div
       aria-hidden="true"
-      className="fixed top-0 left-0 right-0 z-[60] h-[2px]"
+      className="fixed top-0 left-0 right-0 z-[60] h-[4px]"
       style={{ background: "transparent" }}
     >
       <div
-        className="h-full transition-[transform] duration-100 ease-out"
+        className="h-full transition-[transform] duration-100 ease-out rounded-r-full"
         style={{
           transform: `scaleX(${progress})`,
           transformOrigin: "left center",
@@ -90,12 +90,13 @@ export function BackToTop() {
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Back to top"
-      className={`fixed right-4 md:right-6 z-40 flex items-center justify-center w-11 h-11 rounded-full border text-muted hover:text-accent-soft hover:border-accent/40 transition-all duration-300 cursor-pointer ${
+      className={`fixed right-4 md:right-6 z-40 flex items-center justify-center w-11 h-11 rounded-full transition-all duration-300 cursor-pointer text-text ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
       }`}
       style={{
-        background: "var(--color-surface)",
-        borderColor: "var(--color-border)",
+        background: "var(--color-sky)",
+        border: "2.5px solid var(--color-ink)",
+        boxShadow: "3px 3px 0 var(--color-ink)",
         /* Keep clear of the mobile sticky action bar */
         bottom: "calc(84px + env(safe-area-inset-bottom, 0px))",
       }}

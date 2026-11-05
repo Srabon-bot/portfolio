@@ -37,15 +37,18 @@ export function Chip({
 
   const textColor = highlight ? "text-text" : "text-muted";
   const borderColor = highlight
-    ? "color-mix(in srgb, var(--color-accent) 50%, transparent)"
-    : "var(--color-border)";
+    ? "var(--color-ink)"
+    : "color-mix(in srgb, var(--color-ink) 55%, transparent)";
 
   return (
     <span
-      className={`inline-flex items-center font-mono font-medium rounded-full ${textColor} transition-all duration-200 hover:border-accent/40 hover:text-text ${sizeClasses} ${className}`}
+      className={`inline-flex items-center font-bold rounded-[14px] ${textColor} transition-all duration-200 hover:-translate-y-0.5 ${sizeClasses} ${className}`}
       style={{
-        background: "var(--color-surface-2)",
-        border: `1px solid ${borderColor}`,
+        background: highlight ? "var(--color-peach)" : "var(--color-surface)",
+        border: `2px solid ${borderColor}`,
+        boxShadow: highlight
+          ? "2px 2px 0 var(--color-ink)"
+          : "2px 2px 0 color-mix(in srgb, var(--color-ink) 55%, transparent)",
       }}
     >
       {showIcon && !isCountBadge && <TechIcon name={label} size={iconSize} />}

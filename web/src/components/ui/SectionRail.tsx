@@ -80,42 +80,34 @@ export function SectionRail() {
                 >
                   {/* Horizontal label: visible only at 2xl (dots only at xl to never overlap 1100px content) */}
                   <span
-                    className={`hidden 2xl:inline-block text-xs font-mono uppercase tracking-wider transition-all duration-200 select-none ${
+                    className={`hidden 2xl:inline-block text-xs font-bold uppercase tracking-wider transition-all duration-200 select-none ${
                       active
-                        ? "opacity-100 text-accent-soft font-semibold translate-x-0"
+                        ? "opacity-100 text-accent-soft translate-x-0"
                         : "opacity-0 group-hover:opacity-100 text-muted translate-x-1 group-hover:translate-x-0"
                     }`}
                   >
                     {link.label}
                   </span>
 
-                  {/* Gold diamond indicator (rotated square) */}
+                  {/* Clay dot indicator */}
                   <span
                     aria-hidden="true"
-                    className="relative flex items-center justify-center w-3.5 h-3.5 flex-shrink-0"
+                    className="relative flex items-center justify-center w-4 h-4 flex-shrink-0"
                   >
-                    {active && (
-                      <span
-                        className="animate-ping absolute inline-flex h-full w-full opacity-50"
-                        style={{
-                          background: "var(--color-accent)",
-                          transform: "rotate(45deg)",
-                        }}
-                      />
-                    )}
                     <span
                       style={{
-                        width: active ? "8px" : "6px",
-                        height: active ? "8px" : "6px",
-                        transform: "rotate(45deg)",
+                        width: active ? "14px" : "10px",
+                        height: active ? "14px" : "10px",
+                        borderRadius: "50%",
                         background: active
-                          ? "var(--color-accent)"
-                          : "transparent",
-                        border: active
-                          ? "none"
-                          : "1px solid var(--color-border)",
+                          ? "var(--color-peach)"
+                          : "var(--color-surface-2)",
+                        border: "2px solid var(--color-ink)",
+                        boxShadow: active
+                          ? "2px 2px 0 var(--color-ink)"
+                          : "none",
                       }}
-                      className="block transition-all duration-200"
+                      className={`block transition-all duration-200 ${active ? "animate-bounce" : ""}`}
                     />
                   </span>
                 </a>

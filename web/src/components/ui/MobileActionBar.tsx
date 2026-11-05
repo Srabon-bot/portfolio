@@ -20,7 +20,8 @@ export function MobileActionBar({ profile }: MobileActionBarProps) {
       className="md:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pt-2.5 flex items-center gap-1.5 sm:gap-2"
       style={{
         background: "var(--color-surface)",
-        borderTop: "1px solid var(--color-border)",
+        borderTop: "2.5px solid var(--color-ink)",
+        boxShadow: "0 -6px 16px rgb(45 55 72 / 0.10)",
         paddingBottom: "max(0.6rem, env(safe-area-inset-bottom))",
       }}
     >
@@ -55,19 +56,16 @@ export function MobileActionBar({ profile }: MobileActionBarProps) {
       <div className="flex-1 flex items-center gap-2 min-w-0">
         <Link
           href="/resume"
-          className="flex-1 inline-flex items-center justify-center min-h-11 py-2.5 px-4 rounded-lg text-xs font-mono font-semibold text-on-accent transition-opacity hover:opacity-90 active:scale-[0.98]"
-          style={{ background: "var(--color-accent)" }}
+          className="flex-1 inline-flex items-center justify-center min-h-11 py-2.5 px-4 clay-btn text-xs"
+          style={{ background: "var(--color-accent)", color: "var(--color-on-accent)", boxShadow: "2px 2px 0 var(--color-ink)" }}
         >
           <span>Resume</span>
         </Link>
 
         <Link
           href="#contact"
-          className="flex-1 inline-flex items-center justify-center min-h-11 py-2.5 px-4 rounded-lg text-xs font-mono font-semibold text-text transition-colors hover:border-accent active:scale-[0.98]"
-          style={{
-            background: "var(--color-surface-2)",
-            border: "1px solid var(--color-border)",
-          }}
+          className="flex-1 inline-flex items-center justify-center min-h-11 py-2.5 px-4 clay-btn text-xs"
+          style={{ background: "var(--color-surface)", color: "var(--color-text)", boxShadow: "2px 2px 0 var(--color-ink)" }}
         >
           <span>Contact</span>
         </Link>

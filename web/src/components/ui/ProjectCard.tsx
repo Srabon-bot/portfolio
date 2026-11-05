@@ -34,19 +34,21 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <motion.article
       whileHover={isPlaceholder ? {} : { y: -3 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="flex flex-col h-full rounded-[10px] overflow-hidden transition-all duration-200 group paper-shadow"
+      className="flex flex-col h-full rounded-card overflow-hidden transition-all duration-200 group"
       style={{
         background: "var(--color-surface)",
-        border: "1px solid var(--color-border)",
+        border: "2.5px solid var(--color-ink)",
+        boxShadow: "5px 5px 0 var(--color-ink)",
         opacity: isPlaceholder ? 0.6 : 1,
       }}
     >
       {/* 16:9 Cover Screenshot */}
       <div
-        className="relative w-full overflow-hidden"
+        className="relative w-full overflow-hidden border-b-[2.5px]"
         style={{
           aspectRatio: "16/9",
           background: "var(--color-surface-2)",
+          borderBottomColor: "var(--color-ink)",
         }}
       >
         {project.coverImage ? (
@@ -59,17 +61,21 @@ export function ProjectCard({ project }: ProjectCardProps) {
           />
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-            <span className="text-faint text-xs font-mono font-medium">
+            <span className="text-faint text-xs font-bold">
               {isPlaceholder ? "PLACEHOLDER PROJECT" : "Screenshot preview"}
             </span>
           </div>
         )}
 
-        {/* Gold metric seal overlay */}
+        {/* Key metric chip overlay */}
         {project.metric && (
           <div
-            className="absolute top-3 right-3 px-2.5 py-1 rounded-md text-xs font-mono font-semibold text-accent-soft bg-surface-2 border border-accent/40"
-            style={{ background: "var(--color-surface-2)" }}
+            className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-bold text-text"
+            style={{
+              background: "var(--color-mint)",
+              border: "2px solid var(--color-ink)",
+              boxShadow: "2px 2px 0 var(--color-ink)",
+            }}
           >
             {project.metric}
           </div>
@@ -109,8 +115,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
         {/* Links row */}
         {!isPlaceholder && (
           <div
-            className="flex items-center gap-4 pt-3 border-t mt-1"
-            style={{ borderColor: "var(--color-border)" }}
+            className="flex items-center gap-4 pt-3 border-t-2 mt-1"
+            style={{ borderColor: "var(--color-surface-2)" }}
           >
             {project.liveUrl && !project.liveUrl.startsWith("PLACEHOLDER") && (
               <a
@@ -118,7 +124,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Live demo of ${project.title}`}
-                className="inline-flex items-center gap-1 text-xs font-mono font-medium text-accent-soft hover:text-text transition-colors"
+                className="inline-flex items-center gap-1 text-xs font-bold text-accent-soft hover:text-text transition-colors"
               >
                 <span>Live demo</span>
                 <svg
@@ -144,7 +150,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Source code for ${project.title}`}
-                className="inline-flex items-center gap-1 text-xs font-mono font-medium text-muted hover:text-text transition-colors"
+                className="inline-flex items-center gap-1 text-xs font-bold text-muted hover:text-text transition-colors"
               >
                 <span>Code</span>
                 <svg
@@ -168,7 +174,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <Link
               href={`/projects/${project.slug}`}
               aria-label={`Read case study for ${project.title}`}
-              className="inline-flex items-center gap-1 text-xs font-mono font-medium text-muted hover:text-accent-soft transition-colors ml-auto"
+              className="inline-flex items-center gap-1 text-xs font-bold text-muted hover:text-accent-soft transition-colors ml-auto"
             >
               <span>Case study</span>
               <span aria-hidden="true">→</span>

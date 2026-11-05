@@ -31,8 +31,7 @@ export function Footer({ profile }: FooterProps) {
     ...(profile.instagram ? [{ label: "Instagram", href: profile.instagram }] : []),
   ];
 
-  /* Footer nav links */
-  const footerNav = [
+  /* Footer nav links */  const footerNav = [
     { label: "Projects",   href: "#projects"   },
     { label: "Skills",     href: "#skills"     },
     { label: "About",      href: "#about"      },
@@ -57,7 +56,7 @@ export function Footer({ profile }: FooterProps) {
       {/* Main footer content */}
       <div
         className="py-12"
-        style={{ background: "var(--color-surface)" }}
+        style={{ background: "var(--color-surface)", borderTop: "2.5px solid var(--color-ink)" }}
       >
         <Container className="flex flex-col md:flex-row items-center justify-between gap-6">
 
@@ -68,16 +67,16 @@ export function Footer({ profile }: FooterProps) {
               aria-label="Go to home"
               className="inline-block transition-colors hover:text-accent-soft"
               style={{
-                fontFamily:    "var(--font-fraunces), Georgia, serif",
-                fontWeight:    800,
-                fontSize:      "1.15rem",
-                letterSpacing: "0.18em",
+                fontFamily:    "var(--font-fredoka), var(--font-nunito), system-ui, sans-serif",
+                fontWeight:    600,
+                fontSize:      "1.35rem",
+                letterSpacing: "0.03em",
                 color:         "var(--color-text)",
               }}
             >
               SRABON
             </Link>
-            <p className="text-xs mt-1 font-mono" style={{ color: "var(--color-faint)" }}>
+            <p className="text-xs mt-1 font-bold" style={{ color: "var(--color-faint)" }}>
               Full-Stack Developer (MERN) · Dhaka, Bangladesh
             </p>
           </div>
@@ -89,7 +88,7 @@ export function Footer({ profile }: FooterProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-xs font-mono hover:text-text transition-colors py-2 px-1 min-h-11 inline-flex items-center"
+                    className="text-xs font-bold hover:text-text transition-colors py-2 px-1 min-h-11 inline-flex items-center"
                     style={{ color: "var(--color-faint)" }}
                   >
                     {link.label}
@@ -108,7 +107,7 @@ export function Footer({ profile }: FooterProps) {
                     href={link.href}
                     target={link.href.startsWith("mailto") ? undefined : "_blank"}
                     rel="noopener noreferrer"
-                    className="text-xs hover:text-accent-soft transition-colors py-2 px-1 min-h-11 inline-flex items-center"
+                    className="text-xs font-bold hover:text-accent-soft transition-colors py-2 px-1 min-h-11 inline-flex items-center"
                     style={{ color: "var(--color-faint)" }}
                   >
                     {link.label}

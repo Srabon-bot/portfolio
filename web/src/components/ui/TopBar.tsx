@@ -3,8 +3,8 @@
 /*
  * TopBar — sticky navigation bar at the top of every page.
  *
- * Hiring-ready layout (3-column CSS grid):
- *   [SRABON wordmark]  |  [Chapter links — truly centred]  |  [Theme + Resume]
+ * Clay playful layout (3-column CSS grid):
+ *   [SRABON wordmark]  |  [Chapter links — truly centred]  |  [Resume]
  *
  * Chapters: Projects, Skills, About, Education, Contact
  */
@@ -12,7 +12,6 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Profile } from "@/types";
-import { ThemeToggle } from "./ThemeToggle";
 
 interface TopBarProps {
   profile: Profile;
@@ -100,10 +99,10 @@ export function TopBar({ profile }: TopBarProps) {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-shadow duration-300 ${scrolled ? "paper-shadow" : ""}`}
+      className={`sticky top-0 z-50 w-full transition-shadow duration-300 ${scrolled ? "bar-shadow" : ""}`}
       style={{
         background:   "var(--color-bg)",
-        borderBottom: "1px solid var(--color-border)",
+        borderBottom: "2.5px solid var(--color-ink)",
       }}
     >
       <nav aria-label="Main navigation">
@@ -118,10 +117,10 @@ export function TopBar({ profile }: TopBarProps) {
               aria-label="Go to home"
               className="flex items-center whitespace-nowrap shrink-0"
               style={{
-                fontFamily:    "var(--font-fraunces), Georgia, serif",
-                fontWeight:    700,
-                fontSize:      "1.2rem",
-                letterSpacing: "0.14em",
+                fontFamily:    "var(--font-fredoka), var(--font-nunito), system-ui, sans-serif",
+                fontWeight:    600,
+                fontSize:      "1.45rem",
+                letterSpacing: "0.03em",
                 color:         "var(--color-text)",
                 transition:    "color 0.2s",
               }}
@@ -140,7 +139,7 @@ export function TopBar({ profile }: TopBarProps) {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-xs font-mono font-medium uppercase tracking-wider text-muted hover:text-text transition-colors whitespace-nowrap"
+                    className="text-sm font-bold text-muted hover:text-text transition-colors whitespace-nowrap px-3 py-1.5 rounded-full hover:bg-lavender/60"
                   >
                     {link.label}
                   </a>
@@ -149,18 +148,13 @@ export function TopBar({ profile }: TopBarProps) {
             </ul>
           </div>
 
-          {/* Right — ThemeToggle (md+) + Resume pill (md+) + Hamburger (<xl) */}
+          {/* Right — Resume clay pill (md+) + Hamburger (<xl) */}
           <div className="flex-1 flex items-center justify-end gap-3 sm:gap-4">
-            {/* Theme toggle (md and up — phones flip papers in the drawer) */}
-            <div className="hidden md:inline-flex">
-              <ThemeToggle />
-            </div>
-
-            {/* Resume pill button (navigates to /resume page) */}
+            {/* Resume clay pill button (navigates to /resume page) */}
             <Link
               href="/resume"
-              className="hidden md:inline-flex items-center justify-center text-xs font-mono font-semibold text-accent-soft hover:text-text border px-3 py-1 min-h-11 rounded-full transition-all hover:bg-accent/20 whitespace-nowrap shrink-0"
-              style={{ borderColor: "color-mix(in srgb, var(--color-accent) 40%, transparent)" }}
+              className="hidden md:inline-flex items-center justify-center text-sm font-bold text-text px-4 py-1 min-h-11 whitespace-nowrap shrink-0 clay-btn"
+              style={{ background: "var(--color-sky)", borderRadius: "9999px", borderWidth: "2.5px" }}
             >
               Resume
             </Link>
@@ -196,16 +190,26 @@ export function TopBar({ profile }: TopBarProps) {
             maxHeight:    "calc(100dvh - 3.5rem)",
           }}
         >
-          {/* Journal-style numbered contents */}
+          {/* Numbered contents */}
           {navLinks.map((link, i) => (
             <a
               key={link.href}
               href={link.href}
-              className="flex items-baseline gap-3 text-sm font-mono text-muted hover:text-text transition-colors py-1.5"
+              className="flex items-baseline gap-3 text-sm font-bold text-muted hover:text-text transition-colors py-1.5"
               onClick={closeMenu}
             >
-              <span aria-hidden="true" className="text-xs font-semibold" style={{ color: "var(--color-accent-soft)" }}>
-                {String(i + 1).padStart(2, "0")}
+              <span
+                aria-hidden="true"
+                className="text-xs font-bold inline-flex items-center justify-center w-8 h-8"
+                style={{
+                  color: "var(--color-text)",
+                  background: i % 2 === 0 ? "var(--color-peach)" : "var(--color-sky)",
+                  border: "2px solid var(--color-ink)",
+                  borderRadius: "9999px",
+                  alignSelf: "center",
+                }}
+              >
+                {i + 1}
               </span>
               <span>{link.label}</span>
             </a>
@@ -213,11 +217,11 @@ export function TopBar({ profile }: TopBarProps) {
 
           <div aria-hidden="true" className="rule-gold" />
 
-          {/* Resume — gold pill */}
+          {/* Resume — green clay pill */}
           <Link
             href="/resume"
-            className="self-start inline-flex items-center px-5 py-2.5 min-h-11 rounded-full text-xs font-mono font-semibold text-on-accent transition-opacity hover:opacity-90"
-            style={{ background: "var(--color-accent)" }}
+            className="self-start inline-flex items-center px-5 py-2.5 min-h-11 text-sm font-bold clay-btn"
+            style={{ background: "var(--color-accent)", color: "var(--color-on-accent)", borderRadius: "9999px" }}
             onClick={closeMenu}
           >
             Resume
@@ -231,12 +235,6 @@ export function TopBar({ profile }: TopBarProps) {
           >
             {profile.email}
           </a>
-
-          {/* Theme toggle in the drawer too, so mobile users can flip papers */}
-          <div className="flex items-center justify-between pt-1">
-            <span className="text-sm font-mono text-muted">Dark paper</span>
-            <ThemeToggle />
-          </div>
 
           {/* Social icons row */}
           <div className="flex items-center gap-5 pt-2">

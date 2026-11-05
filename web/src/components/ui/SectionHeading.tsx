@@ -1,18 +1,19 @@
 /*
  * SectionHeading — the title bar used at the top of every section.
  *
- * Editorial treatment (hallmark redesign):
- * - Optional numbered mono kicker row above the title, e.g. "01 — Selected Work".
- * - Fraunces serif title (applied globally via the h2 base rule).
- * - 34×3px gold foil underline bar below the title.
+ * Clay Playful treatment:
+ * - Optional index chip (ink-outlined white pebble, e.g. "01") above the title
+ * - Optional bold uppercase kicker label, e.g. "Selected Work"
+ * - Fredoka title (applied globally via the h2 base rule)
+ * - Chunky rounded pastel underline bar (playful marker)
  * - Optional subtitle in muted color.
  */
 
 interface SectionHeadingProps {
   title: string;
-  /** Chapter index rendered in mono, e.g. "01" alongside the kicker label */
+  /** Section number rendered inside the pebble chip, e.g. "01" */
   index?: string;
-  /** Small mono label rendered next to the index, e.g. "Selected Work" */
+  /** Bold uppercase label rendered next to the pebble, e.g. "Selected Work" */
   kicker?: string;
   subtitle?: string;
   id?: string;          /* used for anchor links in the top nav */
@@ -22,14 +23,23 @@ export function SectionHeading({ title, index, kicker, subtitle, id }: SectionHe
   return (
     <div className="mb-10" id={id}>
       {(index || kicker) && (
-        <p className="kicker mb-3 flex items-center gap-2">
-          {index && <span aria-hidden="true">{index}</span>}
-          {kicker && (
-            <>
-              <span aria-hidden="true" style={{ opacity: 0.5 }}>—</span>
-              <span>{kicker}</span>
-            </>
+        <p className="kicker flex items-center gap-2.5 mb-4">
+          {index && (
+            <span
+              aria-hidden="true"
+              className="inline-flex items-center justify-center px-2.5 py-0.5 text-xs"
+              style={{
+                background: "var(--color-surface)",
+                color: "var(--color-text)",
+                border: "2.5px solid var(--color-ink)",
+                borderRadius: "9999px",
+                boxShadow: "2px 2px 0 var(--color-ink)",
+              }}
+            >
+              {index}
+            </span>
           )}
+          {kicker && <span>{kicker}</span>}
         </p>
       )}
 
@@ -40,15 +50,16 @@ export function SectionHeading({ title, index, kicker, subtitle, id }: SectionHe
         {title}
       </h2>
 
-      {/* The gold foil underline bar — 34px wide, 3px tall */}
+      {/* Chunky rounded pastel underline — playful marker */}
       <div
         aria-hidden="true"
         style={{
-          width: "34px",
-          height: "3px",
-          background: "var(--color-accent)",
-          borderRadius: "2px",
-          marginTop: "8px",
+          width: "64px",
+          height: "7px",
+          background: "linear-gradient(90deg, var(--color-peach), var(--color-sky))",
+          borderRadius: "9999px",
+          marginTop: "10px",
+          boxShadow: "2px 2px 0 color-mix(in srgb, var(--color-ink) 30%, transparent)",
         }}
       />
 

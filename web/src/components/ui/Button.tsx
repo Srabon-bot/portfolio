@@ -39,14 +39,14 @@ export function Button({
   const isPrimary = variant === "primary";
 
   const baseStyles = isPrimary
-    ? "bg-accent text-on-accent hover:bg-accent/90"
-    : "bg-surface text-text border border-border hover:border-accent hover:text-accent-soft";
+    ? "clay-btn clay-btn-primary"
+    : "clay-btn clay-btn-secondary hover:bg-sky/60";
 
   const inner = (
     <motion.span
       whileHover={{ scale: disabled ? 1 : 1.02 }}
       whileTap={{ scale: disabled ? 1 : 0.98 }}
-      className={`relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold cursor-pointer select-none transition-all duration-200 text-sm md:text-base ${baseStyles} ${disabled ? "opacity-60 cursor-not-allowed" : ""} ${className}`}
+      className={`relative inline-flex items-center justify-center gap-2 px-6 py-3 font-bold cursor-pointer select-none text-sm md:text-base ${baseStyles} ${disabled ? "opacity-60 pointer-events-none" : ""} ${className}`}
     >
       {children}
     </motion.span>
@@ -58,7 +58,7 @@ export function Button({
       <Link
         href={href}
         download={download || undefined}
-        className="focus-visible:outline-accent rounded-lg inline-block"
+        className="rounded-chip inline-block"
       >
         {inner}
       </Link>
@@ -70,7 +70,7 @@ export function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className="focus-visible:outline-accent rounded-lg bg-transparent border-none p-0 inline-block disabled:cursor-not-allowed"
+      className="rounded-chip bg-transparent border-none p-0 inline-block disabled:cursor-not-allowed"
     >
       {inner}
     </button>

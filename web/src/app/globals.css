@@ -192,10 +192,37 @@
     box-shadow: 0 8px 30px rgb(0 0 0 / 0.08), inset 0 -4px rgb(0 0 0 / 0.05);
   }
 
+  /* Clay button skeleton + fill variants — the press-on-click mechanic */
+  .clay-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    border: 3px solid var(--color-ink);
+    border-radius: var(--radius-chip);
+    box-shadow: 4px 4px 0 var(--color-ink);
+    transition: box-shadow 0.15s, transform 0.15s;
+  }
+  .clay-btn:hover {
+    box-shadow: 2px 2px 0 var(--color-ink);
+    transform: translate(2px, 2px);
+  }
+  .clay-btn:active {
+    box-shadow: 1px 1px 0 var(--color-ink);
+    transform: translate(3px, 3px);
+  }
+  .clay-btn-primary { background: var(--color-accent); color: var(--color-on-accent); }
+  .clay-btn-secondary { background: var(--color-surface); color: var(--color-text); }
+
   /* Legacy card shadow — remapped to the clay press shadow so every
      existing paper-shadow usage goes clay immediately in Phase 1.      */
   .paper-shadow {
     box-shadow: 4px 4px 0 var(--color-ink);
+  }
+
+  /* Soft floating shadow for the sticky top bar */
+  .bar-shadow {
+    box-shadow: 0 6px 20px rgb(45 55 72 / 0.12);
   }
 
   /* Decorative blob shapes (hero accents) */
