@@ -50,17 +50,19 @@ export function WorksIndex({ projects }: WorksIndexProps) {
               type="button"
               onClick={() => setFilter(f.id)}
               aria-pressed={active}
-              className="inline-flex items-center gap-2 min-h-11 px-4 py-2 rounded-full text-xs font-mono font-semibold transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 min-h-11 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer"
               style={
                 active
                   ? {
                       background: "var(--color-accent)",
                       color: "var(--color-on-accent)",
+                      border: "2px solid var(--color-ink)",
+                      boxShadow: "2px 2px 0 var(--color-ink)",
                     }
                   : {
                       background: "var(--color-surface)",
                       color: "var(--color-muted)",
-                      border: "1px solid var(--color-border)",
+                      border: "2px solid color-mix(in srgb, var(--color-ink) 45%, transparent)",
                     }
               }
             >
@@ -90,7 +92,7 @@ export function WorksIndex({ projects }: WorksIndexProps) {
             {/* Plate number */}
             <span
               aria-hidden="true"
-              className="text-xs font-mono font-semibold tabular-nums row-span-2 sm:row-span-1 self-start sm:self-center"
+              className="text-xs font-extrabold tabular-nums row-span-2 sm:row-span-1 self-start sm:self-center"
               style={{ color: "var(--color-accent-soft)" }}
             >
               No. {String(index + 1).padStart(2, "0")}
@@ -102,7 +104,7 @@ export function WorksIndex({ projects }: WorksIndexProps) {
                 href={`/projects/${p.slug}`}
                 className="inline-block text-base md:text-lg font-semibold leading-snug text-text hover:text-accent-soft transition-colors break-words"
                 style={{
-                  fontFamily: "var(--font-fraunces), Georgia, serif",
+                  fontFamily: "var(--font-fredoka), var(--font-nunito), sans-serif",
                   overflowWrap: "anywhere",
                 }}
               >
@@ -114,7 +116,7 @@ export function WorksIndex({ projects }: WorksIndexProps) {
               >
                 {p.tagline}
               </p>
-              <p className="text-xs font-mono mt-1" style={{ color: "var(--color-faint)" }}>
+              <p className="text-xs font-bold mt-1" style={{ color: "var(--color-faint)" }}>
                 {p.stack.join(" · ")}
               </p>
             </div>
@@ -127,7 +129,7 @@ export function WorksIndex({ projects }: WorksIndexProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Live demo of ${p.title} (opens in a new tab)`}
-                  className="text-xs font-mono font-medium text-accent-soft hover:text-text transition-colors"
+                  className="text-xs font-bold text-accent-soft hover:text-text transition-colors"
                 >
                   Live ↗
                 </a>
@@ -138,7 +140,7 @@ export function WorksIndex({ projects }: WorksIndexProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Source code for ${p.title} (opens in a new tab)`}
-                  className="text-xs font-mono font-medium text-muted hover:text-text transition-colors"
+                  className="text-xs font-bold text-muted hover:text-text transition-colors"
                 >
                   Code ↗
                 </a>
@@ -146,7 +148,7 @@ export function WorksIndex({ projects }: WorksIndexProps) {
               <Link
                 href={`/projects/${p.slug}`}
                 aria-label={`Read case study for ${p.title}`}
-                className="text-xs font-mono font-medium text-muted hover:text-accent-soft transition-colors"
+                className="text-xs font-bold text-muted hover:text-accent-soft transition-colors"
               >
                 Study →
               </Link>

@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { getProjectBySlug, getProjects } from "@/lib/api";
 import { Chip } from "@/components/ui/Chip";
 import { TechIcon } from "@/components/ui/TechIcon";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { ChapterNav } from "@/components/works/ChapterNav";
 
 /* Sticky chapters for the mono table of contents (5-section README structure) */
@@ -80,19 +79,18 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         <div className="max-w-5xl mx-auto px-4 md:px-8 h-14 flex items-center justify-between">
           <Link
             href="/#projects"
-            className="text-sm font-mono font-medium hover:text-accent-soft transition-colors flex items-center gap-2"
+            className="text-sm font-bold hover:text-accent-soft transition-colors flex items-center gap-2"
             style={{ color: "var(--color-muted)" }}
           >
             ← Back to Projects
           </Link>
           <div className="flex items-center gap-1">
-            <ThemeToggle />
             {project.liveUrl && !project.liveUrl.startsWith("PLACEHOLDER") && (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-mono font-semibold px-3 py-1.5 rounded-full text-on-accent transition-opacity hover:opacity-90"
+                className="text-xs font-extrabold px-3 py-1.5 rounded-full text-on-accent transition-opacity hover:opacity-90"
                 style={{ background: "var(--color-accent)" }}
               >
                 Live Demo ↗
@@ -165,7 +163,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         {/* Cover image */}
         {project.coverImage && (
           <div
-            className="relative w-full rounded-[10px] overflow-hidden shadow-2xl border"
+            className="relative w-full rounded-[18px] overflow-hidden shadow-2xl border"
             style={{
               aspectRatio: "16/9",
               borderColor: "color-mix(in srgb, var(--color-accent) 35%, transparent)",
@@ -186,10 +184,11 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         {/* ── 1. Problem Statement ──────────────────────────────────── */}
         <section
           id="problem"
-          className="rounded-[10px] p-6 md:p-8 flex flex-col gap-4"
+          className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
           style={{
             background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
+            border: "2.5px solid var(--color-ink)",
+            boxShadow: "5px 5px 0 var(--color-ink)",
           }}
         >
           <div className="flex items-center justify-between">
@@ -214,7 +213,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             className="p-4 rounded-xl text-sm"
             style={{
               background: "var(--color-surface-2)",
-              border: "1px solid var(--color-border)",
+              border: "2px solid color-mix(in srgb, var(--color-ink) 45%, transparent)",
               color: "var(--color-text)",
             }}
           >
@@ -225,10 +224,11 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         {/* ── 2. Architecture (React -> Express -> MongoDB) ─────────── */}
         <section
           id="architecture"
-          className="rounded-[10px] p-6 md:p-8 flex flex-col gap-5"
+          className="rounded-[18px] p-6 md:p-8 flex flex-col gap-5"
           style={{
             background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
+            border: "2.5px solid var(--color-ink)",
+            boxShadow: "5px 5px 0 var(--color-ink)",
           }}
         >
           <div className="flex items-center justify-between">
@@ -252,7 +252,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             className="p-4 rounded-xl font-mono text-xs md:text-sm overflow-x-auto leading-relaxed border"
             style={{
               background: "var(--color-surface-2)",
-              borderColor: "var(--color-border)",
+              borderColor: "color-mix(in srgb, var(--color-ink) 45%, transparent)",
               color: "var(--color-text)",
             }}
           >
@@ -282,7 +282,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 className="p-3.5 rounded-xl flex items-center gap-3"
                 style={{
                   background: "var(--color-surface-2)",
-                  border: "1px solid var(--color-border)",
+                  border: "2px solid color-mix(in srgb, var(--color-ink) 45%, transparent)",
                 }}
               >
                 <TechIcon name={tech} size={18} />
@@ -295,10 +295,11 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         {/* ── 3. Auth ───────────────────────────────────────────────── */}
         <section
           id="auth"
-          className="rounded-[10px] p-6 md:p-8 flex flex-col gap-4"
+          className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
           style={{
             background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
+            border: "2.5px solid var(--color-ink)",
+            boxShadow: "5px 5px 0 var(--color-ink)",
           }}
         >
           <div className="flex items-center justify-between">
@@ -327,10 +328,11 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         {/* ── 4. Deployment ─────────────────────────────────────────── */}
         <section
           id="deployment"
-          className="rounded-[10px] p-6 md:p-8 flex flex-col gap-4"
+          className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
           style={{
             background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
+            border: "2.5px solid var(--color-ink)",
+            boxShadow: "5px 5px 0 var(--color-ink)",
           }}
         >
           <div className="flex items-center justify-between">
@@ -359,10 +361,11 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         {/* ── 5. Hard Problem Solved ─────────────────────────────────── */}
         <section
           id="hard-problem"
-          className="rounded-[10px] p-6 md:p-8 flex flex-col gap-4"
+          className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
           style={{
             background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
+            border: "2.5px solid var(--color-ink)",
+            boxShadow: "5px 5px 0 var(--color-ink)",
           }}
         >
           <div className="flex items-center justify-between">
@@ -386,7 +389,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
               className="p-4 rounded-xl text-xs md:text-sm font-mono border"
               style={{
                 background: "var(--color-surface-2)",
-                borderColor: "var(--color-border)",
+                borderColor: "color-mix(in srgb, var(--color-ink) 45%, transparent)",
                 color: "var(--color-accent-soft)",
               }}
             >
@@ -402,7 +405,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         {project.screenshots && project.screenshots.length > 0 && (
           <section
             id="gallery"
-            className="rounded-[10px] p-6 md:p-8 flex flex-col gap-6"
+            className="rounded-[18px] p-6 md:p-8 flex flex-col gap-6"
             style={{
               background: "var(--color-surface)",
               border: "1px solid var(--color-border)",
@@ -440,10 +443,11 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         {/* Local Setup Instructions */}
         <section
           id="setup"
-          className="rounded-[10px] p-6 md:p-8 flex flex-col gap-4"
+          className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
           style={{
             background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
+            border: "2.5px solid var(--color-ink)",
+            boxShadow: "5px 5px 0 var(--color-ink)",
           }}
         >
           <h2
@@ -456,7 +460,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             className="rounded-xl p-5 overflow-x-auto text-xs md:text-sm font-mono leading-relaxed"
             style={{
               background: "var(--color-surface-2)",
-              border: "1px solid var(--color-border)",
+              border: "2px solid color-mix(in srgb, var(--color-ink) 45%, transparent)",
               color: "var(--color-text)",
             }}
           >

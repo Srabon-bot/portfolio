@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getProfile } from "@/lib/api";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Resume — Shahriar Hossain Srabon | Full-Stack Developer",
@@ -50,11 +49,10 @@ export default async function ResumePage() {
         </Link>
 
         <div className="flex items-center gap-3">
-          <ThemeToggle />
           <a
             href="/Shahriar_Hossain_Srabon_Resume.docx"
             download="Shahriar_Hossain_Srabon_Resume.docx"
-            className="text-xs font-medium hover:text-text transition-colors underline"
+            className="text-xs font-bold hover:text-text transition-colors underline"
             style={{ color: "var(--color-muted)" }}
             title="Download Word (.docx) format"
           >
@@ -63,8 +61,7 @@ export default async function ResumePage() {
           <a
             href={downloadUrl}
             download={downloadFilename}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm text-on-accent shadow-lg transition-transform hover:scale-105 active:scale-95"
-            style={{ background: "var(--color-accent)" }}
+            className="clay-btn clay-btn-primary inline-flex items-center gap-2 px-5 py-2.5 text-sm"
           >
             {/* Download icon */}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
@@ -77,12 +74,13 @@ export default async function ResumePage() {
         </div>
       </div>
 
-      {/* ── Letterhead sheet ─────────────────────────────────────── */}
+      {/* ── Letterhead sheet — clay paper ───────────────────────────── */}
       <main
-        className="max-w-4xl mx-auto rounded-[10px] p-8 md:p-14 paper-shadow border flex flex-col gap-10"
+        className="max-w-4xl mx-auto rounded-card p-8 md:p-14 flex flex-col gap-10"
         style={{
           background: "var(--color-surface)",
-          borderColor: "var(--color-border)",
+          border: "2.5px solid var(--color-ink)",
+          boxShadow: "6px 6px 0 var(--color-ink)",
         }}
       >
 

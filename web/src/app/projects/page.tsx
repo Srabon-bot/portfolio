@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getProjects } from "@/lib/api";
 import { WorksIndex } from "@/components/works/WorksIndex";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "All Projects — Shahriar Hossain Srabon",
@@ -20,24 +19,32 @@ export default async function AllProjectsPage() {
   return (
     <div className="min-h-screen py-12 md:py-16 px-4 md:px-8" style={{ background: "var(--color-bg)" }}>
       <div className="max-w-6xl mx-auto flex flex-col gap-10">
-        {/* Header row: back link + theme toggle */}
+        {/* Header row: back link */}
         <div className="flex items-center justify-between">
           <Link
             href="/"
             aria-label="Back to home"
-            className="text-sm font-medium hover:text-accent-soft transition-colors"
+            className="text-sm font-bold hover:text-accent-soft transition-colors"
             style={{ color: "var(--color-muted)" }}
           >
             ← Back to Home
           </Link>
-          <ThemeToggle />
         </div>
 
-        {/* Masthead */}
+        {/* Playful masthead */}
         <div className="flex flex-col gap-4">
-          <p className="kicker flex items-center gap-2">
-            Index
-            <span aria-hidden="true" className="inline-block h-px w-10" style={{ background: "var(--color-accent)", opacity: 0.5 }} />
+          <p className="kicker flex items-center gap-3">
+            <span
+              aria-hidden="true"
+              className="inline-flex items-center px-3 py-0.5 rounded-full text-text"
+              style={{
+                background: "var(--color-lavender)",
+                border: "2px solid var(--color-ink)",
+                boxShadow: "2px 2px 0 var(--color-ink)",
+              }}
+            >
+              Index
+            </span>
             Complete catalogue
           </p>
           <h1
