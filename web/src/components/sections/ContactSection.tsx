@@ -135,25 +135,31 @@ export function ContactSection({ profile }: ContactSectionProps) {
         >
           {/* ── Left / Top: contact info cards (1 col < sm, 2x2 >= sm) ──── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {contactLinks.map((link) => (
+            {contactLinks.map((link, i) => {
+              const pastels = ["var(--color-peach)", "var(--color-sky)", "var(--color-lavender)", "var(--color-mint)"];
+              return (
               <div
                 key={link.label}
-                className="group rounded-lg paper-shadow p-4 flex items-center gap-3.5 transition-all duration-300 hover:border-accent/40 min-w-0"
+                className="group rounded-2xl p-4 flex items-center gap-3.5 transition-all duration-300 hover:-translate-y-0.5 min-w-0"
                 style={{
                   background: "var(--color-surface)",
-                  border: "1px solid var(--color-border)",
+                  border: "2.5px solid var(--color-ink)",
+                  boxShadow: "4px 4px 0 var(--color-ink)",
                 }}
               >
                 <span
-                  className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-lg"
-                  style={{ background: "var(--color-surface-2)", color: "var(--color-accent-soft)" }}
+                  className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-xl text-text"
+                  style={{
+                    background: pastels[i % pastels.length],
+                    border: "2px solid var(--color-ink)",
+                  }}
                   aria-hidden="true"
                 >
                   {link.icon}
                 </span>
 
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-mono font-semibold uppercase tracking-wider mb-0.5" style={{ color: "var(--color-faint)" }}>
+                  <p className="text-xs font-extrabold uppercase tracking-wider mb-0.5" style={{ color: "var(--color-faint)" }}>
                     {link.label}
                   </p>
                   {link.href ? (
@@ -161,14 +167,14 @@ export function ContactSection({ profile }: ContactSectionProps) {
                       href={link.href}
                       target={link.href.startsWith("mailto") ? undefined : "_blank"}
                       rel="noopener noreferrer"
-                      className="text-xs sm:text-sm font-medium hover:text-accent-soft transition-colors break-words block"
+                      className="text-xs sm:text-sm font-bold hover:text-accent-soft transition-colors break-words block"
                       style={{ color: "var(--color-text)", overflowWrap: "anywhere" }}
                     >
                       {link.value}
                     </a>
                   ) : (
                     <p
-                      className="text-xs sm:text-sm font-medium break-words"
+                      className="text-xs sm:text-sm font-bold break-words"
                       style={{ color: "var(--color-text)", overflowWrap: "anywhere" }}
                     >
                       {link.value}
@@ -194,15 +200,17 @@ export function ContactSection({ profile }: ContactSectionProps) {
                   </svg>
                 )}
               </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* ── Right: contact form card ──────────────────────────────── */}
           <div
-            className="rounded-2xl p-6 md:p-8"
+            className="rounded-card p-6 md:p-8"
             style={{
               background: "var(--color-surface)",
-              border: "1px solid var(--color-border)",
+              border: "2.5px solid var(--color-ink)",
+              boxShadow: "6px 6px 0 var(--color-ink)",
             }}
           >
             <form
@@ -223,7 +231,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
 
               {/* Name */}
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="contact-name" className="text-xs font-mono font-semibold uppercase tracking-wider" style={{ color: "var(--color-faint)" }}>
+                <label htmlFor="contact-name" className="text-xs font-extrabold uppercase tracking-wider" style={{ color: "var(--color-faint)" }}>
                   Name
                 </label>
                 <input
@@ -232,10 +240,10 @@ export function ContactSection({ profile }: ContactSectionProps) {
                   type="text"
                   required
                   placeholder="Your name"
-                  className="rounded-xl px-4 py-2.5 text-sm outline-none transition-colors"
+                  className="rounded-[14px] px-4 py-2.5 text-sm font-semibold outline-none transition-all focus:border-accent"
                   style={{
                     background: "var(--color-surface-2)",
-                    border: "1px solid var(--color-border)",
+                    border: "2px solid var(--color-ink)",
                     color: "var(--color-text)",
                   }}
                   disabled={status === "loading" || status === "success"}
@@ -244,7 +252,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
 
               {/* Email */}
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="contact-email" className="text-xs font-mono font-semibold uppercase tracking-wider" style={{ color: "var(--color-faint)" }}>
+                <label htmlFor="contact-email" className="text-xs font-extrabold uppercase tracking-wider" style={{ color: "var(--color-faint)" }}>
                   Email
                 </label>
                 <input
@@ -253,10 +261,10 @@ export function ContactSection({ profile }: ContactSectionProps) {
                   type="email"
                   required
                   placeholder="your@email.com"
-                  className="rounded-xl px-4 py-2.5 text-sm outline-none transition-colors"
+                  className="rounded-[14px] px-4 py-2.5 text-sm font-semibold outline-none transition-all focus:border-accent"
                   style={{
                     background: "var(--color-surface-2)",
-                    border: "1px solid var(--color-border)",
+                    border: "2px solid var(--color-ink)",
                     color: "var(--color-text)",
                   }}
                   disabled={status === "loading" || status === "success"}
@@ -265,7 +273,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
 
               {/* Message */}
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="contact-message" className="text-xs font-mono font-semibold uppercase tracking-wider" style={{ color: "var(--color-faint)" }}>
+                <label htmlFor="contact-message" className="text-xs font-extrabold uppercase tracking-wider" style={{ color: "var(--color-faint)" }}>
                   Message
                 </label>
                 <textarea
@@ -274,10 +282,10 @@ export function ContactSection({ profile }: ContactSectionProps) {
                   required
                   rows={4}
                   placeholder="What's on your mind?"
-                  className="rounded-xl px-4 py-2.5 text-sm outline-none transition-colors resize-none"
+                  className="rounded-[14px] px-4 py-2.5 text-sm font-semibold outline-none transition-all focus:border-accent resize-none"
                   style={{
                     background: "var(--color-surface-2)",
-                    border: "1px solid var(--color-border)",
+                    border: "2px solid var(--color-ink)",
                     color: "var(--color-text)",
                   }}
                   disabled={status === "loading" || status === "success"}
@@ -288,7 +296,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
               <button
                 type="submit"
                 disabled={status === "loading" || status === "success"}
-                className="rounded-lg px-6 py-3 min-h-11 text-sm font-semibold text-on-accent transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed hover:opacity-95 flex items-center justify-center"
+                className="clay-btn clay-btn-primary px-6 py-3 min-h-11 text-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none flex items-center justify-center"
                 style={{ background: "var(--color-accent)" }}
               >
                 {status === "loading" ? (

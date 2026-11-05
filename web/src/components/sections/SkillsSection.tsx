@@ -148,18 +148,23 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
               {/* Core stack (MERN) legend under subtitle */}
         <div className="flex items-center gap-2.5 -mt-6 mb-8" aria-label="Skill highlight legend">
           <span
-            className="inline-block w-2 h-2 rotate-45 flex-shrink-0"
-            style={{ background: "var(--color-accent)" }}
+            className="inline-block w-3.5 h-3.5 rounded-full flex-shrink-0"
+            style={{ background: "var(--color-peach)", border: "2px solid var(--color-ink)" }}
             aria-hidden="true"
           />
-          <span className="text-xs font-mono text-faint">
+          <span className="text-xs font-bold text-faint">
             Core stack (MERN)
           </span>
         </div>
 
         {/* Balanced 2-column grid: 1 col below sm, 2x2 from sm */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-          {groups.map((group, index) => (
+          {groups.map((group, index) => {
+            /* Each toolbox panel gets its own pastel clay fill */
+            const pastels = ["var(--color-peach)", "var(--color-sky)", "var(--color-mint)", "var(--color-lavender)"];
+            const pastel = pastels[index % pastels.length];
+
+            return (
             <motion.div
               key={group.title}
               custom={index}
@@ -167,26 +172,36 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
               variants={cardVariants}
-              className="rounded-[10px] paper-shadow p-5 md:p-6 flex flex-col border transition-colors duration-200"
+              className="rounded-card p-5 md:p-6 flex flex-col"
               style={{
                 background: "var(--color-surface)",
-                borderColor: "var(--color-border)",
+                border: "2.5px solid var(--color-ink)",
+                boxShadow: "5px 5px 0 var(--color-ink)",
+                transition: "transform 0.2s, box-shadow 0.2s",
                 gap: "var(--space-block)",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor =
-                  "color-mix(in srgb, var(--color-accent) 30%, transparent)";
+                e.currentTarget.style.transform = "translate(2px, 2px)";
+                e.currentTarget.style.boxShadow = "3px 3px 0 var(--color-ink)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "var(--color-border)";
+                e.currentTarget.style.transform = "translate(0, 0)";
+                e.currentTarget.style.boxShadow = "5px 5px 0 var(--color-ink)";
               }}
             >
               {/* Card Header */}
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-mono uppercase tracking-widest text-faint">
+                <h3
+                  className="inline-flex items-center text-xs font-extrabold uppercase tracking-wider px-3 py-1 rounded-full text-text"
+                  style={{
+                    background: pastel,
+                    border: "2px solid var(--color-ink)",
+                    boxShadow: "2px 2px 0 var(--color-ink)",
+                  }}
+                >
                   {group.title}
                 </h3>
-                <span className="text-xs font-mono text-faint">
+                <span className="text-xs font-bold text-faint">
                   {group.skills.length} skills
                 </span>
               </div>
@@ -205,13 +220,14 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
                   );
                 })}
                 {group.skills.length === 0 && (
-                  <span className="text-faint text-xs italic font-mono">
+                  <span className="text-faint text-xs italic font-bold">
                     No skills listed
                   </span>
                 )}
               </div>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </Container>
     </section>

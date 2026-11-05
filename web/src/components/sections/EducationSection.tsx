@@ -42,10 +42,11 @@ export function EducationSection({ education }: EducationSectionProps) {
           {education.map((card) => (
             <article
               key={card._id}
-              className="rounded-[10px] paper-shadow p-5 md:p-8 transition-all duration-300 hover:border-accent/40"
+              className="rounded-card p-5 md:p-8 transition-all duration-300 hover:-translate-y-1"
               style={{
                 background: "var(--color-surface)",
-                border: "1px solid var(--color-border)",
+                border: "2.5px solid var(--color-ink)",
+                boxShadow: "5px 5px 0 var(--color-ink)",
               }}
             >
               {/* Top row: icon + content */}
@@ -54,9 +55,9 @@ export function EducationSection({ education }: EducationSectionProps) {
                   aria-hidden="true"
                   className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center mt-0.5"
                   style={{
-                    background:
-                      "color-mix(in srgb, var(--color-accent) 12%, transparent)",
-                    border: "1px solid var(--color-border)",
+                    background: "var(--color-sky)",
+                    border: "2.5px solid var(--color-ink)",
+                    boxShadow: "2.5px 2.5px 0 var(--color-ink)",
                   }}
                 >
                   <svg
@@ -64,8 +65,8 @@ export function EducationSection({ education }: EducationSectionProps) {
                     height="22"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="var(--color-accent-soft)"
-                    strokeWidth="1.8"
+                    stroke="var(--color-ink)"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
@@ -86,23 +87,21 @@ export function EducationSection({ education }: EducationSectionProps) {
                     {/* "In Progress" chip only while no end period stated */}
                     {!card.period.toLowerCase().includes("completed") && (
                       <span
-                        className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full flex-shrink-0"
+                        className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full flex-shrink-0 text-text"
                         style={{
-                          background:
-                            "color-mix(in srgb, var(--color-accent) 12%, transparent)",
-                          color: "var(--color-accent-soft)",
-                          border:
-                            "1px solid color-mix(in srgb, var(--color-accent) 30%, transparent)",
+                          background: "var(--color-mint)",
+                          border: "2px solid var(--color-ink)",
+                          boxShadow: "2px 2px 0 var(--color-ink)",
                         }}
                       >
                         <span className="relative flex h-1.5 w-1.5">
                           <span
                             className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                            style={{ background: "var(--color-accent-soft)" }}
+                            style={{ background: "var(--color-success)" }}
                           />
                           <span
                             className="relative inline-flex rounded-full h-1.5 w-1.5"
-                            style={{ background: "var(--color-accent-soft)" }}
+                            style={{ background: "var(--color-success)" }}
                           />
                         </span>
                         In Progress
@@ -163,7 +162,7 @@ export function EducationSection({ education }: EducationSectionProps) {
                     </p>
                   )}
 
-                  {/* Achievements — gold-diamond listed, mono, never empty-visible */}
+                  {/* Achievements — clay-dot listed, bold, never empty-visible */}
                   {card.achievements.length > 0 && (
                     <ul
                       className="flex flex-col gap-1.5 mt-1"
@@ -172,18 +171,18 @@ export function EducationSection({ education }: EducationSectionProps) {
                       {card.achievements.map((a, i) => (
                         <li
                           key={i}
-                          className="flex items-start gap-2 text-xs"
+                          className="flex items-start gap-2 text-xs font-semibold"
                           style={{ color: "var(--color-muted)" }}
                         >
                           <span
                             aria-hidden="true"
-                            className="inline-block w-1.5 h-1.5 flex-shrink-0 mt-1"
+                            className="inline-block w-2.5 h-2.5 flex-shrink-0 mt-0.5 rounded-full"
                             style={{
-                              transform: "rotate(45deg)",
-                              background: "var(--color-accent)",
+                              background: "var(--color-peach)",
+                              border: "1.5px solid var(--color-ink)",
                             }}
                           />
-                          <span className="font-mono">{a}</span>
+                          <span>{a}</span>
                         </li>
                       ))}
                     </ul>

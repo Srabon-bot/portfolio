@@ -51,7 +51,13 @@ export default async function HomePage() {
       <SectionRail />
 
       <main>
-        <HeroSection profile={profile} />
+        <HeroSection
+          profile={profile}
+          stats={{
+            projects: all.filter((p) => p.status === "published").length,
+            skills: skills.length,
+          }}
+        />
         <ProjectsSection
           featuredProjects={featured}
           mlProjects={mlProjects}

@@ -26,6 +26,11 @@ import type { Profile } from "@/types";
 
 interface HeroSectionProps {
   profile: Profile;
+  /** Real counts for the playful stats pebbles */
+  stats?: {
+    projects: number;
+    skills: number;
+  };
 }
 
 /* Animation variants for fade-and-rise on mount (subtle, respects reduced-motion) */
@@ -41,7 +46,7 @@ const fadeUp: Variants = {
 /* Core stack chips featured in the hero for recruiters */
 const HERO_STACK = ["React", "Next.js", "TypeScript", "Node.js", "MongoDB"];
 
-export function HeroSection({ profile }: HeroSectionProps) {
+export function HeroSection({ profile, stats }: HeroSectionProps) {
   const reduceMotion = useReducedMotion();
   return (
     <section
@@ -58,7 +63,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
 
           {/* (kicker row + masthead + rule are below) */}
 
-          {/* Kicker row — editorial "issue" marker */}
+          {/* Kicker row — playful clay badge */}
           <motion.div
             custom={0}
             variants={fadeUp}
@@ -66,19 +71,17 @@ export function HeroSection({ profile }: HeroSectionProps) {
             animate="visible"
             className="flex items-center gap-3 self-start"
           >
-            <span className="kicker flex items-center gap-2">
-              <span
-                aria-hidden="true"
-                className="inline-block w-2 h-2 rotate-45 flex-shrink-0"
-                style={{ background: "var(--color-accent)" }}
-              />
+            <span
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-extrabold text-text"
+              style={{
+                background: "var(--color-peach)",
+                border: "2.5px solid var(--color-ink)",
+                borderRadius: "9999px",
+                boxShadow: "3px 3px 0 var(--color-ink)",
+              }}
+            >
               It&apos;s me
             </span>
-            <span
-              aria-hidden="true"
-              className="inline-block h-px w-10"
-              style={{ background: "var(--color-accent)", opacity: 0.5 }}
-            />
           </motion.div>
 
           {/* Name — masthead-scale serif display (Fraunces via h1 rule) */}
@@ -96,7 +99,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
             {profile.displayName}
           </motion.h1>
 
-          {/* Engraved gold hairline under the masthead */}
+          {/* Soft pastel clay rule under the masthead */}
           <motion.div
             aria-hidden="true"
             custom={0.15}
@@ -104,6 +107,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
             initial="hidden"
             animate="visible"
             className="rule-gold"
+            style={{ maxWidth: "420px" }}
           />
 
           {/* Role label — small-caps style, accent-soft, tracked (PRD §5.3) */}
@@ -176,6 +180,41 @@ export function HeroSection({ profile }: HeroSectionProps) {
             </Button>
           </motion.div>
 
+          {/* Playful stats pebbles — real counts passed from the data layer */}
+          {stats && (
+            <motion.div
+              custom={0.42}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-wrap items-center gap-2.5 pt-1"
+              aria-label="Quick stats"
+            >
+              <span
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-extrabold text-text"
+                style={{
+                  background: "var(--color-sky)",
+                  border: "2.5px solid var(--color-ink)",
+                  borderRadius: "9999px",
+                  boxShadow: "3px 3px 0 var(--color-ink)",
+                }}
+              >
+                <span aria-hidden="true">🚀</span> {stats.projects} projects shipped
+              </span>
+              <span
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-extrabold text-text"
+                style={{
+                  background: "var(--color-mint)",
+                  border: "2.5px solid var(--color-ink)",
+                  borderRadius: "9999px",
+                  boxShadow: "3px 3px 0 var(--color-ink)",
+                }}
+              >
+                <span aria-hidden="true">🧰</span> {stats.skills} tools in the box
+              </span>
+            </motion.div>
+          )}
+
           {/* Signature block — engraved social monograms, visible on every breakpoint */}
           <motion.nav
             custom={0.45}
@@ -187,8 +226,8 @@ export function HeroSection({ profile }: HeroSectionProps) {
           >
             <span
               aria-hidden="true"
-              className="inline-block w-1.5 h-1.5 flex-shrink-0 mr-2"
-              style={{ transform: "rotate(45deg)", background: "var(--color-accent)" }}
+              className="inline-block w-3 h-3 flex-shrink-0 mr-2 rounded-full"
+              style={{ background: "var(--color-peach)", border: "2px solid var(--color-ink)" }}
             />
             {profile.linkedin && (
               <a
@@ -260,18 +299,18 @@ export function HeroSection({ profile }: HeroSectionProps) {
               }
             }
           >
-            {/* Gradient border frame — squared with sleek modern rounded corners */}
+            {/* Clay frame — thick ink outline + hard offset shadow */}
             <div
-              className="relative p-[3px] rounded-2xl overflow-hidden shadow-2xl transition-all duration-300"
+              className="relative p-1 rounded-3xl transition-all duration-300"
               style={{
-                background:
-                  "var(--gradient-frame)",
-                boxShadow: "0 20px 40px -15px rgba(13,13,12,0.35)",
+                background: "var(--gradient-frame)",
+                border: "3px solid var(--color-ink)",
+                boxShadow: "6px 6px 0 var(--color-ink)",
               }}
             >
               {/* Inner container holding the squared image */}
               <div
-                className="relative rounded-[14px] overflow-hidden"
+                className="relative rounded-2xl overflow-hidden"
                 style={{
                   width: "clamp(120px, 22vw, 280px)",
                   height: "clamp(120px, 22vw, 280px)",
@@ -292,26 +331,17 @@ export function HeroSection({ profile }: HeroSectionProps) {
                   className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"
                   aria-hidden="true"
                 />
-
-                {/* Tech corner accents */}
-                <div
-                  aria-hidden="true"
-                  className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t-2 border-l-2 border-accent/50 rounded-tl-sm pointer-events-none"
-                />
-                <div
-                  aria-hidden="true"
-                  className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b-2 border-r-2 border-accent/50 rounded-br-sm pointer-events-none"
-                />
               </div>
             </div>
 
-            {/* Top-left code pill badge */}
+            {/* Top-left <dev /> sticker badge */}
             <motion.div
               aria-hidden="true"
-              className="absolute -top-3 -left-3 md:-top-3.5 md:-left-3.5 px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow-lg pointer-events-none"
+              className="absolute -top-3 -left-3 md:-top-3.5 md:-left-3.5 px-2.5 py-1 rounded-full flex items-center gap-1.5 pointer-events-none"
               style={{
-                background: "var(--color-surface-2)",
-                border: "1px solid var(--color-border)",
+                background: "var(--color-lavender)",
+                border: "2.5px solid var(--color-ink)",
+                boxShadow: "3px 3px 0 var(--color-ink)",
               }}
               animate={{
                 y: [0, 3, 0],
@@ -324,17 +354,18 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 delay: 0.8,
               }}
             >
-              <span className="text-xs font-mono font-medium text-accent-soft">
+              <span className="text-xs font-bold text-text">
                 &lt;dev /&gt;
               </span>
             </motion.div>
 
             {/* Bottom-right live status badge */}
             <motion.div
-              className="absolute -bottom-3 -right-3 md:-bottom-3.5 md:-right-3.5 px-3 py-1.5 rounded-xl flex items-center gap-2 shadow-xl pointer-events-none"
+              className="absolute -bottom-3 -right-3 md:-bottom-3.5 md:-right-3.5 px-3 py-1.5 rounded-full flex items-center gap-2 pointer-events-none"
               style={{
-                background: "var(--color-surface-2)",
-                border: "1px solid var(--color-border)",
+                background: "var(--color-mint)",
+                border: "2.5px solid var(--color-ink)",
+                boxShadow: "3px 3px 0 var(--color-ink)",
               }}
               animate={{
                 y: [0, -3, 0],

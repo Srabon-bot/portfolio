@@ -61,25 +61,29 @@ export function ProjectsSection({
           ))}
         </div>
 
-      {/* "View all projects" link — shown only when more projects exist */}
+      {/* "View all projects" link — clay secondary button when more exist */}
       {hasMore && (
         <div className="mt-8 text-center">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 text-sm font-medium text-accent-soft hover:text-accent transition-colors"
+            className="clay-btn clay-btn-secondary inline-flex items-center gap-2 text-sm px-6 py-3"
           >
             View all projects <span aria-hidden="true">→</span>
           </Link>
         </div>
       )}
 
-      {/* ── Research and ML strip ─────────────────────────────────── */}
+      {/* ── Research & ML strip ───────────────────────────────────── */}
       {mlProjects.length > 0 && (
         <div className="mt-14">
-          {/* Lower-emphasis heading for the secondary strip */}
+          {/* Lower-emphasis heading pill for the secondary strip */}
           <h3
-            className="text-xs font-semibold uppercase tracking-widest mb-4"
-            style={{ color: "var(--color-faint)" }}
+            className="inline-block px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-5 text-text"
+            style={{
+              background: "var(--color-lavender)",
+              border: "2px solid var(--color-ink)",
+              boxShadow: "2px 2px 0 var(--color-ink)",
+            }}
           >
             Research &amp; ML
           </h3>
@@ -92,14 +96,14 @@ export function ProjectsSection({
                */
               <div
                 key={project._id}
-                className="flex items-start justify-between gap-4 px-4 py-3 rounded-xl"
+                className="flex items-start justify-between gap-4 px-4 py-3 rounded-2xl transition-all duration-200 hover:-translate-y-0.5"
                 style={{
                   background: "var(--color-surface)",
-                  border: "1px solid var(--color-border)",
+                  border: "2px solid color-mix(in srgb, var(--color-ink) 45%, transparent)",
                 }}
               >
                 <div className="flex-1 min-w-0">
-                  <span className="text-sm font-medium" style={{ color: "var(--color-muted)" }}>
+                  <span className="text-sm font-bold" style={{ color: "var(--color-text)" }}>
                     {project.title}
                   </span>
                   <span className="text-xs ml-3" style={{ color: "var(--color-faint)" }}>
@@ -111,8 +115,8 @@ export function ProjectsSection({
                     href={project.repoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-medium flex-shrink-0 hover:text-accent-soft transition-colors"
-                    style={{ color: "var(--color-faint)" }}
+                    className="text-xs font-extrabold flex-shrink-0 hover:text-accent-soft transition-colors"
+                    style={{ color: "var(--color-muted)" }}
                     aria-label={`View ${project.title} repository`}
                   >
                     Repo ↗
