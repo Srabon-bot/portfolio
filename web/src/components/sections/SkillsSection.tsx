@@ -15,7 +15,7 @@
  * - Hover border transition without blur or colored glow
  */
 
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
 import { Chip } from "@/components/ui/Chip";
@@ -126,7 +126,11 @@ const cardVariants: Variants = {
   }),
 };
 
+
 export function SkillsSection({ skills }: SkillsSectionProps) {
+  /* The entrance is JS-driven (framer ignores the CSS reduced-motion
+     kill-switch), so reduced-motion users get no entrance at all */
+  const reduceMotion = useReducedMotion();
   const groups = groupSkills(skills);
 
   return (
@@ -168,8 +172,8 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
             <motion.div
               key={group.title}
               custom={index}
-              initial="hidden"
-              whileInView="visible"
+              initial={reduceMotion ? false : "hidden"}
+              whileInView={reduceMotion ? undefined : "visible"}
               viewport={{ once: true, margin: "-40px" }}
               variants={cardVariants}
               className="rounded-card p-5 md:p-6 flex flex-col"

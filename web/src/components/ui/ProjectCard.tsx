@@ -22,6 +22,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const reduceMotion = useReducedMotion();
   const isPlaceholder =
     project.title.startsWith("PLACEHOLDER") ||
     project.status === "draft";
@@ -32,7 +33,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <motion.article
-      whileHover={isPlaceholder ? {} : { y: -3 }}
+      whileHover={isPlaceholder || reduceMotion ? {} : { y: -3 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       className="flex flex-col h-full rounded-card overflow-hidden transition-all duration-200 group"
       style={{
