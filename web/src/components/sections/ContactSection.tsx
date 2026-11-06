@@ -144,7 +144,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
                 style={{
                   background: "var(--color-surface)",
                   border: "2.5px solid var(--color-ink)",
-                  boxShadow: "4px 4px 0 var(--color-ink)",
+                  boxShadow: "4px 4px 0 var(--color-ink-shadow)",
                 }}
               >
                 <span
@@ -210,7 +210,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
             style={{
               background: "var(--color-surface)",
               border: "2.5px solid var(--color-ink)",
-              boxShadow: "6px 6px 0 var(--color-ink)",
+              boxShadow: "6px 6px 0 var(--color-ink-shadow)",
             }}
           >
             <form

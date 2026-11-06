@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { getProjects } from "@/lib/api";
 import { WorksIndex } from "@/components/works/WorksIndex";
 
@@ -19,7 +20,7 @@ export default async function AllProjectsPage() {
   return (
     <div className="min-h-screen py-12 md:py-16 px-4 md:px-8" style={{ background: "var(--color-bg)" }}>
       <div className="max-w-6xl mx-auto flex flex-col gap-10">
-        {/* Header row: back link */}
+        {/* Header row: back link + theme toggle */}
         <div className="flex items-center justify-between">
           <Link
             href="/"
@@ -29,6 +30,7 @@ export default async function AllProjectsPage() {
           >
             ← Back to Home
           </Link>
+          <ThemeToggle />
         </div>
 
         {/* Playful masthead */}
@@ -40,7 +42,7 @@ export default async function AllProjectsPage() {
               style={{
                 background: "var(--color-lavender)",
                 border: "2px solid var(--color-ink)",
-                boxShadow: "2px 2px 0 var(--color-ink)",
+                boxShadow: "2px 2px 0 var(--color-ink-shadow)",
               }}
             >
               Index

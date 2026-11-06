@@ -38,7 +38,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       style={{
         background: "var(--color-surface)",
         border: "2.5px solid var(--color-ink)",
-        boxShadow: "5px 5px 0 var(--color-ink)",
+        boxShadow: "5px 5px 0 var(--color-ink-shadow)",
         opacity: isPlaceholder ? 0.6 : 1,
       }}
     >
@@ -74,7 +74,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             style={{
               background: "var(--color-mint)",
               border: "2px solid var(--color-ink)",
-              boxShadow: "2px 2px 0 var(--color-ink)",
+              boxShadow: "2px 2px 0 var(--color-ink-shadow)",
             }}
           >
             {project.metric}

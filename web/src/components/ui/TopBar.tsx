@@ -12,6 +12,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Profile } from "@/types";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface TopBarProps {
   profile: Profile;
@@ -148,8 +149,13 @@ export function TopBar({ profile }: TopBarProps) {
             </ul>
           </div>
 
-          {/* Right — Resume clay pill (md+) + Hamburger (<xl) */}
+          {/* Right — ThemeToggle (md+) + Resume clay pill (md+) + Hamburger */}
           <div className="flex-1 flex items-center justify-end gap-3 sm:gap-4">
+            {/* Theme toggle (md and up — phone users flip paper in the drawer) */}
+            <div className="hidden md:inline-flex">
+              <ThemeToggle />
+            </div>
+
             {/* Resume clay pill button (navigates to /resume page) */}
             <Link
               href="/resume"
@@ -235,6 +241,12 @@ export function TopBar({ profile }: TopBarProps) {
           >
             {profile.email}
           </a>
+
+          {/* Theme toggle in the drawer too, so phone users can flip paper */}
+          <div className="flex items-center justify-between pt-1">
+            <span className="text-sm font-bold text-muted">Dark clay</span>
+            <ThemeToggle />
+          </div>
 
           {/* Social icons row */}
           <div className="flex items-center gap-5 pt-2">

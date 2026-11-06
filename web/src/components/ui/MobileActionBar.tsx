@@ -57,7 +57,7 @@ export function MobileActionBar({ profile }: MobileActionBarProps) {
         <Link
           href="/resume"
           className="flex-1 inline-flex items-center justify-center min-h-11 py-2.5 px-4 clay-btn text-xs"
-          style={{ background: "var(--color-accent)", color: "var(--color-on-accent)", boxShadow: "2px 2px 0 var(--color-ink)" }}
+          style={{ background: "var(--color-accent)", color: "var(--color-on-accent)", boxShadow: "2px 2px 0 var(--color-ink-shadow)" }}
         >
           <span>Resume</span>
         </Link>
@@ -65,7 +65,7 @@ export function MobileActionBar({ profile }: MobileActionBarProps) {
         <Link
           href="#contact"
           className="flex-1 inline-flex items-center justify-center min-h-11 py-2.5 px-4 clay-btn text-xs"
-          style={{ background: "var(--color-surface)", color: "var(--color-text)", boxShadow: "2px 2px 0 var(--color-ink)" }}
+          style={{ background: "var(--color-surface)", color: "var(--color-text)", boxShadow: "2px 2px 0 var(--color-ink-shadow)" }}
         >
           <span>Contact</span>
         </Link>

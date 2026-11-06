@@ -82,7 +82,7 @@ export function ProjectsSection({
             style={{
               background: "var(--color-lavender)",
               border: "2px solid var(--color-ink)",
-              boxShadow: "2px 2px 0 var(--color-ink)",
+              boxShadow: "2px 2px 0 var(--color-ink-shadow)",
             }}
           >
             Research &amp; ML

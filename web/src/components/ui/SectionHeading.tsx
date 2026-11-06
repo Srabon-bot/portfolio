@@ -33,7 +33,7 @@ export function SectionHeading({ title, index, kicker, subtitle, id }: SectionHe
                 color: "var(--color-text)",
                 border: "2.5px solid var(--color-ink)",
                 borderRadius: "9999px",
-                boxShadow: "2px 2px 0 var(--color-ink)",
+                boxShadow: "2px 2px 0 var(--color-ink-shadow)",
               }}
             >
               {index}
@@ -59,7 +59,7 @@ export function SectionHeading({ title, index, kicker, subtitle, id }: SectionHe
           background: "linear-gradient(90deg, var(--color-peach), var(--color-sky))",
           borderRadius: "9999px",
           marginTop: "10px",
-          boxShadow: "2px 2px 0 color-mix(in srgb, var(--color-ink) 30%, transparent)",
+          boxShadow: "2px 2px 0 color-mix(in srgb, var(--color-ink-shadow) 30%, transparent)",
         }}
       />
 

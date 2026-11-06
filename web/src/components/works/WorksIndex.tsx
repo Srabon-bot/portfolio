@@ -57,7 +57,7 @@ export function WorksIndex({ projects }: WorksIndexProps) {
                       background: "var(--color-accent)",
                       color: "var(--color-on-accent)",
                       border: "2px solid var(--color-ink)",
-                      boxShadow: "2px 2px 0 var(--color-ink)",
+                      boxShadow: "2px 2px 0 var(--color-ink-shadow)",
                     }
                   : {
                       background: "var(--color-surface)",

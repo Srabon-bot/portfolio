@@ -46,7 +46,7 @@ export function EducationSection({ education }: EducationSectionProps) {
               style={{
                 background: "var(--color-surface)",
                 border: "2.5px solid var(--color-ink)",
-                boxShadow: "5px 5px 0 var(--color-ink)",
+                boxShadow: "5px 5px 0 var(--color-ink-shadow)",
               }}
             >
               {/* Top row: icon + content */}
@@ -57,7 +57,7 @@ export function EducationSection({ education }: EducationSectionProps) {
                   style={{
                     background: "var(--color-sky)",
                     border: "2.5px solid var(--color-ink)",
-                    boxShadow: "2.5px 2.5px 0 var(--color-ink)",
+                    boxShadow: "2.5px 2.5px 0 var(--color-ink-shadow)",
                   }}
                 >
                   <svg
@@ -91,7 +91,7 @@ export function EducationSection({ education }: EducationSectionProps) {
                         style={{
                           background: "var(--color-mint)",
                           border: "2px solid var(--color-ink)",
-                          boxShadow: "2px 2px 0 var(--color-ink)",
+                          boxShadow: "2px 2px 0 var(--color-ink-shadow)",
                         }}
                       >
                         <span className="relative flex h-1.5 w-1.5">

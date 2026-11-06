@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getProfile } from "@/lib/api";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Resume — Shahriar Hossain Srabon | Full-Stack Developer",
@@ -49,6 +50,7 @@ export default async function ResumePage() {
         </Link>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <a
             href="/Shahriar_Hossain_Srabon_Resume.docx"
             download="Shahriar_Hossain_Srabon_Resume.docx"
@@ -80,7 +82,7 @@ export default async function ResumePage() {
         style={{
           background: "var(--color-surface)",
           border: "2.5px solid var(--color-ink)",
-          boxShadow: "6px 6px 0 var(--color-ink)",
+          boxShadow: "6px 6px 0 var(--color-ink-shadow)",
         }}
       >
 

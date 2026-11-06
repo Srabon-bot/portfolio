@@ -68,7 +68,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
           style={{
             background: "var(--color-surface)",
             border: "2.5px solid var(--color-ink)",
-            boxShadow: "6px 6px 0 var(--color-ink)",
+            boxShadow: "6px 6px 0 var(--color-ink-shadow)",
             gap: "clamp(2.5rem, 1.5rem + 2.6vw, 4rem)",
           }}
         >
@@ -142,7 +142,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
               style={{
                 background: "var(--color-mint)",
                 border: "2.5px solid var(--color-ink)",
-                boxShadow: "4px 4px 0 var(--color-ink)",
+                boxShadow: "4px 4px 0 var(--color-ink-shadow)",
               }}
             >
               <span className="relative flex h-3 w-3">
@@ -171,7 +171,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
               style={{
                 background: "var(--color-surface)",
                 border: "2.5px solid var(--color-ink)",
-                boxShadow: "4px 4px 0 var(--color-ink)",
+                boxShadow: "4px 4px 0 var(--color-ink-shadow)",
               }}
             >
               <h3

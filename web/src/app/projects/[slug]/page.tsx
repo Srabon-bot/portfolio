@@ -6,6 +6,7 @@ import { getProjectBySlug, getProjects } from "@/lib/api";
 import { Chip } from "@/components/ui/Chip";
 import { TechIcon } from "@/components/ui/TechIcon";
 import { ChapterNav } from "@/components/works/ChapterNav";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 /* Sticky chapters for the mono table of contents (5-section README structure) */
 const CHAPTERS = [
@@ -85,6 +86,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             ← Back to Projects
           </Link>
           <div className="flex items-center gap-1">
+            <ThemeToggle />
             {project.liveUrl && !project.liveUrl.startsWith("PLACEHOLDER") && (
               <a
                 href={project.liveUrl}
@@ -188,7 +190,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           style={{
             background: "var(--color-surface)",
             border: "2.5px solid var(--color-ink)",
-            boxShadow: "5px 5px 0 var(--color-ink)",
+            boxShadow: "5px 5px 0 var(--color-ink-shadow)",
           }}
         >
           <div className="flex items-center justify-between">
@@ -228,7 +230,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           style={{
             background: "var(--color-surface)",
             border: "2.5px solid var(--color-ink)",
-            boxShadow: "5px 5px 0 var(--color-ink)",
+            boxShadow: "5px 5px 0 var(--color-ink-shadow)",
           }}
         >
           <div className="flex items-center justify-between">
@@ -299,7 +301,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           style={{
             background: "var(--color-surface)",
             border: "2.5px solid var(--color-ink)",
-            boxShadow: "5px 5px 0 var(--color-ink)",
+            boxShadow: "5px 5px 0 var(--color-ink-shadow)",
           }}
         >
           <div className="flex items-center justify-between">
@@ -332,7 +334,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           style={{
             background: "var(--color-surface)",
             border: "2.5px solid var(--color-ink)",
-            boxShadow: "5px 5px 0 var(--color-ink)",
+            boxShadow: "5px 5px 0 var(--color-ink-shadow)",
           }}
         >
           <div className="flex items-center justify-between">
@@ -365,7 +367,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           style={{
             background: "var(--color-surface)",
             border: "2.5px solid var(--color-ink)",
-            boxShadow: "5px 5px 0 var(--color-ink)",
+            boxShadow: "5px 5px 0 var(--color-ink-shadow)",
           }}
         >
           <div className="flex items-center justify-between">
@@ -447,7 +449,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           style={{
             background: "var(--color-surface)",
             border: "2.5px solid var(--color-ink)",
-            boxShadow: "5px 5px 0 var(--color-ink)",
+            boxShadow: "5px 5px 0 var(--color-ink-shadow)",
           }}
         >
           <h2

@@ -96,7 +96,7 @@ export function BackToTop() {
       style={{
         background: "var(--color-sky)",
         border: "2.5px solid var(--color-ink)",
-        boxShadow: "3px 3px 0 var(--color-ink)",
+        boxShadow: "3px 3px 0 var(--color-ink-shadow)",
         /* Keep clear of the mobile sticky action bar */
         bottom: "calc(84px + env(safe-area-inset-bottom, 0px))",
       }}

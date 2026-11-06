@@ -176,17 +176,17 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
               style={{
                 background: "var(--color-surface)",
                 border: "2.5px solid var(--color-ink)",
-                boxShadow: "5px 5px 0 var(--color-ink)",
+                boxShadow: "5px 5px 0 var(--color-ink-shadow)",
                 transition: "transform 0.2s, box-shadow 0.2s",
                 gap: "var(--space-block)",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translate(2px, 2px)";
-                e.currentTarget.style.boxShadow = "3px 3px 0 var(--color-ink)";
+                e.currentTarget.style.boxShadow = "3px 3px 0 var(--color-ink-shadow)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "translate(0, 0)";
-                e.currentTarget.style.boxShadow = "5px 5px 0 var(--color-ink)";
+                e.currentTarget.style.boxShadow = "5px 5px 0 var(--color-ink-shadow)";
               }}
             >
               {/* Card Header */}
@@ -196,7 +196,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
                   style={{
                     background: pastel,
                     border: "2px solid var(--color-ink)",
-                    boxShadow: "2px 2px 0 var(--color-ink)",
+                    boxShadow: "2px 2px 0 var(--color-ink-shadow)",
                   }}
                 >
                   {group.title}

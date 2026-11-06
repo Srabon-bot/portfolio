@@ -77,7 +77,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
                 background: "var(--color-peach)",
                 border: "2.5px solid var(--color-ink)",
                 borderRadius: "9999px",
-                boxShadow: "3px 3px 0 var(--color-ink)",
+                boxShadow: "3px 3px 0 var(--color-ink-shadow)",
               }}
             >
               It&apos;s me
@@ -196,7 +196,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
                   background: "var(--color-sky)",
                   border: "2.5px solid var(--color-ink)",
                   borderRadius: "9999px",
-                  boxShadow: "3px 3px 0 var(--color-ink)",
+                  boxShadow: "3px 3px 0 var(--color-ink-shadow)",
                 }}
               >
                 <span aria-hidden="true">🚀</span> {stats.projects} projects shipped
@@ -207,7 +207,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
                   background: "var(--color-mint)",
                   border: "2.5px solid var(--color-ink)",
                   borderRadius: "9999px",
-                  boxShadow: "3px 3px 0 var(--color-ink)",
+                  boxShadow: "3px 3px 0 var(--color-ink-shadow)",
                 }}
               >
                 <span aria-hidden="true">🧰</span> {stats.skills} tools in the box
@@ -305,7 +305,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
               style={{
                 background: "var(--gradient-frame)",
                 border: "3px solid var(--color-ink)",
-                boxShadow: "6px 6px 0 var(--color-ink)",
+                boxShadow: "6px 6px 0 var(--color-ink-shadow)",
               }}
             >
               {/* Inner container holding the squared image */}
@@ -341,7 +341,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
               style={{
                 background: "var(--color-lavender)",
                 border: "2.5px solid var(--color-ink)",
-                boxShadow: "3px 3px 0 var(--color-ink)",
+                boxShadow: "3px 3px 0 var(--color-ink-shadow)",
               }}
               animate={{
                 y: [0, 3, 0],
@@ -365,7 +365,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
               style={{
                 background: "var(--color-mint)",
                 border: "2.5px solid var(--color-ink)",
-                boxShadow: "3px 3px 0 var(--color-ink)",
+                boxShadow: "3px 3px 0 var(--color-ink-shadow)",
               }}
               animate={{
                 y: [0, -3, 0],
