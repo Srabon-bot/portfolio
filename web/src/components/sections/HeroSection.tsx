@@ -72,7 +72,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
             className="flex items-center gap-3 self-start"
           >
             <span
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-extrabold text-text"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-extrabold text-on-pastel"
               style={{
                 background: "var(--color-peach)",
                 border: "2.5px solid var(--color-ink)",
@@ -191,7 +191,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
               aria-label="Quick stats"
             >
               <span
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-extrabold text-text"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-extrabold text-on-pastel"
                 style={{
                   background: "var(--color-sky)",
                   border: "2.5px solid var(--color-ink)",
@@ -202,7 +202,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
                 <span aria-hidden="true">🚀</span> {stats.projects} projects shipped
               </span>
               <span
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-extrabold text-text"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-extrabold text-on-pastel"
                 style={{
                   background: "var(--color-mint)",
                   border: "2.5px solid var(--color-ink)",
@@ -354,7 +354,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
                 delay: 0.8,
               }}
             >
-              <span className="text-xs font-bold text-text">
+              <span className="text-xs font-bold text-on-pastel">
                 &lt;dev /&gt;
               </span>
             </motion.div>
@@ -388,7 +388,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
                   style={{ background: "var(--color-success)" }}
                 />
               </span>
-              <span className="text-xs font-medium text-text tracking-wide">
+              <span className="text-xs font-medium text-on-pastel tracking-wide">
                 Open to work
               </span>
             </motion.div>

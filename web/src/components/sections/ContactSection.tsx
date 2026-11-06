@@ -148,7 +148,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
                 }}
               >
                 <span
-                  className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-xl text-text"
+                  className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-xl text-on-pastel"
                   style={{
                     background: pastels[i % pastels.length],
                     border: "2px solid var(--color-ink)",

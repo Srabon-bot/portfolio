@@ -192,7 +192,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
               {/* Card Header */}
               <div className="flex items-center justify-between">
                 <h3
-                  className="inline-flex items-center text-xs font-extrabold uppercase tracking-wider px-3 py-1 rounded-full text-text"
+                  className="inline-flex items-center text-xs font-extrabold uppercase tracking-wider px-3 py-1 rounded-full text-on-pastel"
                   style={{
                     background: pastel,
                     border: "2px solid var(--color-ink)",

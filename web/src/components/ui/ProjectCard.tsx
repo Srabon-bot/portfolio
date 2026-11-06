@@ -70,7 +70,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         {/* Key metric chip overlay */}
         {project.metric && (
           <div
-            className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-bold text-text"
+            className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-bold text-on-pastel"
             style={{
               background: "var(--color-mint)",
               border: "2px solid var(--color-ink)",

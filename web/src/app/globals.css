@@ -41,6 +41,7 @@
   --color-accent:      #22C55E;   /* CTA green — button fills, focus ring  */
   --color-accent-soft: #16A34A;   /* green TEXT roles: links, hover, kbd   */
   --color-on-accent:   #2D3748;   /* ink text ON a green fill (5.26:1; white failed at 2.28) */
+  --color-on-pastel:   #2D3748;   /* ink text ON a pastel fill (identical value to text in light) */
 
   /* Pastel clay fill roles (cards, badges, decorative blobs)           */
   --color-peach:       #FDBCB4;
@@ -102,6 +103,7 @@
   --color-accent:      #22C55E;   /* CTA green fill unchanged */
   --color-accent-soft: #4ADE80;   /* green TEXT on dark (links, hovers) */
   --color-on-accent:   #0B0E13;   /* ink on green — 7.0:1 (white was 2.28 fail) */
+  --color-on-pastel:   #0B0E13;   /* ink on desaturated pastels — 7.8:1 peach, 10.5 lavender */
 
   /* Desaturated dark pastels (hue kept, saturation down)                  */
   --color-peach:       #E89A92;

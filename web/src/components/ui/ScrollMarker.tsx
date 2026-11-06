@@ -90,7 +90,7 @@ export function BackToTop() {
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Back to top"
-      className={`fixed right-4 md:right-6 z-40 flex items-center justify-center w-11 h-11 rounded-full transition-all duration-300 cursor-pointer text-text ${
+      className={`fixed right-4 md:right-6 z-40 flex items-center justify-center w-11 h-11 rounded-full transition-all duration-300 cursor-pointer text-on-pastel ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
       }`}
       style={{

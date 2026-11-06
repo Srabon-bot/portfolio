@@ -103,7 +103,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
                 border: "2px solid var(--color-ink)",
               }}
             >
-              <h3 className="text-xs font-extrabold uppercase tracking-wider mb-3" style={{ color: "var(--color-text)" }}>
+              <h3 className="text-xs font-extrabold uppercase tracking-wider mb-3" style={{ color: "var(--color-on-pastel)" }}>
                 How this site is built
               </h3>
               <div className="flex flex-wrap gap-2 text-xs" style={{ color: "var(--color-muted)" }}>
@@ -175,7 +175,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
               }}
             >
               <h3
-                className="self-start px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider text-text"
+                className="self-start px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider text-on-pastel"
                 style={{
                   background: "var(--color-sky)",
                   border: "2px solid var(--color-ink)",

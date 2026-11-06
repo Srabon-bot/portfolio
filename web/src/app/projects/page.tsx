@@ -38,7 +38,7 @@ export default async function AllProjectsPage() {
           <p className="kicker flex items-center gap-3">
             <span
               aria-hidden="true"
-              className="inline-flex items-center px-3 py-0.5 rounded-full text-text"
+              className="inline-flex items-center px-3 py-0.5 rounded-full text-on-pastel"
               style={{
                 background: "var(--color-lavender)",
                 border: "2px solid var(--color-ink)",

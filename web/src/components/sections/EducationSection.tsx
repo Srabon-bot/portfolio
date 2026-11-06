@@ -65,7 +65,7 @@ export function EducationSection({ education }: EducationSectionProps) {
                     height="22"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="var(--color-ink)"
+                    stroke="var(--color-on-pastel)"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -87,7 +87,7 @@ export function EducationSection({ education }: EducationSectionProps) {
                     {/* "In Progress" chip only while no end period stated */}
                     {!card.period.toLowerCase().includes("completed") && (
                       <span
-                        className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full flex-shrink-0 text-text"
+                        className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full flex-shrink-0 text-on-pastel"
                         style={{
                           background: "var(--color-mint)",
                           border: "2px solid var(--color-ink)",

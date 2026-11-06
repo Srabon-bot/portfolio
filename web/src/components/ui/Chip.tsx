@@ -35,7 +35,7 @@ export function Chip({
     lg: 16,
   }[size];
 
-  const textColor = highlight ? "text-text" : "text-muted";
+  const textColor = highlight ? "text-on-pastel" : "text-muted";
   const borderColor = highlight
     ? "var(--color-ink)"
     : "color-mix(in srgb, var(--color-ink) 55%, transparent)";

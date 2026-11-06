@@ -78,7 +78,7 @@ export function ProjectsSection({
         <div className="mt-14">
           {/* Lower-emphasis heading pill for the secondary strip */}
           <h3
-            className="inline-block px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-5 text-text"
+            className="inline-block px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-5 text-on-pastel"
             style={{
               background: "var(--color-lavender)",
               border: "2px solid var(--color-ink)",

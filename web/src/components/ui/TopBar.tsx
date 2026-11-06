@@ -159,7 +159,7 @@ export function TopBar({ profile }: TopBarProps) {
             {/* Resume clay pill button (navigates to /resume page) */}
             <Link
               href="/resume"
-              className="hidden md:inline-flex items-center justify-center text-sm font-bold text-text px-4 py-1 min-h-11 whitespace-nowrap shrink-0 clay-btn"
+              className="hidden md:inline-flex items-center justify-center text-sm font-bold text-on-pastel px-4 py-1 min-h-11 whitespace-nowrap shrink-0 clay-btn"
               style={{ background: "var(--color-sky)", borderRadius: "9999px", borderWidth: "2.5px" }}
             >
               Resume
@@ -208,7 +208,7 @@ export function TopBar({ profile }: TopBarProps) {
                 aria-hidden="true"
                 className="text-xs font-bold inline-flex items-center justify-center w-8 h-8"
                 style={{
-                  color: "var(--color-text)",
+                  color: "var(--color-on-pastel)",
                   background: i % 2 === 0 ? "var(--color-peach)" : "var(--color-sky)",
                   border: "2px solid var(--color-ink)",
                   borderRadius: "9999px",
