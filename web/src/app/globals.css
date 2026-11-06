@@ -36,10 +36,10 @@
   --color-ink:         #2D3748;   /* clay OUTLINE stroke color (+ base ink text) */
   --color-ink-shadow:  #2D3748;   /* hard OFFSET shadows (split from ink in dark) */
   --color-text:        #2D3748;   /* primary text (same ink)               */
-  --color-muted:       #64748B;   /* secondary text                        */
-  --color-faint:       #94A3B8;   /* captions, footers                     */
+  --color-muted:       #556680;   /* secondary text (5.5:1 on surface-2)   */
+  --color-faint:       #5F7186;   /* captions, footers (4.8:1 on cream bg)  */
   --color-accent:      #22C55E;   /* CTA green — button fills, focus ring  */
-  --color-accent-soft: #16A34A;   /* green TEXT roles: links, hover, kbd   */
+  --color-accent-soft: #15803D;   /* green TEXT roles: links, hover, kbd (4.9:1 on card) */
   --color-on-accent:   #2D3748;   /* ink text ON a green fill (5.26:1; white failed at 2.28) */
   --color-on-pastel:   #2D3748;   /* ink text ON a pastel fill (identical value to text in light) */
 
@@ -51,8 +51,8 @@
   --color-mint:        #98FF98;
   --color-lavender:    #E6E6FA;
 
-  --color-success:     #16A34A;   /* form success + "Open to work" dot     */
-  --color-danger:      #EF4444;   /* form errors ONLY                      */
+  --color-success:     #15803D;   /* form success + "Open to work" dot (as text: 4.9:1) */
+  --color-danger:      #DC2626;   /* form errors ONLY (text: 4.8:1) */
 }
 
 :root {
@@ -85,7 +85,7 @@
  *   --color-ink-shadow = the hard offset shadow (near-black)
  * In light mode both tokens equal #2D3748, shadows and strokes unified.
  * Contrast (WCAG 2.1, computed): text/bg 14.7 · text/card 12.9 ·
- * muted/card 6.8 · faint/card 5.1 · on-accent ink-on-green 7.0.
+ * muted/card 6.8 · faint/card 5.4 · on-accent ink-on-green 8.5.
  */
 .dark {
   --color-bg:          #171C24;
@@ -98,7 +98,7 @@
 
   --color-text:        #E9EEF5;
   --color-muted:       #A5B0BD;
-  --color-faint:       #8A97A6;
+  --color-faint:       #8F9DA9;
 
   --color-accent:      #22C55E;   /* CTA green fill unchanged */
   --color-accent-soft: #4ADE80;   /* green TEXT on dark (links, hovers) */
