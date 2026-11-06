@@ -11,6 +11,8 @@
  */
 
 import { useSyncExternalStore } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { CLAY_SPRING } from "@/lib/motion";
 
 type Theme = "light" | "dark";
 
@@ -54,6 +56,8 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
     () => false
   );
 
+  const reduceMotion = useReducedMotion();
+
   const theme = useSyncExternalStore(
     observeTheme,
     () =>
@@ -73,8 +77,23 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
     }
   };
 
-  /* Which icon to render post-hydration: show the paper you will switch TO */
-  const icon = mounted && theme === "dark" ? <SunIcon /> : <MoonIcon />;
+  /* Which icon to render post-hydration: show the paper you will switch TO.
+     Keyed by theme so the little clay spring flip replays on each toggle;
+     reduced-motion users get the plain icon swap. */
+  const iconEl = mounted && theme === "dark" ? <SunIcon /> : <MoonIcon />;
+  const icon = reduceMotion ? (
+    iconEl
+  ) : (
+    <motion.span
+      key={mounted && theme === "dark" ? "sun" : "moon"}
+      initial={{ rotate: -60, scale: 0.6, opacity: 0 }}
+      animate={{ rotate: 0, scale: 1, opacity: 1 }}
+      transition={CLAY_SPRING}
+      className="inline-flex"
+    >
+      {iconEl}
+    </motion.span>
+  );
   const label = mounted
     ? theme === "dark"
       ? "Switch to light paper"

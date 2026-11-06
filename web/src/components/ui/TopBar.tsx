@@ -10,6 +10,7 @@
  */
 
 import Link from "next/link";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type { Profile } from "@/types";
 import { ThemeToggle } from "./ThemeToggle";
@@ -47,6 +48,8 @@ function HamburgerIcon({ open }: { open: boolean }) {
 
 export function TopBar({ profile }: TopBarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  /* Drawer animation is JS-driven — honor the OS reduced-motion setting */
+  const reduceMotion = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const drawerRef  = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -181,9 +184,10 @@ export function TopBar({ profile }: TopBarProps) {
         </div>
       </nav>
 
-      {/* Mobile / Tablet Drawer (< lg) */}
+      {/* Mobile / Tablet Drawer (< lg) — clay spring in/out */}
+      <AnimatePresence>
       {menuOpen && (
-        <div
+        <motion.div
           id="mobile-menu-panel"
           ref={drawerRef}
           role="dialog"
@@ -195,6 +199,10 @@ export function TopBar({ profile }: TopBarProps) {
             borderTop:    "1px solid var(--color-border)",
             maxHeight:    "calc(100dvh - 3.5rem)",
           }}
+          initial={reduceMotion ? false : { opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduceMotion ? undefined : { opacity: 0, y: -8, transition: { duration: 0.15 } }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
         >
           {/* Numbered contents */}
           {navLinks.map((link, i) => (
@@ -264,8 +272,9 @@ export function TopBar({ profile }: TopBarProps) {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             </a>
           </div>
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
     </header>
   );
 }
