@@ -74,7 +74,24 @@ ink-on-green 5.3 · ink-on-pastels 7.4–9.8. All AA ✅, most AAA.
 - `.kicker` — Nunito 800 uppercase label in accent-soft (passes in both modes).
 - `.blob`, `.bar-shadow` (dark-boosted) — hero accents / bar float shadow.
 
-## 6. Structure notes / deviations
+## 6. Motion kit (`src/lib/motion.ts` + `ui/Reveal.tsx`)
+Shared vocabulary so every element moves with the same feel:
+- `EASE_CLAY` `cubic-bezier(0.34, 1.56, 0.64, 1)` (uupm clay bounce),
+  `CLAY_SPRING` (stiffness 320 / damping 24), `fadeUp` (16px rise, 450ms),
+  `STAGGER` 0.07s, `revealViewport` `{ once: true, margin: "-40px" }`
+- `<Reveal>` — client wrapper for scroll entrances; usable inside Server
+  Components; renders plain `<div>` under reduced motion.
+Rules: transform/opacity only (no CLS) · entrances fire once · ≤ 500ms ·
+framer animations MUST be gated with `useReducedMotion()` (the CSS kill-switch
+in globals.css does not affect framer) — applied in Hero, Skills, ProjectCard,
+TopBar drawer, ThemeToggle, Reveal.
+Applied to: Hero (existing choreography, shared variants), skills panels,
+project cards + ML rows, education cards, about card + status + currently,
+contact cards + form, mobile drawer spring, theme-toggle icon flip.
+Deliberately not animated: footer strips, stats pebbles (plain fade), no
+parallax/scroll-jacking, no route transitions, no infinite loops outside hero.
+
+## 7. Structure notes / deviations
 - Hero gained a `stats` prop (real published-project & skill counts) shown as
   pebble pills — no invented data.
 - Skill panel headers render as pastel pill labels (one pastel per box).
@@ -85,7 +102,7 @@ ink-on-green 5.3 · ink-on-pastels 7.4–9.8. All AA ✅, most AAA.
   "conditional" — manual contrast work required); Clay Dusk hue was derived
   from the light theme's ink `#2D3748` per Material/NN dark-mode guidance.
 
-## 7. Rules that still hold
+## 8. Rules that still hold
 inline SVG only · 12px min text · 44px targets · no horizontal scroll (360px
 check) · success/danger color restrictions · `prefers-reduced-motion`
 respected · content/data frozen · `npm run build` green per commit.
