@@ -14,6 +14,8 @@
 import { useState } from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
+import { STAGGER } from "@/lib/motion";
 import type { Profile } from "@/types";
 
 interface ContactSectionProps {
@@ -138,8 +140,8 @@ export function ContactSection({ profile }: ContactSectionProps) {
             {contactLinks.map((link, i) => {
               const pastels = ["var(--color-peach)", "var(--color-sky)", "var(--color-lavender)", "var(--color-mint)"];
               return (
+              <Reveal key={link.label} delay={i * STAGGER} className="min-w-0">
               <div
-                key={link.label}
                 className="group rounded-2xl p-4 flex items-center gap-3.5 transition-all duration-300 hover:-translate-y-0.5 min-w-0"
                 style={{
                   background: "var(--color-surface)",
@@ -200,11 +202,13 @@ export function ContactSection({ profile }: ContactSectionProps) {
                   </svg>
                 )}
               </div>
+              </Reveal>
               );
             })}
           </div>
 
           {/* ── Right: contact form card ──────────────────────────────── */}
+          <Reveal delay={STAGGER * 3}>
           <div
             className="rounded-card p-6 md:p-8"
             style={{
@@ -346,6 +350,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
               </div>
             </form>
           </div>
+          </Reveal>
         </div>
       </Container>
     </section>

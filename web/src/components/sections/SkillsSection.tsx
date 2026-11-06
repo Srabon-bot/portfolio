@@ -15,10 +15,11 @@
  * - Hover border transition without blur or colored glow
  */
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
 import { Chip } from "@/components/ui/Chip";
+import { fadeUp } from "@/lib/motion";
 import type { Skill } from "@/types";
 
 interface SkillsSectionProps {
@@ -113,18 +114,7 @@ function groupSkills(skills: Skill[]): SkillGroup[] {
   return result;
 }
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      delay: i * 0.05,
-      ease: "easeOut",
-    },
-  }),
-};
+const cardVariants: Variants = fadeUp;
 
 
 export function SkillsSection({ skills }: SkillsSectionProps) {
@@ -171,7 +161,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
             return (
             <motion.div
               key={group.title}
-              custom={index}
+              custom={index * 0.05}
               initial={reduceMotion ? false : "hidden"}
               whileInView={reduceMotion ? undefined : "visible"}
               viewport={{ once: true, margin: "-40px" }}

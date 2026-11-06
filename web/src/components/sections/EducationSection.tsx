@@ -12,6 +12,8 @@
 import type { Education } from "@/types";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
+import { STAGGER } from "@/lib/motion";
 
 interface EducationSectionProps {
   education: Education[];
@@ -39,7 +41,8 @@ export function EducationSection({ education }: EducationSectionProps) {
             education.length > 1 ? "lg:grid-cols-2" : "max-w-3xl"
           } gap-5`}
         >
-          {education.map((card) => (
+          {education.map((card, i) => (
+            <Reveal key={card._id} delay={i * STAGGER}>
             <article
               key={card._id}
               className="rounded-card p-5 md:p-8 transition-all duration-300 hover:-translate-y-1"
@@ -190,6 +193,7 @@ export function EducationSection({ education }: EducationSectionProps) {
                 </div>
               </div>
             </article>
+            </Reveal>
           ))}
         </div>
       </Container>

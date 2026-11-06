@@ -14,6 +14,8 @@ import Link from "next/link";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
 import { ProjectCard } from "@/components/ui/ProjectCard";
+import { Reveal } from "@/components/ui/Reveal";
+import { STAGGER } from "@/lib/motion";
 import type { Project } from "@/types";
 
 interface ProjectsSectionProps {
@@ -52,12 +54,13 @@ export function ProjectsSection({
         {/* Asymmetric editorial gallery — alternating wide (3/5) and narrow (2/5) spreads */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
           {featuredProjects.map((project, i) => (
-            <div
+            <Reveal
               key={project._id}
+              delay={i * STAGGER}
               className={i % 4 === 0 || i % 4 === 3 ? "md:col-span-3" : "md:col-span-2"}
             >
               <ProjectCard project={project} />
-            </div>
+            </Reveal>
           ))}
         </div>
 
@@ -88,14 +91,14 @@ export function ProjectsSection({
             Research &amp; ML
           </h3>
           <div className="flex flex-col gap-3">
-            {mlProjects.map((project) => (
+            {mlProjects.map((project, i) => (
               /*
                * Small text card — no screenshot, just title + tagline + repo link.
                * PRD §6.5: "small text cards (title, one line, repo link)
                * with no screenshot requirement"
                */
+              <Reveal key={project._id} delay={i * 0.05} y={10}>
               <div
-                key={project._id}
                 className="flex items-start justify-between gap-4 px-4 py-3 rounded-2xl transition-all duration-200 hover:-translate-y-0.5"
                 style={{
                   background: "var(--color-surface)",
@@ -123,6 +126,7 @@ export function ProjectsSection({
                   </a>
                 )}
               </div>
+              </Reveal>
             ))}
           </div>
         </div>

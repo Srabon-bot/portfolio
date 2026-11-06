@@ -16,6 +16,7 @@
 
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 import type { Profile } from "@/types";
 
 interface AboutSectionProps {
@@ -59,6 +60,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
         />
 
         {/* Card wrapper — README-style clay spread, matches PRD §5.4 Card spec */}
+        <Reveal>
         <div
           className="rounded-card p-5 md:p-8 flex flex-col lg:flex-row items-start"
           style={{
@@ -133,6 +135,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
           {/* ── Side block: Currently status card (beside on lg, below on <lg) ─── */}
           <div className="flex flex-col gap-6 w-full lg:w-72 flex-shrink-0">
             {/* Status badge card */}
+            <Reveal delay={0.12}>
             <div
               className="rounded-2xl p-4 flex items-center gap-3"
               style={{
@@ -160,9 +163,11 @@ export function AboutSection({ profile }: AboutSectionProps) {
                 </span>
               </div>
             </div>
+            </Reveal>
 
             {/* Currently list — hidden entirely when nothing is set */}
             {currentlyItems.length > 0 && (
+            <Reveal delay={0.22}>
             <div
               className="rounded-2xl p-5 flex flex-col gap-4"
               style={{
@@ -202,9 +207,11 @@ export function AboutSection({ profile }: AboutSectionProps) {
                 ))}
               </ul>
             </div>
+            </Reveal>
             )}
           </div>
         </div>
+        </Reveal>
       </Container>
     </section>
   );

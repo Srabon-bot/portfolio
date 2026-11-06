@@ -18,7 +18,8 @@
  */
 
 import Image from "next/image";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { fadeUp } from "@/lib/motion";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { Container } from "@/components/ui/Container";
@@ -32,16 +33,6 @@ interface HeroSectionProps {
     skills: number;
   };
 }
-
-/* Animation variants for fade-and-rise on mount (subtle, respects reduced-motion) */
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, delay, ease: "easeOut" },
-  }),
-};
 
 /* Core stack chips featured in the hero for recruiters */
 const HERO_STACK = ["React", "Next.js", "TypeScript", "Node.js", "MongoDB"];
