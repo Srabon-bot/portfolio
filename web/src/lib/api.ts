@@ -51,8 +51,16 @@ export async function getProfile(): Promise<Profile> {
     if (fromDb) {
       /* DB doc wins on what it defines; seed guarantees the baseline
          (name, links, currently) so a partially-saved admin profile can
-         never blank out components that require those fields. */
-      return { ...seedProfile, ...fromDb };
+         never blank out components that require those fields.
+         `currently` merges per-field an extra level deep: an admin save
+         with empty strings (fields left blank) counts as "not defined",
+         so the seeded copy shows instead of empty labels. */
+      const currently = {
+        building: fromDb.currently?.building || seedProfile.currently.building,
+        learning: fromDb.currently?.learning || seedProfile.currently.learning,
+        funFact: fromDb.currently?.funFact || seedProfile.currently.funFact,
+      };
+      return { ...seedProfile, ...fromDb, currently };
     }
   } catch {
     /* Atlas down — fall through to seed */

@@ -33,18 +33,14 @@ export function AboutSection({ profile }: AboutSectionProps) {
   const leadParagraph = aboutParagraphs[0];
   const bodyParagraphs = aboutParagraphs.slice(1);
 
-  /* The "currently" list items */
+  /* The "currently" list items — empty AND PLACEHOLDER values are dropped
+     so a dangling label or scaffold text can never render, even if the
+     DB fallback in getProfile can't help */
   const currentlyItems = [
     { icon: "🔨", label: "Building", value: currently.building },
     { icon: "📚", label: "Learning", value: currently.learning },
-    {
-      icon: "⚡",
-      label: "Fun fact",
-      value: currently.funFact,
-      /* Flag PLACEHOLDER values so they are never left in by accident */
-      isPlaceholder: currently.funFact.startsWith("PLACEHOLDER"),
-    },
-  ];
+    { icon: "⚡", label: "Fun fact", value: currently.funFact },
+  ].filter((item) => item.value && !item.value.startsWith("PLACEHOLDER"));
 
   return (
     <section
@@ -127,7 +123,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
                   </span>
                 ))}
               </div>
-              <p className="text-xs mt-3 leading-relaxed font-semibold" style={{ color: "var(--color-muted)" }}>
+              <p className="text-xs mt-3 leading-relaxed font-semibold" style={{ color: "var(--color-on-pastel)" }}>
                 This portfolio is itself a MERN full-stack project. The admin dashboard,
                 GitHub import, contact form, and resume upload are all live features.
               </p>
@@ -156,16 +152,17 @@ export function AboutSection({ profile }: AboutSectionProps) {
                 />
               </span>
               <div className="flex flex-col">
-                <span className="text-xs font-extrabold" style={{ color: "var(--color-text)" }}>
+                <span className="text-xs font-extrabold" style={{ color: "var(--color-on-pastel)" }}>
                   Final-Semester CSE
                 </span>
-                <span className="text-xs font-semibold" style={{ color: "var(--color-muted)" }}>
+                <span className="text-xs font-semibold" style={{ color: "var(--color-on-pastel)" }}>
                   UITS, Dhaka • Open to roles
                 </span>
               </div>
             </div>
 
-            {/* Currently list */}
+            {/* Currently list — hidden entirely when nothing is set */}
+            {currentlyItems.length > 0 && (
             <div
               className="rounded-2xl p-5 flex flex-col gap-4"
               style={{
@@ -194,8 +191,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
                       <span
                         className="text-xs leading-relaxed break-words"
                         style={{
-                          color: item.isPlaceholder ? "var(--color-faint)" : "var(--color-text)",
-                          fontStyle: item.isPlaceholder ? "italic" : "normal",
+                          color: "var(--color-text)",
                           overflowWrap: "anywhere",
                         }}
                       >
@@ -206,6 +202,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
                 ))}
               </ul>
             </div>
+            )}
           </div>
         </div>
       </Container>
