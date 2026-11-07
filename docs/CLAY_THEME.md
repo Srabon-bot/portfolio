@@ -52,8 +52,14 @@ ink-on-green 5.3 · ink-on-pastels 7.4–9.8. All AA ✅, most AAA.
 (~2.3 / ~1.9). Use `--color-on-accent` / `--color-on-pastel`.
 
 ## 4. Theming mechanics
-- Pre-paint `THEME_BOOTSTRAP` script in `layout.tsx`: saved choice
-  (`localStorage["theme"]`) → OS preference; adds `.dark` to `<html>` with no FOUC.
+- Pre-paint theme bootstrap: `components/ThemeBootstrap.tsx` injects the tiny
+  script into the SSR `<head>` via Next's `useServerInsertedHTML`, so it runs
+  before first paint (no FOUC) while staying **outside the React tree** — a
+  raw `<script>` in the layout (or next-themes' approach) trips React 19's
+  "Encountered a script tag while rendering React component" dev error, and
+  `next/script`'s `beforeInteractive` is deferred until after first paint in
+  the app router (`self.__next_s`, async chunks), which would flash. Saved
+  choice (`localStorage["theme"]`) → OS preference; adds `.dark` to `<html>`.
 - `ThemeToggle` (inline SVG, 44px target, MutationObserver on `<html>`) renders in
   TopBar desktop + mobile drawer, and on `/projects`, case-study, `/resume` bars.
 - All hard-offset shadows across components use `var(--color-ink-shadow)`
