@@ -13,7 +13,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Chip } from "./Chip";
 import type { Project } from "@/types";
 
