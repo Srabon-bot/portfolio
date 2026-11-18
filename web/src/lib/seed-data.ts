@@ -129,6 +129,43 @@ export const seedProjects: Project[] = [
     status: "published",
   },
   {
+    _id: "proj-shomajshathi",
+    slug: "shomaj-shathi",
+    title: "Shomaj Shathi (সমাজ সাথী)",
+    tagline:
+      "A civic events platform for organising and joining community service work in Dhaka — cleanups, plantations, donation drives, and education circles.",
+    problem:
+      "Community service in Dhaka is organised through WhatsApp groups and Facebook posts — events get lost, attendance is unknown, and there is no record of what was done.",
+    description:
+      "Shomaj Shathi gives organisers and participants one place to create an event, find it, join it, and track their history. Features full authentication (email/password, Google, GitHub), protected member routes, event management, and responsive light/dark themes.",
+    role: "Lead Full-Stack Developer",
+    features: [
+      "Browse, search, and filter upcoming community events by keyword and type in a poster-style grid",
+      "Create, edit, and delete your own service events with a full protected member dashboard",
+      "Join and leave events with a personal joined-events history and participation tracking",
+      "Multi-provider authentication via BetterAuth — email/password, Google, and GitHub OAuth",
+      "Light and dark themes, toast notifications, and fully responsive layout from mobile to wide desktop",
+    ],
+    stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS", "BetterAuth", "MongoDB", "shadcn/ui", "Zod"],
+    liveUrl: "https://shomajshathi-app.vercel.app",
+    repoUrl: "https://github.com/Srabon-bot/ShomajShathi-app",
+    coverImage: "/projects/shomajshathi/home-hero.png",
+    screenshots: [
+      "/projects/shomajshathi/home-hero.png",
+      "/projects/shomajshathi/events-list.png",
+      "/projects/shomajshathi/event-detail.png",
+      "/projects/shomajshathi/auth-login.png",
+    ],
+    setupInstructions:
+      "1. Clone the repository: `git clone https://github.com/Srabon-bot/ShomajShathi-app.git`\n2. Install dependencies: `npm ci`\n3. Copy `.env.example` to `.env.local` and fill in `MONGODB_URI`, `BETTER_AUTH_SECRET`, and OAuth keys\n4. Start development server: `npm run dev`",
+    improvements:
+      "Add real-time attendee chat, push notifications for joined events, geolocation-based event discovery, and an organiser analytics dashboard.",
+    type: "full-stack",
+    featured: true,
+    order: 2,
+    status: "published",
+  },
+  {
     _id: "proj-bazardor",
     slug: "bazardor",
     title: "BazarDor (বাজার দর)",
@@ -162,7 +199,7 @@ export const seedProjects: Project[] = [
       "Implement crowdsourced verified community price reports, automated SMS alerts for essential staples when prices spike beyond threshold, and predictive trend charts using historical seasonal market data.",
     type: "full-stack",
     featured: true,
-    order: 2,
+    order: 3,
     status: "published",
   },
   {
@@ -199,8 +236,8 @@ export const seedProjects: Project[] = [
     improvements:
       "Integrate RESTful workout history logging to MongoDB Atlas, add custom exercise creator forms with video demos, and build automated superset pairing suggestions.",
     type: "frontend",
-    featured: true,
-    order: 3,
+    featured: false,
+    order: 5,
     status: "published",
   },
   {
