@@ -89,6 +89,14 @@ export async function POST(req: NextRequest) {
       screenshots: Array.isArray(b.screenshots) ? b.screenshots : [],
       setupInstructions: b.setupInstructions || undefined,
       improvements: b.improvements || undefined,
+      architectureSummary: b.architectureSummary || undefined,
+      architectureFlow: b.architectureFlow || undefined,
+      architectureNotes: b.architectureNotes || undefined,
+      authNotes: b.authNotes || undefined,
+      deploymentNotes: b.deploymentNotes || undefined,
+      hardProblemTitle: b.hardProblemTitle || undefined,
+      hardProblemContext: b.hardProblemContext || undefined,
+      hardProblemFix: b.hardProblemFix || undefined,
       type:
         ["full-stack", "frontend", "ml-research"].includes(b.type)
           ? b.type

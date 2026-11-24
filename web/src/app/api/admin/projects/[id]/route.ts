@@ -33,6 +33,9 @@ export async function PUT(
   const strFields = [
     "title", "tagline", "problem", "description", "role",
     "liveUrl", "repoUrl", "coverImage", "setupInstructions", "improvements",
+    "architectureSummary", "architectureFlow", "architectureNotes",
+    "authNotes", "deploymentNotes",
+    "hardProblemTitle", "hardProblemContext", "hardProblemFix",
   ] as const;
   strFields.forEach((k) => {
     if (k in b) update[k] = b[k];

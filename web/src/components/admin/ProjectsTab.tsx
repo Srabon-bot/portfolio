@@ -357,6 +357,65 @@ export function ProjectsTab({ projects, onChanged, notify }: ProjectsTabProps) {
               />
             </AdminField>
 
+            <AdminField label="Case study — architecture summary" hint="Chapter 2">
+              <AdminTextarea
+                value={draft.architectureSummary ?? ""}
+                onChange={(e) =>
+                  setDraft({ ...draft, architectureSummary: e.target.value })
+                }
+              />
+            </AdminField>
+            <AdminField label="Case study — architecture flow" hint="One step per line, use an arrow or caret in the lines">
+              <AdminTextarea
+                value={draft.architectureFlow ?? ""}
+                onChange={(e) =>
+                  setDraft({ ...draft, architectureFlow: e.target.value })
+                }
+              />
+            </AdminField>
+            <AdminField label="Case study — architecture notes">
+              <AdminTextarea
+                value={draft.architectureNotes ?? ""}
+                onChange={(e) =>
+                  setDraft({ ...draft, architectureNotes: e.target.value })
+                }
+              />
+            </AdminField>
+            <AdminField label="Case study — auth notes" hint="One bullet per line">
+              <AdminTextarea
+                value={draft.authNotes ?? ""}
+                onChange={(e) => setDraft({ ...draft, authNotes: e.target.value })}
+              />
+            </AdminField>
+            <AdminField label="Case study — deployment notes" hint="One bullet per line">
+              <AdminTextarea
+                value={draft.deploymentNotes ?? ""}
+                onChange={(e) =>
+                  setDraft({ ...draft, deploymentNotes: e.target.value })
+                }
+              />
+            </AdminField>
+            <AdminField label="Case study — hard problem title">
+              <AdminInput
+                value={draft.hardProblemTitle ?? ""}
+                onChange={(e) => setDraft({ ...draft, hardProblemTitle: e.target.value })}
+              />
+            </AdminField>
+            <AdminField label="Case study — hard problem context">
+              <AdminTextarea
+                value={draft.hardProblemContext ?? ""}
+                onChange={(e) =>
+                  setDraft({ ...draft, hardProblemContext: e.target.value })
+                }
+              />
+            </AdminField>
+            <AdminField label="Case study — hard problem fix">
+              <AdminTextarea
+                value={draft.hardProblemFix ?? ""}
+                onChange={(e) => setDraft({ ...draft, hardProblemFix: e.target.value })}
+              />
+            </AdminField>
+
             <div className="flex justify-end">
               <button
                 type="button"
