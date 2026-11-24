@@ -62,6 +62,14 @@ export interface IProject {
   screenshots: string[];
   setupInstructions?: string;
   improvements?: string;
+  architectureSummary?: string;
+  architectureFlow?: string;
+  architectureNotes?: string;
+  authNotes?: string;
+  deploymentNotes?: string;
+  hardProblemTitle?: string;
+  hardProblemContext?: string;
+  hardProblemFix?: string;
   type: ProjectType;
   featured: boolean;
   order: number;

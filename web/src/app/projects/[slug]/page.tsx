@@ -8,16 +8,26 @@ import { TechIcon } from "@/components/ui/TechIcon";
 import { ChapterNav } from "@/components/works/ChapterNav";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
-/* Sticky chapters for the mono table of contents (5-section README structure) */
-const CHAPTERS = [
-  { id: "problem",       label: "1. Problem" },
-  { id: "architecture",  label: "2. Architecture" },
-  { id: "auth",          label: "3. Auth" },
-  { id: "deployment",    label: "4. Deployment" },
-  { id: "hard-problem",  label: "5. Hard Problem" },
-  { id: "gallery",       label: "6. Gallery" },
-  { id: "setup",         label: "7. Local Setup" },
+/* Chapters are data-driven: a project only shows the sections it has copy
+ * for, so a research project never inherits another project's auth story. */
+const ALL_CHAPTERS = [
+  { id: "problem",      label: "1. Problem" },
+  { id: "architecture", label: "2. Architecture" },
+  { id: "auth",         label: "3. Auth" },
+  { id: "deployment",   label: "4. Deployment" },
+  { id: "hard-problem", label: "5. Hard Problem" },
+  { id: "improvements", label: "6. What I'd Improve" },
+  { id: "gallery",      label: "7. Gallery" },
+  { id: "setup",        label: "8. Local Setup" },
 ];
+
+/* One bullet / flow step per line in the seed copy. */
+function lines(value?: string): string[] {
+  return (value ?? "")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+}
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -66,6 +76,44 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
   if (!project) {
     notFound();
   }
+
+  const hasArchitecture = Boolean(
+    project.architectureSummary ||
+      project.architectureFlow ||
+      project.architectureNotes ||
+      project.stack.length
+  );
+  const hasAuth = Boolean(project.authNotes);
+  const hasDeployment = Boolean(project.deploymentNotes);
+  const hasHardProblem = Boolean(
+    project.hardProblemTitle ||
+      project.hardProblemContext ||
+      project.hardProblemFix
+  );
+  const hasImprovements = Boolean(project.improvements);
+  const hasGallery = project.screenshots.length > 0;
+  const hasSetup = Boolean(project.setupInstructions);
+
+  const chapters = ALL_CHAPTERS.filter(({ id }) => {
+    switch (id) {
+      case "architecture":
+        return hasArchitecture;
+      case "auth":
+        return hasAuth;
+      case "deployment":
+        return hasDeployment;
+      case "hard-problem":
+        return hasHardProblem;
+      case "improvements":
+        return hasImprovements;
+      case "gallery":
+        return hasGallery;
+      case "setup":
+        return hasSetup;
+      default:
+        return true;
+    }
+  });
 
   return (
     <div className="min-h-screen" style={{ background: "var(--color-bg)" }}>
@@ -120,7 +168,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
       <div className="max-w-4xl mx-auto lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-10 px-4 md:px-8">
         {/* Sticky chapter TOC (desktop) */}
         <aside aria-label="Case study chapters" className="hidden lg:block">
-          <ChapterNav chapters={CHAPTERS} />
+          <ChapterNav chapters={chapters} />
         </aside>
 
         <article className="section-pad flex flex-col gap-10 min-w-0" style={{ paddingBottom: "var(--space-section)" }}>
@@ -207,204 +255,251 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             className="text-base leading-relaxed"
             style={{ color: "var(--color-muted)" }}
           >
-            {project.problem ||
-              "TODO: Document the exact real-world problem, user pain points, and why traditional solutions failed for target users."}
+            {project.problem || project.tagline}
           </p>
 
-          <div
-            className="p-4 rounded-xl text-sm"
-            style={{
-              background: "var(--color-surface-2)",
-              border: "2px solid color-mix(in srgb, var(--color-ink) 45%, transparent)",
-              color: "var(--color-text)",
-            }}
-          >
-            <strong>Core insight:</strong> {project.description}
-          </div>
-        </section>
-
-        {/* ── 2. Architecture (React -> Express -> MongoDB) ─────────── */}
-        <section
-          id="architecture"
-          className="rounded-[18px] p-6 md:p-8 flex flex-col gap-5"
-          style={{
-            background: "var(--color-surface)",
-            border: "2.5px solid var(--color-ink)",
-            boxShadow: "5px 5px 0 var(--color-ink-shadow)",
-          }}
-        >
-          <div className="flex items-center justify-between">
-            <h2
-              className="text-xl md:text-2xl font-bold flex items-center gap-2"
-              style={{ color: "var(--color-text)" }}
-            >
-              <span>🏛️</span> 2. Architecture (React → Express → MongoDB)
-            </h2>
-            <span className="text-xs font-mono text-accent-soft uppercase">Full-Stack Flow</span>
-          </div>
-
-          <p
-            className="text-sm md:text-base leading-relaxed"
-            style={{ color: "var(--color-muted)" }}
-          >
-            End-to-end architecture connects client interactions through resilient API controllers down to optimized document queries:
-          </p>
-
-          <div
-            className="p-4 rounded-xl font-mono text-xs md:text-sm overflow-x-auto leading-relaxed border"
-            style={{
-              background: "var(--color-surface-2)",
-              borderColor: "color-mix(in srgb, var(--color-ink) 45%, transparent)",
-              color: "var(--color-text)",
-            }}
-          >
-            <div className="text-accent-soft font-semibold mb-1">
-              {/* Architecture Data Flow Diagram */}
-              [Client: React 19 / Next.js] ──▶ (HTTPS / JSON / Bearer JWT)
-            </div>
-            <div className="text-muted ml-6">
-              ▼ Express REST Router &amp; Rate-Limiting Middleware
-            </div>
-            <div className="text-muted ml-6">
-              ▼ Controller validation (Zod schemas) &amp; Business Logic Service
-            </div>
-            <div className="font-semibold ml-6" style={{ color: "var(--color-success)" }}>
-              ▼ [Database: MongoDB / Neon Postgres] (Mongoose models, compound indexes, atomic writes)
-            </div>
-          </div>
-
-          <p className="text-xs font-mono text-faint">
-            TODO: Expand architecture notes with microservice boundaries, caching layer, or message queues as the system scales.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
-            {project.stack.map((tech) => (
-              <div
-                key={tech}
-                className="p-3.5 rounded-xl flex items-center gap-3"
-                style={{
-                  background: "var(--color-surface-2)",
-                  border: "2px solid color-mix(in srgb, var(--color-ink) 45%, transparent)",
-                }}
-              >
-                <TechIcon name={tech} size={18} />
-                <span className="text-xs font-mono font-medium text-text">{tech}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── 3. Auth ───────────────────────────────────────────────── */}
-        <section
-          id="auth"
-          className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
-          style={{
-            background: "var(--color-surface)",
-            border: "2.5px solid var(--color-ink)",
-            boxShadow: "5px 5px 0 var(--color-ink-shadow)",
-          }}
-        >
-          <div className="flex items-center justify-between">
-            <h2
-              className="text-xl md:text-2xl font-bold flex items-center gap-2"
-              style={{ color: "var(--color-text)" }}
-            >
-              <span>🔒</span> 3. Auth
-            </h2>
-            <span className="text-xs font-mono text-faint uppercase">Security &amp; Sessions</span>
-          </div>
-
-          <div className="space-y-3 text-sm md:text-base leading-relaxed" style={{ color: "var(--color-muted)" }}>
-            <p>
-              Authentication is structured to deliver zero-trust session validation without compromising response times:
-            </p>
-            <ul className="list-disc list-inside space-y-1.5 font-mono text-xs md:text-sm pl-2">
-              <li>Stateless JWT access tokens with short TTLs and secure HTTP-only refresh cookies.</li>
-              <li>Argon2 / bcrypt password hashing with unique salt rounds.</li>
-              <li>Role-based access control (RBAC) middleware verifying token claims on protected endpoints.</li>
-              <li>TODO: Add biometric WebAuthn / passkey login support for field operators.</li>
-            </ul>
-          </div>
-        </section>
-
-        {/* ── 4. Deployment ─────────────────────────────────────────── */}
-        <section
-          id="deployment"
-          className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
-          style={{
-            background: "var(--color-surface)",
-            border: "2.5px solid var(--color-ink)",
-            boxShadow: "5px 5px 0 var(--color-ink-shadow)",
-          }}
-        >
-          <div className="flex items-center justify-between">
-            <h2
-              className="text-xl md:text-2xl font-bold flex items-center gap-2"
-              style={{ color: "var(--color-text)" }}
-            >
-              <span>🚀</span> 4. Deployment
-            </h2>
-            <span className="text-xs font-mono text-faint uppercase">CI/CD &amp; Infrastructure</span>
-          </div>
-
-          <div className="space-y-3 text-sm md:text-base leading-relaxed" style={{ color: "var(--color-muted)" }}>
-            <p>
-              Continuous deployment pipeline with automatic lint, test, and zero-downtime rollouts:
-            </p>
-            <ul className="list-disc list-inside space-y-1.5 font-mono text-xs md:text-sm pl-2">
-              <li>Frontend deployed on Vercel with global Edge caching and instant rollbacks.</li>
-              <li>Backend API deployed on Node.js container runtime with automated health checks.</li>
-              <li>Database provisioned on high-availability managed cluster with automated daily snapshots.</li>
-              <li>TODO: Add automated synthetic monitoring and alerting via uptime webhooks.</li>
-            </ul>
-          </div>
-        </section>
-
-        {/* ── 5. Hard Problem Solved ─────────────────────────────────── */}
-        <section
-          id="hard-problem"
-          className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
-          style={{
-            background: "var(--color-surface)",
-            border: "2.5px solid var(--color-ink)",
-            boxShadow: "5px 5px 0 var(--color-ink-shadow)",
-          }}
-        >
-          <div className="flex items-center justify-between">
-            <h2
-              className="text-xl md:text-2xl font-bold flex items-center gap-2"
-              style={{ color: "var(--color-text)" }}
-            >
-              <span>⚡</span> 5. Hard Problem Solved
-            </h2>
-            <span className="text-xs font-mono text-accent-soft uppercase">Key Technical Win</span>
-          </div>
-
-          <div className="space-y-3 text-sm md:text-base leading-relaxed" style={{ color: "var(--color-muted)" }}>
-            <p className="font-semibold text-text">
-              Engineering offline-first voice extraction with zero cloud AI API quotas:
-            </p>
-            <p>
-              Standard solutions require streaming audio to costly external cloud speech APIs, introducing prohibitive latencies and failing outright during erratic connectivity in rural markets.
-            </p>
+          {project.description && (
             <div
-              className="p-4 rounded-xl text-xs md:text-sm font-mono border"
+              className="p-4 rounded-xl text-sm"
               style={{
                 background: "var(--color-surface-2)",
-                borderColor: "color-mix(in srgb, var(--color-ink) 45%, transparent)",
-                color: "var(--color-accent-soft)",
+                border: "2px solid color-mix(in srgb, var(--color-ink) 45%, transparent)",
+                color: "var(--color-text)",
               }}
             >
-              <strong>The Fix:</strong> Built an entirely on-device, rule-based deterministic grammar parser running on top of Web Speech API and IndexedDB. Cut transaction latency from ~2.4s to under 45ms, functioning 100% offline with zero external cloud cost.
+              <strong>Core insight:</strong> {project.description}
             </div>
-            <p className="text-xs font-mono text-faint">
-              TODO: Quantify memory profile under 10,000+ cached ledger entries and benchmark Dexie transaction locks.
-            </p>
-          </div>
+          )}
         </section>
 
-        {/* Key Features & Visual Showcase */}
-        {project.screenshots && project.screenshots.length > 0 && (
+        {/* ── 2. Architecture ───────────────────────────────────────── */}
+        {hasArchitecture && (
+          <section
+            id="architecture"
+            className="rounded-[18px] p-6 md:p-8 flex flex-col gap-5"
+            style={{
+              background: "var(--color-surface)",
+              border: "2.5px solid var(--color-ink)",
+              boxShadow: "5px 5px 0 var(--color-ink-shadow)",
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <h2
+                className="text-xl md:text-2xl font-bold flex items-center gap-2"
+                style={{ color: "var(--color-text)" }}
+              >
+                <span>🏛️</span> 2. Architecture
+              </h2>
+              <span className="text-xs font-mono text-accent-soft uppercase">System Flow</span>
+            </div>
+
+            {project.architectureSummary && (
+              <p
+                className="text-sm md:text-base leading-relaxed"
+                style={{ color: "var(--color-muted)" }}
+              >
+                {project.architectureSummary}
+              </p>
+            )}
+
+            {project.architectureFlow && (
+              <div
+                className="p-4 rounded-xl font-mono text-xs md:text-sm overflow-x-auto leading-relaxed border"
+                style={{
+                  background: "var(--color-surface-2)",
+                  borderColor: "color-mix(in srgb, var(--color-ink) 45%, transparent)",
+                  color: "var(--color-text)",
+                }}
+              >
+                {project.architectureFlow
+                  .split("\n")
+                  .map((line) => line.trim())
+                  .filter(Boolean)
+                  .map((line, i, lines) => {
+                    const isFirst = i === 0;
+                    const isLast = i === lines.length - 1;
+                    return (
+                      <div
+                        key={i}
+                        className={
+                          isFirst
+                            ? "text-accent-soft font-semibold mb-1"
+                            : isLast
+                              ? "font-semibold ml-6"
+                              : "text-muted ml-6"
+                        }
+                        style={isLast ? { color: "var(--color-success)" } : undefined}
+                      >
+                        {isFirst ? line : `▼ ${line}`}
+                      </div>
+                    );
+                  })}
+              </div>
+            )}
+
+            {project.architectureNotes && (
+              <p className="text-xs font-mono text-faint">
+                {project.architectureNotes}
+              </p>
+            )}
+
+            {project.stack.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                {project.stack.map((tech) => (
+                  <div
+                    key={tech}
+                    className="p-3.5 rounded-xl flex items-center gap-3"
+                    style={{
+                      background: "var(--color-surface-2)",
+                      border: "2px solid color-mix(in srgb, var(--color-ink) 45%, transparent)",
+                    }}
+                  >
+                    <TechIcon name={tech} size={18} />
+                    <span className="text-xs font-mono font-medium text-text">{tech}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* ── 3. Auth ───────────────────────────────────────────────── */}
+        {hasAuth && (
+          <section
+            id="auth"
+            className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
+            style={{
+              background: "var(--color-surface)",
+              border: "2.5px solid var(--color-ink)",
+              boxShadow: "5px 5px 0 var(--color-ink-shadow)",
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <h2
+                className="text-xl md:text-2xl font-bold flex items-center gap-2"
+                style={{ color: "var(--color-text)" }}
+              >
+                <span>🔒</span> 3. Auth
+              </h2>
+              <span className="text-xs font-mono text-faint uppercase">Identity &amp; Access</span>
+            </div>
+
+            <div className="space-y-3 text-sm md:text-base leading-relaxed" style={{ color: "var(--color-muted)" }}>
+              <p>How this project handles identity and access:</p>
+              <ul className="list-disc list-inside space-y-1.5 font-mono text-xs md:text-sm pl-2">
+                {lines(project.authNotes).map((note, i) => (
+                  <li key={i}>{note}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {/* ── 4. Deployment ─────────────────────────────────────────── */}
+        {hasDeployment && (
+          <section
+            id="deployment"
+            className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
+            style={{
+              background: "var(--color-surface)",
+              border: "2.5px solid var(--color-ink)",
+              boxShadow: "5px 5px 0 var(--color-ink-shadow)",
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <h2
+                className="text-xl md:text-2xl font-bold flex items-center gap-2"
+                style={{ color: "var(--color-text)" }}
+              >
+                <span>🚀</span> 4. Deployment
+              </h2>
+              <span className="text-xs font-mono text-faint uppercase">Infrastructure</span>
+            </div>
+
+            <div className="space-y-3 text-sm md:text-base leading-relaxed" style={{ color: "var(--color-muted)" }}>
+              <p>Where the pieces run in production:</p>
+              <ul className="list-disc list-inside space-y-1.5 font-mono text-xs md:text-sm pl-2">
+                {lines(project.deploymentNotes).map((note, i) => (
+                  <li key={i}>{note}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {/* ── 5. Hard Problem Solved ─────────────────────────────────── */}
+        {hasHardProblem && (
+          <section
+            id="hard-problem"
+            className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
+            style={{
+              background: "var(--color-surface)",
+              border: "2.5px solid var(--color-ink)",
+              boxShadow: "5px 5px 0 var(--color-ink-shadow)",
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <h2
+                className="text-xl md:text-2xl font-bold flex items-center gap-2"
+                style={{ color: "var(--color-text)" }}
+              >
+                <span>⚡</span> 5. Hard Problem Solved
+              </h2>
+              <span className="text-xs font-mono text-accent-soft uppercase">Key Technical Win</span>
+            </div>
+
+            <div className="space-y-3 text-sm md:text-base leading-relaxed" style={{ color: "var(--color-muted)" }}>
+              {project.hardProblemTitle && (
+                <p className="font-semibold text-text">{project.hardProblemTitle}</p>
+              )}
+              {project.hardProblemContext && <p>{project.hardProblemContext}</p>}
+              {project.hardProblemFix && (
+                <div
+                  className="p-4 rounded-xl text-xs md:text-sm font-mono border"
+                  style={{
+                    background: "var(--color-surface-2)",
+                    borderColor: "color-mix(in srgb, var(--color-ink) 45%, transparent)",
+                    color: "var(--color-accent-soft)",
+                  }}
+                >
+                  <strong>The Fix:</strong> {project.hardProblemFix}
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* ── 6. What I'd Improve ────────────────────────────────────── */}
+        {hasImprovements && (
+          <section
+            id="improvements"
+            className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
+            style={{
+              background: "var(--color-surface)",
+              border: "2.5px solid var(--color-ink)",
+              boxShadow: "5px 5px 0 var(--color-ink-shadow)",
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <h2
+                className="text-xl md:text-2xl font-bold flex items-center gap-2"
+                style={{ color: "var(--color-text)" }}
+              >
+                <span>🌱</span> 6. What I&apos;d Improve
+              </h2>
+              <span className="text-xs font-mono text-faint uppercase">Next Steps</span>
+            </div>
+            <p
+              className="text-sm md:text-base leading-relaxed"
+              style={{ color: "var(--color-muted)" }}
+            >
+              {project.improvements}
+            </p>
+          </section>
+        )}
+
+        {/* ── 7. Gallery ────────────────────────────────────────────── */}
+        {hasGallery && (
           <section
             id="gallery"
             className="rounded-[18px] p-6 md:p-8 flex flex-col gap-6"
@@ -417,7 +512,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
               className="text-xl md:text-2xl font-bold flex items-center gap-2"
               style={{ color: "var(--color-text)" }}
             >
-              <span>🖼️</span> Visual Gallery &amp; Key Screens
+              <span>🖼️</span> 7. Visual Gallery &amp; Key Screens
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {project.screenshots.map((img, index) => (
@@ -442,22 +537,23 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* Local Setup Instructions */}
-        <section
-          id="setup"
-          className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
-          style={{
-            background: "var(--color-surface)",
-            border: "2.5px solid var(--color-ink)",
-            boxShadow: "5px 5px 0 var(--color-ink-shadow)",
-          }}
-        >
-          <h2
-            className="text-xl md:text-2xl font-bold flex items-center gap-2"
-            style={{ color: "var(--color-text)" }}
+        {/* ── 8. Local Setup ────────────────────────────────────────── */}
+        {hasSetup && (
+          <section
+            id="setup"
+            className="rounded-[18px] p-6 md:p-8 flex flex-col gap-4"
+            style={{
+              background: "var(--color-surface)",
+              border: "2.5px solid var(--color-ink)",
+              boxShadow: "5px 5px 0 var(--color-ink-shadow)",
+            }}
           >
-            <span>🛠️</span> Local Setup &amp; Installation
-          </h2>
+            <h2
+              className="text-xl md:text-2xl font-bold flex items-center gap-2"
+              style={{ color: "var(--color-text)" }}
+            >
+              <span>🛠️</span> 8. Local Setup &amp; Installation
+            </h2>
           <pre
             className="rounded-xl p-5 overflow-x-auto text-xs md:text-sm font-mono leading-relaxed"
             style={{
@@ -466,9 +562,10 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
               color: "var(--color-text)",
             }}
           >
-            <code>{project.setupInstructions || "npm install\nnpm run dev"}</code>
+            <code>{project.setupInstructions}</code>
           </pre>
-        </section>
+          </section>
+        )}
 
         {/* Bottom actions footer */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t" style={{ borderColor: "var(--color-border)" }}>

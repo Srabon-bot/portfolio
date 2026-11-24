@@ -123,6 +123,21 @@ export const seedProjects: Project[] = [
       "1. Clone the repository: `git clone https://github.com/Srabon-bot/kaist-haalkhata.git`\n2. Install dependencies: `npm install`\n3. Configure `.env` with `DATABASE_URL` (Neon Postgres) and `SESSION_SECRET`\n4. Initialize database schema: `psql $DATABASE_URL -f db/schema.sql`\n5. Start development server: `npm run dev` (voice entry works fully offline with zero API needed)",
     improvements:
       "Add dialect-adaptive acoustic model for regional Chittagonian and Sylheti accents, and integrate native Bluetooth thermal receipt printer support.",
+    architectureSummary:
+      "A local-first React single-page app with Neon Postgres for cross-device sync; voice parsing runs entirely on the device.",
+    architectureFlow:
+      "[React 19 + Vite SPA] ──▶ (Web Speech API · on-device rule parser)\nDexie / IndexedDB — offline source of truth\nVercel Edge Functions — auth and sync API\nNeon Postgres — account-wide ledger with soft-delete reconciliation",
+    architectureNotes:
+      "No external AI API is called: the grammar parser extracts customer, item, amount, and cash-or-credit locally, so voice entry works with the network off.",
+    authNotes:
+      "Email/password or Google sign-in, with Neon Postgres as the account-wide source of truth across devices.\nLedger entries are written locally first, so the app stays usable when the connection drops.\nSoft deletes and reconciliation keep corrections consistent across every device.",
+    deploymentNotes:
+      "React frontend and Vercel Edge Functions deploy together on Vercel.\nNeon Postgres provides the managed database and serverless connection path.\nDexie / IndexedDB keeps the ledger readable and writable offline.",
+    hardProblemTitle: "On-device voice extraction with zero cloud AI",
+    hardProblemContext:
+      "Streaming audio to a cloud speech API would add latency, cost, and a hard dependency on connectivity — a dealbreaker at a busy shop counter or in a rural market.",
+    hardProblemFix:
+      "A deterministic rule-based grammar parser runs on top of the Web Speech API and writes structured entries into IndexedDB. Customer, item, amount, and cash-or-credit are extracted locally, with no external AI quota and no network round-trip.",
     type: "full-stack",
     featured: true,
     order: 1,
@@ -160,6 +175,21 @@ export const seedProjects: Project[] = [
       "1. Clone the repository: `git clone https://github.com/Srabon-bot/ShomajShathi-app.git`\n2. Install dependencies: `npm ci`\n3. Copy `.env.example` to `.env.local` and fill in `MONGODB_URI`, `BETTER_AUTH_SECRET`, and OAuth keys\n4. Start development server: `npm run dev`",
     improvements:
       "Add real-time attendee chat, push notifications for joined events, geolocation-based event discovery, and an organiser analytics dashboard.",
+    architectureSummary:
+      "A Next.js 16 App Router client talking to an Express API on Vercel, with MongoDB Atlas as the store.",
+    architectureFlow:
+      "[Next.js 16 App Router / RSC] ──▶ (HTTPS / JSON / Bearer JWT)\nExpress API on Vercel — events, joins, profiles\nBetterAuth issues short-lived JWTs; the API verifies them via JWKS\nMongoDB Atlas — users, events, participation",
+    architectureNotes:
+      "Public event pages render without an account; protected member routes are guarded by src/proxy.ts and server-side checks.",
+    authNotes:
+      "BetterAuth supports email/password, Google, and GitHub sign-in.\nShort-lived JWTs travel as Authorization: Bearer <token> and are verified by the Express API against the client's JWKS endpoint.\nsrc/proxy.ts redirects unauthenticated visitors away from protected routes, and sessions survive a full browser reload.",
+    deploymentNotes:
+      "Next.js client and Express API deploy as separate Vercel projects.\nMongoDB Atlas stores users, events, and participation records.\nTheme and auth state persist across sessions.",
+    hardProblemTitle: "Keeping auth coherent across two deployments",
+    hardProblemContext:
+      "The UI and API live on separate Vercel projects. A token the API cannot verify — or a session that vanishes on reload — breaks every protected route.",
+    hardProblemFix:
+      "BetterAuth mints short-lived JWTs; the Express API verifies them against the client's published JWKS endpoint. Route guards in src/proxy.ts redirect unauthenticated users to /login?next=… without losing the destination.",
     type: "full-stack",
     featured: true,
     order: 2,
@@ -197,6 +227,21 @@ export const seedProjects: Project[] = [
       "1. Clone the repository: `git clone https://github.com/Srabon-bot/BazarDor.git`\n2. Install dependencies: `npm install`\n3. Configure `.env.local` with `MONGODB_URI`, `BETTER_AUTH_SECRET`, and OAuth keys\n4. Start development server: `npm run dev`",
     improvements:
       "Implement crowdsourced verified community price reports, automated SMS alerts for essential staples when prices spike beyond threshold, and predictive trend charts using historical seasonal market data.",
+    architectureSummary:
+      "A Next.js App Router app with server components and route handlers, backed by MongoDB Atlas and BetterAuth.",
+    architectureFlow:
+      "[Next.js 16 App Router / RSC] ──▶ (server-rendered price data)\nRoute handlers and server components — category and product queries\nBetterAuth sessions guard /product/[slug]\nMongoDB Atlas — commodities, markets, users",
+    architectureNotes:
+      "Category sorting parses each price into a numeric value first, so ৳90 sorts below ৳120 instead of above it.",
+    authNotes:
+      "BetterAuth with email/password, Google, and GitHub OAuth.\nAccount linking lets an existing email account sign in with a social provider.\n/product/[slug] is guarded; unauthenticated visitors are sent to sign in.",
+    deploymentNotes:
+      "Deployed on Vercel with App Router partial prerendering and server components.\nMongoDB Atlas stores users, accounts, sessions, and price data.\nSkeleton loaders cover the home, category, product, and auth routes.",
+    hardProblemTitle: "Sorting prices as numbers, not strings",
+    hardProblemContext:
+      "Commodity prices arrive as formatted strings with units and Bengali numerals; a naive sort puts ৳90 above ৳120.",
+    hardProblemFix:
+      "The category view parses each price into a numeric value before sorting, so Low-to-High and High-to-Low reflect real market rates across every unit.",
     type: "full-stack",
     featured: true,
     order: 3,
@@ -235,6 +280,21 @@ export const seedProjects: Project[] = [
       "1. Clone the repository: `git clone https://github.com/Srabon-bot/FitLog.git`\n2. Install dependencies: `npm install`\n3. Start the Next.js development server: `npm run dev`\n4. Open http://localhost:3000 in your browser",
     improvements:
       "Integrate RESTful workout history logging to MongoDB Atlas, add custom exercise creator forms with video demos, and build automated superset pairing suggestions.",
+    architectureSummary:
+      "A client-only Next.js app that keeps the workout library and today's plan in local storage — no backend.",
+    architectureFlow:
+      "[Next.js 16 App Router] ──▶ (React state)\nlocalStorage — plan, saved lifts, completed check-offs\nDerived session metrics — exercises, minutes, calories\nStatic Vercel deployment — no database",
+    architectureNotes:
+      "Plan and saved lists hydrate from localStorage on load and persist on every change, so closing the tab never loses a session.",
+    authNotes:
+      "No accounts — this is a single-user tool, and the plan stays on the device.",
+    deploymentNotes:
+      "Static Next.js deployment on Vercel.\nNo server, database, or API keys.",
+    hardProblemTitle: "Plan state that survives a closed tab",
+    hardProblemContext:
+      "A workout planner is useless if the plan disappears on refresh, and a backend would be overkill for a single-user tool.",
+    hardProblemFix:
+      "Plan and saved lists hydrate from localStorage on load and persist on every change. Duration and calorie totals are derived from the same state, so the metrics never drift from the plan.",
     type: "frontend",
     featured: false,
     order: 5,
@@ -272,6 +332,21 @@ export const seedProjects: Project[] = [
       "1. Clone repository: `git clone https://github.com/Srabon-bot/yutnori-game.git`\n2. Install dependencies: `npm install`\n3. Run development server: `npm run dev`\n4. Run rules engine test suite: `npm test`",
     improvements:
       "Add WebRTC peer-to-peer online multiplayer, customizable 3D board textures and wooden token materials, and ranked online leaderboards.",
+    architectureSummary:
+      "A zero-backend React game: the rules engine, Zustand store, and React Three Fiber scene all run in the browser.",
+    architectureFlow:
+      "[React + Vite client] ──▶ (player input)\nZustand store — turn, pieces, captures, throws\nPure TypeScript rules engine — Do/Gae/Geol/Yut/Mo, stacking, shortcuts\nReact Three Fiber / Three.js — board, pieces, yut-stick animation",
+    architectureNotes:
+      "The rules engine is isolated from rendering and covered by Vitest, so edge cases can be tested without a browser or a 3D scene.",
+    authNotes:
+      "No accounts — the game is zero-backend and runs entirely in the browser.",
+    deploymentNotes:
+      "Static Vite build deployed on Vercel.\nNo server, database, or runtime secrets.",
+    hardProblemTitle: "A rules engine that can be tested without the 3D layer",
+    hardProblemContext:
+      "Board games hide edge cases in the UI; mixing rules with rendering makes captures, bonus throws, and shortcuts hard to verify.",
+    hardProblemFix:
+      "The rules live in an isolated TypeScript engine with a Vitest suite; the 3D scene only renders state and dispatches moves. Every throw, stack, capture, and shortcut is exercised outside the renderer.",
     type: "frontend",
     featured: true,
     order: 4,

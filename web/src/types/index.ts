@@ -36,6 +36,16 @@ export interface Project {
   screenshots: string[];        /* Cloudinary URLs */
   setupInstructions?: string;   /* markdown */
   improvements?: string;        /* markdown — "What I would improve" */
+
+  /* ── Case-study chapters (optional; the page hides empty sections) ── */
+  architectureSummary?: string;
+  architectureFlow?: string;    /* one step per line → rendered as the mono diagram */
+  architectureNotes?: string;
+  authNotes?: string;           /* one bullet per line */
+  deploymentNotes?: string;     /* one bullet per line */
+  hardProblemTitle?: string;
+  hardProblemContext?: string;
+  hardProblemFix?: string;
   /** Only full-stack and frontend projects can be featured */
   type: "full-stack" | "frontend" | "ml-research";
   featured: boolean;
