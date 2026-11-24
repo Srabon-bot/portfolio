@@ -2,7 +2,7 @@
  * ProjectsSection — "My works" grid + "Research and ML" strip.
  *
  * PRD §6.5:
- * - Grid of up to 4 featured ProjectCards (type: full-stack or frontend only).
+ * - List of up to 4 featured ProjectCards (type: full-stack or frontend only).
  * - "View all projects" link if more exist.
  * - Below it, a compact "Research and ML" strip for ml-research projects
  *   (small text cards, title + one line + repo link, no screenshots).
@@ -51,15 +51,11 @@ export function ProjectsSection({
           id="projects-heading"
         />
 
-        {/* Asymmetric editorial gallery — alternating wide (3/5) and narrow (2/5) spreads */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
+        {/* Full-width list cards — equal weight, order carries the ranking */}
+        <div className="flex flex-col gap-6">
           {featuredProjects.map((project, i) => (
-            <Reveal
-              key={project._id}
-              delay={i * STAGGER}
-              className={i % 4 === 0 || i % 4 === 3 ? "md:col-span-3" : "md:col-span-2"}
-            >
-              <ProjectCard project={project} />
+            <Reveal key={project._id} delay={i * STAGGER}>
+              <ProjectCard project={project} index={i} />
             </Reveal>
           ))}
         </div>
