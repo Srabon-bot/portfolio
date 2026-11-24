@@ -144,6 +144,43 @@ export const seedProjects: Project[] = [
     status: "published",
   },
   {
+    _id: "proj-yardclub",
+    slug: "yardclub",
+    title: "Yardclub",
+    tagline:
+      "A two-sided industrial equipment rental marketplace for Dhaka and Chattogram — browse, book, and pay for machinery, cinema gear, vehicles, and event infrastructure online.",
+    problem:
+      "Equipment rental in Bangladesh runs on Facebook groups, phone calls, and paper challans. Renters cannot verify availability or real pricing, and fleet owners have no single place to manage listings, approve bookings, or track earnings.",
+    description:
+      "Yardclub is a full-stack marketplace built with Next.js 16 on a separate Express 5 API. Fleet owners list equipment across six categories, renters search and filter the catalogue, check availability, and pay through Stripe Checkout, while customers, owners, and admins get dedicated dashboards.",
+    role: "Lead Full-Stack Developer",
+    features: [
+      "Six-category equipment marketplace with server-side search, multi-parameter filtering, sorting, and pagination",
+      "Availability calendar, rental terms, and booking totals with hosted Stripe Checkout and a webhook as the authoritative payment handler",
+      "Three role-based workspaces — customer rentals/favorites, owner listings and earnings analytics, and an admin console for users, equipment, and rentals",
+      "Better Auth (email/password + Google) issuing short-lived JWTs that the Express API verifies against the client's JWKS endpoint",
+    ],
+    stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS", "Better Auth", "Express", "MongoDB", "Stripe"],
+    liveUrl: "https://yardclub-client.vercel.app",
+    repoUrl: "https://github.com/Srabon-bot/yard-club-client",
+    coverImage: "/projects/yardclub/home.png",
+    screenshots: [
+      "/projects/yardclub/home.png",
+      "/projects/yardclub/catalog.png",
+      "/projects/yardclub/equipment-detail.png",
+      "/projects/yardclub/booking.png",
+      "/projects/yardclub/admin-dashboard.png",
+    ],
+    setupInstructions:
+      "1. Clone the repositories: `git clone https://github.com/Srabon-bot/yard-club-client.git` and `git clone https://github.com/Srabon-bot/yard-club-server.git`\n2. Install dependencies in both: `npm install`\n3. Configure `yardclub_client/.env.local` with `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `BETTER_AUTH_DB_URL`, `API_URL`, `IMGBB_API_KEY`, and the OAuth keys\n4. Configure `yardclub_server/.env` with `CLIENT_URL`, `MONGODB_URI`, `JWT_SECRET`, `STRIPE_SECRET_KEY`, and `STRIPE_WEBHOOK_SECRET`\n5. Start the API: `npm run dev` in `yardclub-server`\n6. Start the client: `npm run dev` in `yardclub_client`",
+    improvements:
+      "Add real-time availability sync across owners, security-deposit escrow with automated refunds, delivery logistics scheduling, and full Bangla localisation for field crews.",
+    type: "full-stack",
+    featured: true,
+    order: 2,
+    status: "published",
+  },
+  {
     _id: "proj-shomajshathi",
     slug: "shomaj-shathi",
     title: "Shomaj Shathi (সমাজ সাথী)",
@@ -192,7 +229,7 @@ export const seedProjects: Project[] = [
       "BetterAuth mints short-lived JWTs; the Express API verifies them against the client's published JWKS endpoint. Route guards in src/proxy.ts redirect unauthenticated users to /login?next=… without losing the destination.",
     type: "full-stack",
     featured: true,
-    order: 2,
+    order: 3,
     status: "published",
   },
   {
@@ -244,7 +281,59 @@ export const seedProjects: Project[] = [
       "The category view parses each price into a numeric value before sorting, so Low-to-High and High-to-Low reflect real market rates across every unit.",
     type: "full-stack",
     featured: true,
-    order: 3,
+    order: 4,
+    status: "published",
+  },
+  {
+    _id: "proj-yutnori",
+    slug: "yutnori-3d",
+    title: "Yutnori (윷놀이) 3D",
+    tagline:
+      "A 3D, browser-based version of the traditional Korean board game with physics, AI, and multi-language support.",
+    problem:
+      "Traditional cultural board games like Yutnori (윷놀이) are rarely available digitally with tactile 3D physics, authentic Korean rule completeness, or accessible multi-language support (English, 한국어, and বাংলা) for international players.",
+    description:
+      "A browser-based 3D implementation of the traditional Korean board game Yutnori built with React, React Three Fiber, Three.js, Zustand, and Vitest. Features a pure, isolated TypeScript rules engine, 3-difficulty heuristic AI opponent, pass-and-play local multiplayer, animated yut stick throws, synthesized Web Audio sound effects, and multilingual support.",
+    role: "3D Graphics & Frontend Engineer",
+    features: [
+      "Complete traditional rules engine: Do/Gae/Geol/Yut/Mo, Back-do, bonus throws, capturing, stacking, and center shortcuts",
+      "3D board and animated yut sticks toss with physics flip animation and hover-to-preview landing path indicators",
+      "Intelligent heuristic AI opponent with 3 difficulty modes (Easy, Medium, Hard) plus local pass-and-play on one device",
+      "Full trilingual localization across all screens and tutorials in English, Korean (한국어), and Bangla (বাংলা)",
+      "Zero-backend architecture with synthesized Web Audio sound effects, custom character creator, and 100% test coverage via Vitest",
+    ],
+    stack: ["React", "TypeScript", "React Three Fiber", "Three.js", "Zustand", "Vite", "Vitest"],
+    liveUrl: "https://yutnori-ten.vercel.app",
+    repoUrl: "https://github.com/Srabon-bot/yutnori-game",
+    coverImage: "/projects/yutnori/home.png",
+    screenshots: [
+      "/projects/yutnori/home.png",
+      "/projects/yutnori/how-to-play.png",
+      "/projects/yutnori/gameplay.png",
+      "/projects/yutnori/yut-throw.png",
+    ],
+    setupInstructions:
+      "1. Clone repository: `git clone https://github.com/Srabon-bot/yutnori-game.git`\n2. Install dependencies: `npm install`\n3. Run development server: `npm run dev`\n4. Run rules engine test suite: `npm test`",
+    improvements:
+      "Add WebRTC peer-to-peer online multiplayer, customizable 3D board textures and wooden token materials, and ranked online leaderboards.",
+    architectureSummary:
+      "A zero-backend React game: the rules engine, Zustand store, and React Three Fiber scene all run in the browser.",
+    architectureFlow:
+      "[React + Vite client] ──▶ (player input)\nZustand store — turn, pieces, captures, throws\nPure TypeScript rules engine — Do/Gae/Geol/Yut/Mo, stacking, shortcuts\nReact Three Fiber / Three.js — board, pieces, yut-stick animation",
+    architectureNotes:
+      "The rules engine is isolated from rendering and covered by Vitest, so edge cases can be tested without a browser or a 3D scene.",
+    authNotes:
+      "No accounts — the game is zero-backend and runs entirely in the browser.",
+    deploymentNotes:
+      "Static Vite build deployed on Vercel.\nNo server, database, or runtime secrets.",
+    hardProblemTitle: "A rules engine that can be tested without the 3D layer",
+    hardProblemContext:
+      "Board games hide edge cases in the UI; mixing rules with rendering makes captures, bonus throws, and shortcuts hard to verify.",
+    hardProblemFix:
+      "The rules live in an isolated TypeScript engine with a Vitest suite; the 3D scene only renders state and dispatches moves. Every throw, stack, capture, and shortcut is exercised outside the renderer.",
+    type: "frontend",
+    featured: false,
+    order: 5,
     status: "published",
   },
   {
@@ -297,59 +386,7 @@ export const seedProjects: Project[] = [
       "Plan and saved lists hydrate from localStorage on load and persist on every change. Duration and calorie totals are derived from the same state, so the metrics never drift from the plan.",
     type: "frontend",
     featured: false,
-    order: 5,
-    status: "published",
-  },
-  {
-    _id: "proj-yutnori",
-    slug: "yutnori-3d",
-    title: "Yutnori (윷놀이) 3D",
-    tagline:
-      "A 3D, browser-based version of the traditional Korean board game with physics, AI, and multi-language support.",
-    problem:
-      "Traditional cultural board games like Yutnori (윷놀이) are rarely available digitally with tactile 3D physics, authentic Korean rule completeness, or accessible multi-language support (English, 한국어, and বাংলা) for international players.",
-    description:
-      "A browser-based 3D implementation of the traditional Korean board game Yutnori built with React, React Three Fiber, Three.js, Zustand, and Vitest. Features a pure, isolated TypeScript rules engine, 3-difficulty heuristic AI opponent, pass-and-play local multiplayer, animated yut stick throws, synthesized Web Audio sound effects, and multilingual support.",
-    role: "3D Graphics & Frontend Engineer",
-    features: [
-      "Complete traditional rules engine: Do/Gae/Geol/Yut/Mo, Back-do, bonus throws, capturing, stacking, and center shortcuts",
-      "3D board and animated yut sticks toss with physics flip animation and hover-to-preview landing path indicators",
-      "Intelligent heuristic AI opponent with 3 difficulty modes (Easy, Medium, Hard) plus local pass-and-play on one device",
-      "Full trilingual localization across all screens and tutorials in English, Korean (한국어), and Bangla (বাংলা)",
-      "Zero-backend architecture with synthesized Web Audio sound effects, custom character creator, and 100% test coverage via Vitest",
-    ],
-    stack: ["React", "TypeScript", "React Three Fiber", "Three.js", "Zustand", "Vite", "Vitest"],
-    liveUrl: "https://yutnori-ten.vercel.app",
-    repoUrl: "https://github.com/Srabon-bot/yutnori-game",
-    coverImage: "/projects/yutnori/home.png",
-    screenshots: [
-      "/projects/yutnori/home.png",
-      "/projects/yutnori/how-to-play.png",
-      "/projects/yutnori/gameplay.png",
-      "/projects/yutnori/yut-throw.png",
-    ],
-    setupInstructions:
-      "1. Clone repository: `git clone https://github.com/Srabon-bot/yutnori-game.git`\n2. Install dependencies: `npm install`\n3. Run development server: `npm run dev`\n4. Run rules engine test suite: `npm test`",
-    improvements:
-      "Add WebRTC peer-to-peer online multiplayer, customizable 3D board textures and wooden token materials, and ranked online leaderboards.",
-    architectureSummary:
-      "A zero-backend React game: the rules engine, Zustand store, and React Three Fiber scene all run in the browser.",
-    architectureFlow:
-      "[React + Vite client] ──▶ (player input)\nZustand store — turn, pieces, captures, throws\nPure TypeScript rules engine — Do/Gae/Geol/Yut/Mo, stacking, shortcuts\nReact Three Fiber / Three.js — board, pieces, yut-stick animation",
-    architectureNotes:
-      "The rules engine is isolated from rendering and covered by Vitest, so edge cases can be tested without a browser or a 3D scene.",
-    authNotes:
-      "No accounts — the game is zero-backend and runs entirely in the browser.",
-    deploymentNotes:
-      "Static Vite build deployed on Vercel.\nNo server, database, or runtime secrets.",
-    hardProblemTitle: "A rules engine that can be tested without the 3D layer",
-    hardProblemContext:
-      "Board games hide edge cases in the UI; mixing rules with rendering makes captures, bonus throws, and shortcuts hard to verify.",
-    hardProblemFix:
-      "The rules live in an isolated TypeScript engine with a Vitest suite; the 3D scene only renders state and dispatches moves. Every throw, stack, capture, and shortcut is exercised outside the renderer.",
-    type: "frontend",
-    featured: true,
-    order: 4,
+    order: 6,
     status: "published",
   },
 ];

@@ -35,6 +35,7 @@ import {
   SiMysql,
   SiGooglegemini,
   SiVitest,
+  SiStripe,
 } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
 import {
@@ -75,6 +76,7 @@ const TECH_MAP: Record<string, TechConfig> = {
   threejs: { icon: SiThreedotjs, color: "#E2E8F0" },
   "framer motion": { icon: SiFramer, color: "#EC4899" },
   vitest: { icon: SiVitest, color: "#FCC72B" },
+  stripe: { icon: SiStripe, color: "#635BFF" },
   zustand: { icon: TbCode, color: "#F59E0B" },
 
   // Backend
