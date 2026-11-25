@@ -292,7 +292,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
               <div
                 className="relative rounded-2xl overflow-hidden"
                 style={{
-                  width: "clamp(320px, 24vw, 346px)",
+                  width: "min(clamp(320px, 24vw, 346px), calc(100vw - 3.5rem))",
                   aspectRatio: "4 / 5",
                   height: "auto",
                   background: "var(--color-surface)",
@@ -304,7 +304,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
                   fill
                   className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                   priority   /* above-the-fold image — load it eagerly */
-                  sizes="(max-width: 1024px) 320px, 346px"
+                  sizes="(max-width: 420px) calc(100vw - 3.5rem), (max-width: 1024px) 320px, 346px"
                 />
 
                 {/* Subtle dark gradient overlay at bottom edge for contrast */}
