@@ -179,9 +179,9 @@ export default async function ResumePage() {
 
       {/* ── Letterhead sheet — clay paper ───────────────────────────── */}
       <main
-        className="max-w-4xl mx-auto rounded-card p-8 md:p-14 flex flex-col gap-10"
+        className="max-w-4xl mx-auto rounded-card p-8 md:p-14 flex flex-col gap-10 bg-blueprint"
         style={{
-          background: "var(--color-surface)",
+          backgroundColor: "var(--color-surface)",
           border: "2.5px solid var(--color-ink)",
           boxShadow: "6px 6px 0 var(--color-ink-shadow)",
         }}

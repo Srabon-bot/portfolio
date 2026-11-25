@@ -173,7 +173,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
         <article className="section-pad flex flex-col gap-10 min-w-0 bg-dot-grid" style={{ paddingBottom: "var(--space-section)" }}>
         {/* Title, Badge & Tagline */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 p-3 -m-3 md:p-4 md:-m-4 rounded-[16px] bg-blueprint">
           <div className="flex items-center gap-3">
             <span
               className="text-xs font-mono font-semibold uppercase tracking-widest px-3 py-1 rounded-full"
