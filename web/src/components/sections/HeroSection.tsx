@@ -152,7 +152,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
             <Button variant="primary" href="#projects">
               View projects
             </Button>
-            <Button variant="secondary" href="/resume.pdf" download>
+            <Button variant="secondary" href="/Shahriar_Hossain_Srabon_Resume.pdf" download>
               <svg
                 width="16" height="16"
                 viewBox="0 0 24 24"

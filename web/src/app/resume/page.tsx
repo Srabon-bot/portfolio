@@ -4,39 +4,140 @@ import { getProfile } from "@/lib/api";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export const metadata: Metadata = {
-  title: "Resume — Shahriar Hossain Srabon | Full-Stack Developer",
+  title: "Resume — Md. Shahriar Hossain Srabon | Junior Full-Stack Developer",
   description:
-    "Curriculum Vitae of Shahriar Hossain Srabon, final-semester CSE student and MERN full-stack developer in Dhaka, Bangladesh.",
+    "Curriculum Vitae of Md. Shahriar Hossain Srabon, final-semester CSE student and MERN full-stack developer in Dhaka, Bangladesh.",
 };
 
 /*
  * /resume — HTML preview of the CV with a prominent download button.
  *
- * Download: the .docx file is served directly from /public so it works
- * on Vercel with zero backend dependency. When the Express API is live
- * and a resumeUrl is set via Cloudinary, that URL takes precedence.
- *
- * PRD §6: "Resume: one-click download of an up-to-date PDF."
+ * The page mirrors the downloadable PDF (v4) section for section.
+ * Download priority:
+ *  1. Cloudinary URL uploaded via admin (set in profile.resumeUrl)
+ *  2. Static PDF in /public (works on Vercel, no backend needed)
  */
+
+const PHONE = "+880 1995-544201";
+
+const SKILL_GROUPS = [
+  {
+    label: "Languages",
+    skills: "JavaScript, TypeScript, Python, SQL, C, C++",
+  },
+  {
+    label: "Frontend",
+    skills:
+      "React, Next.js, HTML5, CSS3, Tailwind CSS, shadcn/ui, DaisyUI, Responsive Design",
+  },
+  {
+    label: "Backend",
+    skills:
+      "Node.js, Express, REST APIs, API Integration, JWT Authentication and Authorization, Better Auth, Stripe",
+  },
+  {
+    label: "Database",
+    skills: "MongoDB, PostgreSQL (Neon), Firebase, IndexedDB (Dexie)",
+  },
+  {
+    label: "Deployment & Tools",
+    skills: "Vercel, Render, Git, GitHub, VS Code, Linux",
+  },
+  {
+    label: "Interpersonal",
+    skills: "Teamwork, Communication, Problem Solving, Leadership",
+  },
+];
+
+const PROJECTS = [
+  {
+    title: "Haal Khata",
+    meta: "Grand Prize Winner",
+    summary:
+      "Offline-first, voice-first digital ledger for Bangladeshi neighborhood shopkeepers who record credit (baki) sales by speaking.",
+    stack:
+      "React 19, TypeScript, Vite, Tailwind CSS, Dexie (IndexedDB), PostgreSQL (Neon), Vercel Edge Functions",
+    bullets: [
+      "Speak a sale in Bangla, English or Korean, and the app records the customer, item, amount and cash or credit.",
+      "Works without internet, using an on-device voice parser.",
+      "Email or Google sign-in, with the ledger syncing across devices.",
+    ],
+    links: [
+      { label: "Live ↗", href: "https://haal-khata.vercel.app" },
+      { label: "GitHub ↗", href: "https://github.com/Srabon-bot/kaist-haalkhata" },
+    ],
+  },
+  {
+    title: "Yardclub",
+    meta: "Two-sided equipment rental marketplace",
+    summary:
+      "Two-sided equipment rental marketplace for Dhaka and Chattogram, covering machinery, cinema gear, vehicles and event infrastructure.",
+    stack:
+      "Next.js 16, React 19, TypeScript, Tailwind CSS, Better Auth, Express, MongoDB, Stripe",
+    bullets: [
+      "Search and filter equipment across six categories and check availability.",
+      "Book and pay online with Stripe Checkout.",
+      "Owners list equipment, approve bookings and track earnings.",
+      "Three role-based dashboards for customers, owners and admins.",
+    ],
+    links: [
+      { label: "Live ↗", href: "https://yardclub-client.vercel.app" },
+      { label: "Client ↗", href: "https://github.com/Srabon-bot/yard-club-client" },
+      { label: "Server ↗", href: "https://github.com/Srabon-bot/yard-club-server" },
+    ],
+  },
+  {
+    title: "Shomaj Shathi",
+    meta: "Civic events platform",
+    summary:
+      "Civic events platform for organizing and joining community service work in Dhaka.",
+    stack:
+      "Next.js 16, TypeScript, Tailwind CSS, shadcn/ui, Better Auth, JWT, Express, MongoDB",
+    bullets: [
+      "Create, find and join cleanups, plantations, donation drives and education circles.",
+      "Track your participation history.",
+      "Email, Google or GitHub sign-in with protected member pages.",
+      "Responsive layout with light and dark themes.",
+    ],
+    links: [
+      { label: "Live ↗", href: "https://shomajshathi-app.vercel.app" },
+      { label: "Client ↗", href: "https://github.com/Srabon-bot/ShomajShathi-app" },
+      { label: "Server ↗", href: "https://github.com/Srabon-bot/ShomajShathi-server" },
+    ],
+  },
+  {
+    title: "BazarDor",
+    meta: "Commodity price tracker",
+    summary:
+      "Responsive grocery and commodity price tracker for Bangladesh with a Bangla interface.",
+    stack:
+      "Next.js, React 19, TypeScript, MongoDB, Better Auth, Tailwind CSS, DaisyUI",
+    bullets: [
+      "Daily price ticker with risers and fallers.",
+      "Category-wise price pages with sorting that treats prices as real numbers.",
+      "Sign-in with email, Google or GitHub to open product pages with a market-by-market price comparison.",
+    ],
+    links: [
+      { label: "Live ↗", href: "https://assignment-7-kw2m.vercel.app" },
+      { label: "GitHub ↗", href: "https://github.com/Srabon-bot/BazarDor" },
+    ],
+  },
+];
+
 export default async function ResumePage() {
   const profile = await getProfile();
 
-  /*
-   * Download URL priority:
-   *  1. Cloudinary URL uploaded via admin (set in profile.resumeUrl)
-   *  2. Static .docx in /public (works on Vercel, no backend needed)
-   */
   const downloadUrl =
     profile.resumeUrl && !profile.resumeUrl.startsWith("PLACEHOLDER")
       ? profile.resumeUrl
       : "/Shahriar_Hossain_Srabon_Resume.pdf";
 
-  const downloadFilename = "Shahriar_Hossain_Srabon_Resume.pdf";
+  const downloadFilename = "Md_Shahriar_Hossain_Srabon_Resume.pdf";
 
   return (
     <div className="min-h-screen py-12 px-4 md:px-8" style={{ background: "var(--color-bg)" }}>
 
-      {/* ── Top bar: back link + theme + download button ─────────── */}
+      {/* ── Top bar: back link + theme + download buttons ─────────── */}
       <div
         className="max-w-4xl mx-auto flex items-center justify-between mb-8 pb-4 border-b"
         style={{ borderColor: "var(--color-border)" }}
@@ -53,7 +154,7 @@ export default async function ResumePage() {
           <ThemeToggle />
           <a
             href="/Shahriar_Hossain_Srabon_Resume.docx"
-            download="Shahriar_Hossain_Srabon_Resume.docx"
+            download="Md_Shahriar_Hossain_Srabon_Resume.docx"
             className="text-xs font-bold hover:text-text transition-colors underline"
             style={{ color: "var(--color-muted)" }}
             title="Download Word (.docx) format"
@@ -93,18 +194,21 @@ export default async function ResumePage() {
         >
           <div className="flex flex-col gap-2">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-text">
-              Shahriar Hossain Srabon
+              Md. Shahriar Hossain Srabon
             </h1>
             <p className="text-lg font-semibold" style={{ color: "var(--color-accent-soft)" }}>
-              Full-Stack Developer (MERN)
-            </p>
-            <p className="text-sm max-w-md leading-relaxed" style={{ color: "var(--color-muted)" }}>
-              {profile.tagline}
+              Junior Full-Stack Developer (MERN)
             </p>
           </div>
 
           <div className="flex flex-col gap-2 text-xs md:text-sm md:text-right" style={{ color: "var(--color-muted)" }}>
             <p>📍 {profile.location}</p>
+            <p>
+              📞{" "}
+              <a href={`tel:${PHONE.replace(/[^+\d]/g, "")}`} className="hover:text-accent-soft transition-colors underline">
+                {PHONE}
+              </a>
+            </p>
             <p>
               ✉️{" "}
               <a href={`mailto:${profile.email}`} className="hover:text-accent-soft transition-colors underline">
@@ -126,71 +230,27 @@ export default async function ResumePage() {
           </div>
         </div>
 
-        {/* ── 1. Education ─────────────────────────────────────── */}
-        <section className="flex flex-col gap-4">
+        {/* ── 1. Career Objective ──────────────────────────────── */}
+        <section className="flex flex-col gap-3">
           <h2 className="text-sm font-bold uppercase tracking-widest text-accent-soft flex items-center gap-2">
-            <span>🎓</span> Education
+            <span>🎯</span> Career Objective
           </h2>
-          <div className="flex flex-col gap-1">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <h3 className="text-base font-bold text-text">
-                B.Sc. in Computer Science &amp; Engineering
-              </h3>
-              <span
-                className="text-xs px-2.5 py-0.5 rounded-full self-start sm:self-auto"
-                style={{
-                  background: "color-mix(in srgb, var(--color-accent) 12%, transparent)",
-                  color: "var(--color-accent-soft)",
-                  border: "1px solid color-mix(in srgb, var(--color-accent) 30%, transparent)",
-                }}
-              >
-                In Progress · Final Semester
-              </span>
-            </div>
-            <p className="text-sm" style={{ color: "var(--color-muted)" }}>
-              University of Information Technology &amp; Sciences (UITS), Dhaka, Bangladesh
-            </p>
-            <p className="text-xs mt-0.5" style={{ color: "var(--color-faint)" }}>
-              March 2023 — January 2027 (Expected)
-            </p>
-          </div>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--color-muted)" }}>
+            Final-semester CSE student at UITS who builds and deploys full-stack web apps with
+            React, Next.js, Node.js, Express and MongoDB. Grand Prize winner at the KAIST Student
+            Volunteer Team x UITS WFK IT Online Training Program. Seeking a junior or intern
+            full-stack developer role where I can ship production features and grow into a strong
+            MERN engineer.
+          </p>
         </section>
 
-        {/* ── 2. Honors & Awards ───────────────────────────────── */}
-        <section className="flex flex-col gap-4">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-accent-soft flex items-center gap-2">
-            <span>🏆</span> Honors &amp; Awards
-          </h2>
-          <div
-            className="p-4 rounded-xl flex flex-col gap-1.5"
-            style={{ background: "var(--color-surface-2)", border: "1px solid var(--color-border)" }}
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <h3 className="text-base font-bold text-text">
-                Grand Prize Winner — KAIST Global Training Program
-              </h3>
-              <span className="text-xs text-accent-soft font-semibold">🥇 First Place</span>
-            </div>
-            <p className="text-xs md:text-sm leading-relaxed" style={{ color: "var(--color-muted)" }}>
-              Awarded grand prize for developing <strong>Haal Khata</strong>, a voice-first credit
-              ledger for local Bangladeshi shopkeepers supporting Bangla, English, and Korean voice
-              inputs with a 100% on-device rule-based NLP engine.
-            </p>
-          </div>
-        </section>
-
-        {/* ── 3. Technical Skills ──────────────────────────────── */}
+        {/* ── 2. Technical Skills ──────────────────────────────── */}
         <section className="flex flex-col gap-4">
           <h2 className="text-sm font-bold uppercase tracking-widest text-accent-soft flex items-center gap-2">
             <span>🛠️</span> Technical Skills
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-            {[
-              { label: "Frontend",           skills: "React, Next.js, TypeScript, JavaScript, Tailwind CSS, HTML5, CSS3" },
-              { label: "Backend (MERN)",     skills: "Node.js, Express, MongoDB, REST APIs, JWT Authentication" },
-              { label: "Tools & Deployment", skills: "Git, GitHub, Vercel, Render, Linux, VS Code, Cloudinary" },
-              { label: "ML & Data Research", skills: "Python, TensorFlow, PyTorch, scikit-learn, Pandas, NumPy, SQL" },
-            ].map(({ label, skills }) => (
+            {SKILL_GROUPS.map(({ label, skills }) => (
               <div
                 key={label}
                 className="p-3.5 rounded-xl flex flex-col gap-1"
@@ -203,138 +263,122 @@ export default async function ResumePage() {
           </div>
         </section>
 
-        {/* ── 4. Featured Engineering Projects ─────────────────── */}
+        {/* ── 3. Projects ──────────────────────────────────────── */}
         <section className="flex flex-col gap-6">
           <h2 className="text-sm font-bold uppercase tracking-widest text-accent-soft flex items-center gap-2">
-            <span>💼</span> Featured Engineering Projects
+            <span>💼</span> Projects
           </h2>
 
-          {/* Project 1 — Haal Khata */}
-          <div className="flex flex-col gap-1.5">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <h3 className="text-base font-bold text-text">
-                Haal Khata (হাল খাতা) — Voice-First Digital Ledger
-              </h3>
-              <a
-                href="https://haal-khata.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-semibold hover:underline self-start sm:self-auto"
-                style={{ color: "var(--color-accent-soft)" }}
-              >
-                haal-khata.vercel.app ↗
-              </a>
+          {PROJECTS.map((project, index) => (
+            <div
+              key={project.title}
+              className={index === 0 ? "flex flex-col gap-1.5" : "flex flex-col gap-1.5 pt-4 border-t"}
+              style={index === 0 ? undefined : { borderColor: "var(--color-border)" }}
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="text-base font-bold text-text">{project.title}</h3>
+                  <span
+                    className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
+                    style={{
+                      background: "color-mix(in srgb, var(--color-accent) 12%, transparent)",
+                      color: "var(--color-accent-soft)",
+                      border: "1px solid color-mix(in srgb, var(--color-accent) 30%, transparent)",
+                    }}
+                  >
+                    {project.meta}
+                  </span>
+                </div>
+                <div className="flex flex-wrap items-center gap-3">
+                  {project.links.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-semibold hover:underline"
+                      style={{ color: "var(--color-accent-soft)" }}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <p className="text-xs md:text-sm leading-relaxed" style={{ color: "var(--color-muted)" }}>
+                {project.summary}
+              </p>
+              <p className="text-xs" style={{ color: "var(--color-faint)" }}>
+                Tech: {project.stack}
+              </p>
+              <ul className="list-disc list-inside text-xs md:text-sm flex flex-col gap-1 mt-1" style={{ color: "var(--color-muted)" }}>
+                {project.bullets.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
+                ))}
+              </ul>
             </div>
-            <p className="text-xs" style={{ color: "var(--color-faint)" }}>
-              Stack: React 19, TypeScript, Vite, Tailwind CSS, Dexie (IndexedDB), Neon Postgres, Vercel Edge Functions
-            </p>
-            <ul className="list-disc list-inside text-xs md:text-sm flex flex-col gap-1 mt-1" style={{ color: "var(--color-muted)" }}>
-              <li>Grand Prize winner at the KAIST Global Training Program — voice-first ledger for Bangladesh&apos;s neighborhood shopkeepers.</li>
-              <li>100% on-device rule-based Bangla/English/Korean NLP extraction with zero external API dependency, works fully offline.</li>
-              <li>Multi-device sync via Neon Postgres + Vercel Edge Functions with soft-delete reconciliation.</li>
-            </ul>
-          </div>
+          ))}
+        </section>
 
-          {/* Project 2 — BazarDor */}
-          <div className="flex flex-col gap-1.5 pt-4 border-t" style={{ borderColor: "var(--color-border)" }}>
+        {/* ── 4. Education ─────────────────────────────────────── */}
+        <section
+          className="flex flex-col gap-4 pt-6 border-t"
+          style={{ borderColor: "var(--color-border)" }}
+        >
+          <h2 className="text-sm font-bold uppercase tracking-widest text-accent-soft flex items-center gap-2">
+            <span>🎓</span> Education
+          </h2>
+          <div className="flex flex-col gap-1">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
               <h3 className="text-base font-bold text-text">
-                BazarDor (বাজার দর) — Commodity Price Tracker
+                B.Sc. in Computer Science and Engineering
               </h3>
-              <a
-                href="https://assignment-7-kw2m.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-semibold hover:underline self-start sm:self-auto"
-                style={{ color: "var(--color-accent-soft)" }}
+              <span
+                className="text-xs px-2.5 py-0.5 rounded-full self-start sm:self-auto"
+                style={{
+                  background: "color-mix(in srgb, var(--color-accent) 12%, transparent)",
+                  color: "var(--color-accent-soft)",
+                  border: "1px solid color-mix(in srgb, var(--color-accent) 30%, transparent)",
+                }}
               >
-                Live Demo ↗
-              </a>
+                CGPA 3.69 / 4.00 · Current
+              </span>
             </div>
-            <p className="text-xs" style={{ color: "var(--color-faint)" }}>
-              Stack: Next.js, React 19, TypeScript, MongoDB, Better Auth, Tailwind CSS, DaisyUI
+            <p className="text-sm" style={{ color: "var(--color-muted)" }}>
+              University of Information Technology and Sciences (UITS), Dhaka
             </p>
-            <ul className="list-disc list-inside text-xs md:text-sm flex flex-col gap-1 mt-1" style={{ color: "var(--color-muted)" }}>
-              <li>Real-time commodity price tracker for Bangladesh with Bangla calendar, category filters, and market-wide price comparisons.</li>
-              <li>Secure multi-provider authentication via Better Auth (email/password, Google, GitHub OAuth).</li>
-              <li>Daily price movement analysis showing top risers &amp; fallers across wholesale and retail hubs.</li>
-            </ul>
-          </div>
-
-          {/* Project 3 — FitLog */}
-          <div className="flex flex-col gap-1.5 pt-4 border-t" style={{ borderColor: "var(--color-border)" }}>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <h3 className="text-base font-bold text-text">
-                FitLog 🏋️ — Workout Library &amp; Session Planner
-              </h3>
-              <a
-                href="https://assignment-6-fit-log-weld.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-semibold hover:underline self-start sm:self-auto"
-                style={{ color: "var(--color-accent-soft)" }}
-              >
-                Live Demo ↗
-              </a>
-            </div>
-            <p className="text-xs" style={{ color: "var(--color-faint)" }}>
-              Stack: Next.js 16, React 19, TypeScript, Tailwind CSS, DaisyUI, Lucide React
+            <p className="text-xs mt-0.5" style={{ color: "var(--color-faint)" }}>
+              March 2023 to January 2027 (Expected)
             </p>
-            <ul className="list-disc list-inside text-xs md:text-sm flex flex-col gap-1 mt-1" style={{ color: "var(--color-muted)" }}>
-              <li>Exercise library spanning all major muscle groups with difficulty ratings, equipment tags, and step-by-step instructions.</li>
-              <li>Live session analytics: real-time total duration and calorie tracking with local storage persistence.</li>
-              <li>Capped daily workout planner with instant progress check-offs and a bookmarked &apos;Saved&apos; list.</li>
-            </ul>
-          </div>
-
-          {/* Project 4 — Yutnori */}
-          <div className="flex flex-col gap-1.5 pt-4 border-t" style={{ borderColor: "var(--color-border)" }}>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <h3 className="text-base font-bold text-text">
-                Yutnori (윷놀이) 3D — Korean Board Game Engine
-              </h3>
-              <a
-                href="https://yutnori-ten.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-semibold hover:underline self-start sm:self-auto"
-                style={{ color: "var(--color-accent-soft)" }}
-              >
-                yutnori-ten.vercel.app ↗
-              </a>
-            </div>
-            <p className="text-xs" style={{ color: "var(--color-faint)" }}>
-              Stack: React, React Three Fiber, Three.js, TypeScript, Zustand, Vite, Vitest
-            </p>
-            <ul className="list-disc list-inside text-xs md:text-sm flex flex-col gap-1 mt-1" style={{ color: "var(--color-muted)" }}>
-              <li>Complete traditional rules engine with physics-based 3D yut stick toss and hover-to-preview landing path indicators.</li>
-              <li>Heuristic AI opponent with 3 difficulty modes (Easy / Medium / Hard) plus local pass-and-play multiplayer.</li>
-              <li>Full trilingual localization (English, Korean 한국어, Bangla বাংলা) with 100% Vitest rule-engine coverage.</li>
-            </ul>
           </div>
         </section>
 
-        {/* ── 5. Research & ML ─────────────────────────────────── */}
+        {/* ── 5. Extra-Curricular Activities ───────────────────── */}
         <section
           className="flex flex-col gap-3 pt-6 border-t"
           style={{ borderColor: "var(--color-border)" }}
         >
           <h2 className="text-sm font-bold uppercase tracking-widest text-accent-soft flex items-center gap-2">
-            <span>🔬</span> Research &amp; Machine Learning
+            <span>🏅</span> Extra-Curricular Activities
           </h2>
-          <div className="flex flex-col gap-1">
-            <h3 className="text-sm font-bold text-text">
-              Deep Learning for River Basin Discharge &amp; Flood Risk Forecasting in Bangladesh
-            </h3>
-            <p className="text-xs" style={{ color: "var(--color-faint)" }}>
-              Research Projects · Python, TensorFlow, scikit-learn, PyTorch, GIS
-            </p>
-            <p className="text-xs md:text-sm leading-relaxed mt-1" style={{ color: "var(--color-muted)" }}>
-              Developed sequence-to-sequence LSTM forecasting models for northern Bangladesh river
-              discharge basins and geospatial flood risk classification indices. Published as open
-              research repositories on GitHub.
-            </p>
-          </div>
+          <ul className="list-disc list-inside text-xs md:text-sm flex flex-col gap-1" style={{ color: "var(--color-muted)" }}>
+            <li>
+              Grand Prize Winner, 2026 KAIST Student Volunteer Team x UITS WFK IT Online Training
+              Program project competition (Haal Khata).
+            </li>
+          </ul>
+        </section>
+
+        {/* ── 6. Languages ─────────────────────────────────────── */}
+        <section
+          className="flex flex-col gap-3 pt-6 border-t"
+          style={{ borderColor: "var(--color-border)" }}
+        >
+          <h2 className="text-sm font-bold uppercase tracking-widest text-accent-soft flex items-center gap-2">
+            <span>🌐</span> Languages
+          </h2>
+          <p className="text-sm" style={{ color: "var(--color-muted)" }}>
+            Bangla (Native) &nbsp;|&nbsp; English (Professional) &nbsp;|&nbsp; Hindi (Conversational)
+          </p>
         </section>
 
       </main>
