@@ -135,7 +135,7 @@ export default async function ResumePage() {
   const downloadFilename = "Md_Shahriar_Hossain_Srabon_Resume.pdf";
 
   return (
-    <div className="min-h-screen py-12 px-4 md:px-8" style={{ background: "var(--color-bg)" }}>
+    <div className="min-h-screen py-12 px-4 md:px-8" style={{ backgroundColor: "var(--color-bg)" }}>
 
       {/* ── Top bar: back link + theme + download buttons ─────────── */}
       <div

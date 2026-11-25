@@ -71,6 +71,19 @@
   --strip-3: #98FF98;
   --strip-4: #E6E6FA;
 
+  /* Site-wide paper fibre. Five offset tiles keep the repeat from reading
+     as a regular pattern; all colour comes from the current ink token.   */
+  --paper-texture:
+    radial-gradient(circle at 18% 24%, color-mix(in srgb, var(--color-ink) 5%, transparent) 0 0.6px, transparent 0.9px),
+    radial-gradient(circle at 72% 61%, color-mix(in srgb, var(--color-ink) 4%, transparent) 0 0.5px, transparent 0.8px),
+    radial-gradient(circle at 41% 83%, color-mix(in srgb, var(--color-ink) 5%, transparent) 0 0.7px, transparent 1px),
+    repeating-linear-gradient(94deg, transparent 0 11px, color-mix(in srgb, var(--color-ink) 2.5%, transparent) 11px 12px),
+    repeating-linear-gradient(2deg, transparent 0 17px, color-mix(in srgb, var(--color-ink) 2%, transparent) 17px 18px);
+  --paper-texture-size: 137px 119px, 173px 151px, 97px 131px, 61px 71px, 83px 89px;
+
+  /* Topographic contour tile — deliberately uneven, not concentric rings. */
+  --contour-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='220' viewBox='0 0 320 220' fill='none' stroke='%232D3748' stroke-opacity='0.16' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M-20 28C34 6 86 14 126 36S210 72 264 48S330 24 352 44'/%3E%3Cpath d='M-18 56C28 34 84 38 124 62S206 102 260 78S326 52 350 72'/%3E%3Cpath d='M-12 86C26 60 80 60 124 86S202 128 256 106S322 80 350 100'/%3E%3Cpath d='M18 190C44 150 86 134 126 148S184 196 224 188S288 142 330 150'/%3E%3Cpath d='M4 166C36 120 88 100 132 116S192 170 234 162S302 116 340 124'/%3E%3Cpath d='M-8 140C28 92 84 70 132 86S198 142 242 134S314 88 352 96'/%3E%3Cpath d='M92 58C118 42 152 46 172 66S188 112 164 126S104 136 88 114S76 70 92 58Z'/%3E%3Cpath d='M110 76C128 66 150 70 160 84S166 116 150 124S112 126 104 112S100 84 110 76Z'/%3E%3C/svg%3E");
+
   color-scheme: light;            /* browser: native widgets & scrollbars */
 }
 
@@ -123,6 +136,9 @@
   --strip-3: #8FDE9B;
   --strip-4: #C6C6EF;
 
+  /* Same contour drawing, ink-coloured for the dark paper. */
+  --contour-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='220' viewBox='0 0 320 220' fill='none' stroke='%2393A5BA' stroke-opacity='0.22' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M-20 28C34 6 86 14 126 36S210 72 264 48S330 24 352 44'/%3E%3Cpath d='M-18 56C28 34 84 38 124 62S206 102 260 78S326 52 350 72'/%3E%3Cpath d='M-12 86C26 60 80 60 124 86S202 128 256 106S322 80 350 100'/%3E%3Cpath d='M18 190C44 150 86 134 126 148S184 196 224 188S288 142 330 150'/%3E%3Cpath d='M4 166C36 120 88 100 132 116S192 170 234 162S302 116 340 124'/%3E%3Cpath d='M-8 140C28 92 84 70 132 86S198 142 242 134S314 88 352 96'/%3E%3Cpath d='M92 58C118 42 152 46 172 66S188 112 164 126S104 136 88 114S76 70 92 58Z'/%3E%3Cpath d='M110 76C128 66 150 70 160 84S166 116 150 124S112 126 104 112S100 84 110 76Z'/%3E%3C/svg%3E");
+
   color-scheme: dark;             /* native widgets & scrollbars follow */
 }
 
@@ -138,6 +154,9 @@
 
   body {
     background-color: var(--color-bg);
+    background-image: var(--paper-texture);
+    background-size: var(--paper-texture-size);
+    background-repeat: repeat;
     color: var(--color-text);
     font-family: var(--font-nunito), system-ui, sans-serif;
     font-size: 1rem;                /* 16px */
@@ -286,5 +305,41 @@
   /* Decorative blob shapes (hero accents) */
   .blob {
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+
+  /* ── Background languages ────────────────────────────────────────
+   * Four quiet materials. They use background-image only so any inline
+   * background-color on the host element still controls the surface.   */
+
+  /* Projects index + case-study body: engineering dot ledger.          */
+  .bg-dot-grid {
+    background-image: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-ink) 13%, transparent) 1px,
+      transparent 1.4px
+    );
+    background-size: 22px 22px;
+    background-position: 11px 11px;
+    background-repeat: repeat;
+  }
+
+  /* Résumé + case-study header: drafting paper. Minor 24px ruled grid,
+     major 120px accent grid.                                           */
+  .bg-blueprint {
+    background-image:
+      linear-gradient(color-mix(in srgb, var(--color-ink) 8%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--color-ink) 8%, transparent) 1px, transparent 1px),
+      linear-gradient(color-mix(in srgb, var(--color-accent-soft) 14%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--color-accent-soft) 14%, transparent) 1px, transparent 1px);
+    background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+    background-position: -1px -1px;
+    background-repeat: repeat;
+  }
+
+  /* Flood/ML work only: irregular watershed contours.                  */
+  .bg-contour {
+    background-image: var(--contour-lines);
+    background-size: 320px 220px;
+    background-repeat: repeat;
   }
 }

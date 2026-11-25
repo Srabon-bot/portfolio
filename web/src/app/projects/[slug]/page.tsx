@@ -116,7 +116,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
   });
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--color-bg)" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "var(--color-bg)" }}>
       {/* Top sticky navigation bar */}
       <header
         className="sticky top-0 z-50 w-full"
