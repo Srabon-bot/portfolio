@@ -131,7 +131,7 @@ export function WorksIndex({ projects }: WorksIndexProps) {
                   aria-label={`Live demo of ${p.title} (opens in a new tab)`}
                   className="text-xs font-bold text-accent-soft hover:text-text transition-colors"
                 >
-                  Live ↗
+                  Live
                 </a>
               )}
               {p.repoUrl && (
@@ -142,7 +142,7 @@ export function WorksIndex({ projects }: WorksIndexProps) {
                   aria-label={`Source code for ${p.title} (opens in a new tab)`}
                   className="text-xs font-bold text-muted hover:text-text transition-colors"
                 >
-                  Code ↗
+                  Code
                 </a>
               )}
               <Link
@@ -150,7 +150,7 @@ export function WorksIndex({ projects }: WorksIndexProps) {
                 aria-label={`Read case study for ${p.title}`}
                 className="text-xs font-bold text-muted hover:text-accent-soft transition-colors"
               >
-                Study →
+                Study
               </Link>
             </div>
           </div>

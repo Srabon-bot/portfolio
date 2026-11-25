@@ -160,7 +160,6 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                 className="inline-flex items-center gap-1 text-xs font-bold text-accent-soft hover:text-text transition-colors"
               >
                 <span>Live demo</span>
-                <span aria-hidden="true">↗</span>
               </a>
             )}
 
@@ -173,7 +172,6 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                 className="inline-flex items-center gap-1 text-xs font-bold text-muted hover:text-text transition-colors"
               >
                 <span>Code</span>
-                <span aria-hidden="true">↗</span>
               </a>
             )}
 
@@ -184,7 +182,6 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               className="inline-flex items-center gap-1 text-xs font-bold text-muted hover:text-accent-soft transition-colors sm:ml-auto"
             >
               <span>Case study</span>
-              <span aria-hidden="true">→</span>
             </Link>
           </div>
         )}

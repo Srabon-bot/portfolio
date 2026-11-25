@@ -63,8 +63,8 @@ const PROJECTS = [
       "Email or Google sign-in, with the ledger syncing across devices.",
     ],
     links: [
-      { label: "Live ↗", href: "https://haal-khata.vercel.app" },
-      { label: "GitHub ↗", href: "https://github.com/Srabon-bot/kaist-haalkhata" },
+      { label: "Live", href: "https://haal-khata.vercel.app" },
+      { label: "GitHub", href: "https://github.com/Srabon-bot/kaist-haalkhata" },
     ],
   },
   {
@@ -81,9 +81,9 @@ const PROJECTS = [
       "Three role-based dashboards for customers, owners and admins.",
     ],
     links: [
-      { label: "Live ↗", href: "https://yardclub-client.vercel.app" },
-      { label: "Client ↗", href: "https://github.com/Srabon-bot/yard-club-client" },
-      { label: "Server ↗", href: "https://github.com/Srabon-bot/yard-club-server" },
+      { label: "Live", href: "https://yardclub-client.vercel.app" },
+      { label: "Client", href: "https://github.com/Srabon-bot/yard-club-client" },
+      { label: "Server", href: "https://github.com/Srabon-bot/yard-club-server" },
     ],
   },
   {
@@ -100,9 +100,9 @@ const PROJECTS = [
       "Responsive layout with light and dark themes.",
     ],
     links: [
-      { label: "Live ↗", href: "https://shomajshathi-app.vercel.app" },
-      { label: "Client ↗", href: "https://github.com/Srabon-bot/ShomajShathi-app" },
-      { label: "Server ↗", href: "https://github.com/Srabon-bot/ShomajShathi-server" },
+      { label: "Live", href: "https://shomajshathi-app.vercel.app" },
+      { label: "Client", href: "https://github.com/Srabon-bot/ShomajShathi-app" },
+      { label: "Server", href: "https://github.com/Srabon-bot/ShomajShathi-server" },
     ],
   },
   {
@@ -118,8 +118,8 @@ const PROJECTS = [
       "Sign-in with email, Google or GitHub to open product pages with a market-by-market price comparison.",
     ],
     links: [
-      { label: "Live ↗", href: "https://assignment-7-kw2m.vercel.app" },
-      { label: "GitHub ↗", href: "https://github.com/Srabon-bot/BazarDor" },
+      { label: "Live", href: "https://assignment-7-kw2m.vercel.app" },
+      { label: "GitHub", href: "https://github.com/Srabon-bot/BazarDor" },
     ],
   },
 ];
@@ -147,7 +147,7 @@ export default async function ResumePage() {
           className="text-sm font-medium hover:text-accent-soft transition-colors flex items-center gap-1.5"
           style={{ color: "var(--color-muted)" }}
         >
-          ← Back to Portfolio
+          Back to Portfolio
         </Link>
 
         <div className="flex items-center gap-3">

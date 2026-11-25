@@ -131,7 +131,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             className="text-sm font-bold hover:text-accent-soft transition-colors flex items-center gap-2"
             style={{ color: "var(--color-muted)" }}
           >
-            ← Back to Projects
+            Back to Projects
           </Link>
           <div className="flex items-center gap-1">
             <ThemeToggle />
@@ -143,7 +143,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 className="text-xs font-extrabold px-3 py-1.5 rounded-full text-on-accent transition-opacity hover:opacity-90"
                 style={{ background: "var(--color-accent)" }}
               >
-                Live Demo ↗
+                Live Demo
               </a>
             )}
             {project.repoUrl && (
@@ -157,7 +157,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                   color: "var(--color-muted)",
                 }}
               >
-                GitHub Code ↗
+                GitHub Code
               </a>
             )}
           </div>
@@ -574,7 +574,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             className="text-sm font-mono font-medium hover:text-accent-soft transition-colors"
             style={{ color: "var(--color-muted)" }}
           >
-            ← Back to all projects
+            Back to all projects
           </Link>
           <div className="flex items-center gap-4">
             {project.repoUrl && (
@@ -585,7 +585,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 className="text-sm font-mono font-semibold hover:text-accent-soft transition-colors"
                 style={{ color: "var(--color-accent-soft)" }}
               >
-                View on GitHub ↗
+                View on GitHub
               </a>
             )}
             {project.liveUrl && !project.liveUrl.startsWith("PLACEHOLDER") && (
@@ -596,7 +596,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 className="text-sm font-mono font-semibold px-5 py-2.5 rounded-full text-on-accent transition-opacity hover:opacity-90"
                 style={{ background: "var(--color-accent)" }}
               >
-                Launch Live App ↗
+                Launch Live App
               </a>
             )}
           </div>

@@ -67,7 +67,7 @@ export function ProjectsSection({
             href="/projects"
             className="clay-btn clay-btn-secondary inline-flex items-center gap-2 text-sm px-6 py-3"
           >
-            View all projects <span aria-hidden="true">→</span>
+            View all projects
           </Link>
         </div>
       )}
@@ -118,7 +118,7 @@ export function ProjectsSection({
                     style={{ color: "var(--color-muted)" }}
                     aria-label={`View ${project.title} repository`}
                   >
-                    Repo ↗
+                    Repo
                   </a>
                 )}
               </div>

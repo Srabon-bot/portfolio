@@ -269,20 +269,9 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
           animate="visible"
           className="flex justify-center lg:justify-end"
         >
-          {/* Outer floating wrapper — levitation only when motion is welcome */}
+          {/* Image wrapper — no looping motion; only a subtle hover scale */}
           <motion.div
             className="relative group cursor-pointer"
-            animate={reduceMotion ? undefined : { y: [-7, 7, -7] }}
-            transition={
-              reduceMotion
-                ? undefined
-                : {
-                    duration: 5.5,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    ease: "easeInOut",
-                  }
-            }
             whileHover={
               reduceMotion ? undefined : {
                 scale: 1.025,
@@ -303,8 +292,9 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
               <div
                 className="relative rounded-2xl overflow-hidden"
                 style={{
-                  width: "clamp(120px, 22vw, 280px)",
-                  height: "clamp(120px, 22vw, 280px)",
+                  width: "clamp(320px, 24vw, 346px)",
+                  aspectRatio: "4 / 5",
+                  height: "auto",
                   background: "var(--color-surface)",
                 }}
               >
@@ -314,7 +304,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
                   fill
                   className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                   priority   /* above-the-fold image — load it eagerly */
-                  sizes="(max-width: 1024px) 22vw, 280px"
+                  sizes="(max-width: 1024px) 320px, 346px"
                 />
 
                 {/* Subtle dark gradient overlay at bottom edge for contrast */}
@@ -326,7 +316,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
             </div>
 
             {/* Top-left <dev /> sticker badge */}
-            <motion.div
+            <div
               aria-hidden="true"
               className="absolute -top-3 -left-3 md:-top-3.5 md:-left-3.5 px-2.5 py-1 rounded-full flex items-center gap-1.5 pointer-events-none"
               style={{
@@ -334,55 +324,12 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
                 border: "2.5px solid var(--color-ink)",
                 boxShadow: "3px 3px 0 var(--color-ink-shadow)",
               }}
-              animate={{
-                y: [0, 3, 0],
-              }}
-              transition={{
-                duration: 3.5,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-                delay: 0.8,
-              }}
             >
               <span className="text-xs font-bold text-on-pastel">
                 &lt;dev /&gt;
               </span>
-            </motion.div>
+            </div>
 
-            {/* Bottom-right live status badge */}
-            <motion.div
-              className="absolute -bottom-3 -right-3 md:-bottom-3.5 md:-right-3.5 px-3 py-1.5 rounded-full flex items-center gap-2 pointer-events-none"
-              style={{
-                background: "var(--color-mint)",
-                border: "2.5px solid var(--color-ink)",
-                boxShadow: "3px 3px 0 var(--color-ink-shadow)",
-              }}
-              animate={{
-                y: [0, -3, 0],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-                delay: 0.3,
-              }}
-            >
-              <span className="relative flex h-2 w-2">
-                <span
-                  className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                  style={{ background: "var(--color-success)" }}
-                />
-                <span
-                  className="relative inline-flex rounded-full h-2 w-2"
-                  style={{ background: "var(--color-success)" }}
-                />
-              </span>
-              <span className="text-xs font-medium text-on-pastel tracking-wide">
-                Open to work
-              </span>
-            </motion.div>
           </motion.div>
         </motion.div>
 

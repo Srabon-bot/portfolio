@@ -28,7 +28,7 @@ export default async function AllProjectsPage() {
             className="text-sm font-bold hover:text-accent-soft transition-colors"
             style={{ color: "var(--color-muted)" }}
           >
-            ← Back to Home
+            Back to Home
           </Link>
           <ThemeToggle />
         </div>
