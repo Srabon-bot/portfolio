@@ -39,7 +39,7 @@ export function ProjectsSection({
     <section
       id="projects"
       aria-label="Projects and case studies"
-      className="section-pad"
+      className="section-pad bg-dot-grid"
       style={{ scrollMarginTop: "4.5rem" }}
     >
       <Container>

@@ -19,7 +19,7 @@ export default async function AllProjectsPage() {
 
   return (
     <div className="min-h-screen py-12 md:py-16 px-4 md:px-8" style={{ backgroundColor: "var(--color-bg)" }}>
-      <div className="max-w-6xl mx-auto flex flex-col gap-10">
+      <div className="max-w-6xl mx-auto flex flex-col gap-10 bg-dot-grid">
         {/* Header row: back link + theme toggle */}
         <div className="flex items-center justify-between">
           <Link

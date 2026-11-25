@@ -171,7 +171,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           <ChapterNav chapters={chapters} />
         </aside>
 
-        <article className="section-pad flex flex-col gap-10 min-w-0" style={{ paddingBottom: "var(--space-section)" }}>
+        <article className="section-pad flex flex-col gap-10 min-w-0 bg-dot-grid" style={{ paddingBottom: "var(--space-section)" }}>
         {/* Title, Badge & Tagline */}
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
