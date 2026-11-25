@@ -21,6 +21,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Chip } from "./Chip";
 import type { Project } from "@/types";
+import { isFloodOrMlProject } from "@/lib/project-texture";
 
 interface ProjectCardProps {
   project: Project;
@@ -46,9 +47,11 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
     <motion.article
       whileHover={isPlaceholder || reduceMotion ? {} : { y: -3 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="grid grid-cols-1 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] overflow-hidden rounded-card group"
+      className={`grid grid-cols-1 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] overflow-hidden rounded-card group${
+        isFloodOrMlProject(project) ? " bg-contour" : ""
+      }`}
       style={{
-        background: "var(--color-surface)",
+        backgroundColor: "var(--color-surface)",
         border: "2.5px solid var(--color-ink)",
         boxShadow: "5px 5px 0 var(--color-ink-shadow)",
         opacity: isPlaceholder ? 0.6 : 1,
