@@ -135,7 +135,7 @@ export default function AdminDashboardPage() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-bg)" }}>
+    <div className="min-h-screen flex flex-col">
       {/* ── Top bar ──────────────────────────────────────────────────── */}
       <header
         className="w-full px-4 md:px-6 py-3 flex items-center justify-between gap-3 border-b sticky top-0 z-30"

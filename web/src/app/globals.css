@@ -74,9 +74,9 @@
   /* Wave field — the pen's 25 diagonal glow columns, recoloured to palette
      C (lavender / electric blue / mint). Geometry + 45s loop come from the
      original; only hue and opacity are tuned for this site.                */
-  --wave-center: 30%;
-  --wave-mid: 22%;
-  --wave-outer: 13%;
+  --wave-center: 24%;
+  --wave-mid: 16%;
+  --wave-outer: 9%;
 
   /* Static fallback when the wave animation is disabled by the OS.        */
   --bg-rainbow: radial-gradient(ellipse 60% 60% at 18% 22%, color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 70%),
@@ -123,9 +123,9 @@
   --strip-4: #C6BEDA;
 
   /* Dark wave field — pastels read brighter on ink, so soften the glows. */
-  --wave-center: 22%;
-  --wave-mid: 16%;
-  --wave-outer: 9%;
+  --wave-center: 18%;
+  --wave-mid: 12%;
+  --wave-outer: 7%;
 
   /* Static fallback when the wave animation is disabled by the OS.        */
   --bg-rainbow: radial-gradient(ellipse 60% 60% at 18% 22%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 70%),
@@ -208,10 +208,10 @@
    (set in RainbowWave.tsx) chains the columns into a continuous wave.     */
 @keyframes wave-slide {
   from {
-    right: -25vw;
+    translate: 25vw 0;
   }
   to {
-    right: 125vw;
+    translate: -125vw 0;
   }
 }
 
@@ -230,16 +230,22 @@
 .rainbow-wave__column {
   position: absolute;
   top: 0;
+  right: 0;
   width: 0;
   height: 100vh;
   transform: rotate(10deg);
   transform-origin: top right;
+  /* `translate` composes on the GPU and keeps the sweep horizontal while
+     `transform` holds the pen's 10° tilt. Animating `right` instead would
+     relayout the page on every frame. */
+  translate: 25vw 0;
+  will-change: translate;
   box-shadow:
-    -130px 0 80px 40px color-mix(in srgb, var(--wave-color) var(--wave-outer), transparent),
-     -50px 0 50px 25px color-mix(in srgb, var(--wave-color) var(--wave-mid), transparent),
-       0  0 50px 25px color-mix(in srgb, var(--wave-color) var(--wave-center), transparent),
-      50px 0 50px 25px color-mix(in srgb, var(--wave-color) var(--wave-mid), transparent),
-     130px 0 80px 40px color-mix(in srgb, var(--wave-color) var(--wave-outer), transparent);
+    -140px 0 110px 30px color-mix(in srgb, var(--wave-color) var(--wave-outer), transparent),
+     -55px 0  80px 20px color-mix(in srgb, var(--wave-color) var(--wave-mid), transparent),
+       0  0   80px 20px color-mix(in srgb, var(--wave-color) var(--wave-center), transparent),
+      55px 0  80px 20px color-mix(in srgb, var(--wave-color) var(--wave-mid), transparent),
+     140px 0 110px 30px color-mix(in srgb, var(--wave-color) var(--wave-outer), transparent);
   animation: wave-slide var(--wave-duration) linear infinite var(--wave-delay);
 }
 

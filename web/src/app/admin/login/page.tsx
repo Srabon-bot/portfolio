@@ -40,7 +40,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "var(--color-bg)" }}>
+    <div className="min-h-screen flex items-center justify-center px-4">
       <div
         className="w-full max-w-md rounded-2xl p-8 shadow-2xl border flex flex-col gap-6"
         style={{
