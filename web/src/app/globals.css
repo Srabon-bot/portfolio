@@ -141,6 +141,84 @@
   color-scheme: dark;             /* native widgets & scrollbars follow */
 }
 
+/* ── Palette B — "Violet Foil" (White / Royal Purple / Gold) ─────────
+ * Exploration version B. */
+:root[data-palette="b"]:not(.dark) {
+  --color-bg:          #FCFFFF;
+  --color-surface:     #FFFFFF;
+  --color-surface-2:   #F1EDF8;
+  --color-border:      #DED6EC;
+  --color-ink:         #1E1630;
+  --color-ink-shadow:  #1E1630;
+  --color-text:        #1E1630;
+  --color-muted:       #5B5270;
+  --color-faint:       #6F6685;
+  --color-accent:      #723CD6;
+  --color-accent-soft: #5B2BB0;
+  --color-on-accent:   #FFFFFF;
+  --color-on-pastel:   #1E1630;
+  --color-focus:       #723CD6;
+
+  --color-peach:       #EDB158;
+  --color-peach-deep:  #D29536;
+  --color-sky:         #C6D6E6;
+  --color-sky-deep:    #A9C0D6;
+  --color-mint:        #C8DFC4;
+  --color-lavender:    #E2D8F5;
+
+  --color-success:     #1F7A4D;
+  --color-danger:      #C0392B;
+
+  --gradient-frame: linear-gradient(135deg, #EDB158 0%, #E2D8F5 50%, #C6D6E6 100%);
+  --strip-1: #EDB158;
+  --strip-2: #C6D6E6;
+  --strip-3: #C8DFC4;
+  --strip-4: #E2D8F5;
+
+  --contour-opacity: 0.16;
+}
+
+/* ── Palette B — "Violet Foil" (dark counterpart) ─────────────────── */
+:root[data-palette="b"].dark {
+  --color-bg:          #140F1F;
+  --color-surface:     #1E1730;
+  --color-surface-2:   #2A2142;
+  --color-border:      #3B3059;
+
+  --color-ink:         #8A7AA8;
+  --color-ink-shadow:  #0A0712;
+
+  --color-text:        #F1ECF8;
+  --color-muted:       #B4AAC6;
+  --color-faint:       #948AA8;
+
+  --color-accent:      #9B7BF0;
+  --color-accent-soft: #C4B0FF;
+  --color-on-accent:   #140F1F;
+  --color-on-pastel:   #140F1F;
+  --color-focus:       #B49CFF;
+
+  --color-peach:       #E8B76A;
+  --color-peach-deep:  #D29F55;
+  --color-sky:         #8FA8C4;
+  --color-sky-deep:    #7890AC;
+  --color-mint:        #A3C4A0;
+  --color-lavender:    #C9B8E0;
+
+  --color-success:     #5EE0A8;
+  --color-danger:      #F08A8A;
+
+  --gradient-frame: linear-gradient(135deg, #E8B76A 0%, #C9B8E0 50%, #8FA8C4 100%);
+  --strip-1: #E8B76A;
+  --strip-2: #8FA8C4;
+  --strip-3: #A3C4A0;
+  --strip-4: #C9B8E0;
+
+  --contour-opacity: 0.22;
+
+  color-scheme: dark;
+}
+
 .dark .bar-shadow {
   box-shadow: 0 6px 20px rgb(0 0 0 / 0.45);
 }
