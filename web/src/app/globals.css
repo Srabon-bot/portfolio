@@ -2,14 +2,15 @@
 @import "tailwindcss";
 
 /*
- * CLAY PLAYFUL theme (branch redesign/clay-playful).
- * Re-skins the original "Hallmark Editorial" token system with the
- * uupm.cc "Educational Platform" claymorphism recipe:
+ * CLAY PLAYFUL theme.
  *   - Fredoka (round display) + Nunito (soft body)
- *   - pastel palette (peach / sky / mint / lavender) + green CTA
  *   - clay cards: thick ink borders, hard offset shadows, press-on-hover
- * The branch is LIGHT-ONLY for now: the .dark overrides are intentionally
- * dormant (nothing sets a dark palette), the toggle is removed in Phase 2.
+ *   - warm paper + ink base, one saturated accent, muted pastel fills
+ *
+ * Palette system: `@theme` below holds the default (palette A) light values,
+ * `:root` holds the shared paper/contour machinery, and `.dark` holds the
+ * dark counterpart. The temporary [data-palette] blocks after `.dark` are
+ * exploration only and get deleted once a direction is picked.
  */
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -25,35 +26,34 @@
   --radius-chip: 16px;
 }
 
-/* ── Theme tokens — "Clay" values (light only in this branch) ─────────
- * Same token NAMES as the editorial theme so every component re-skins
- * from this file alone. New tokens below only ADD roles.              */
+/* ── Palette A — "Dusk Ledger" (Persian Blue / Cream / Amber) ─────────
+ * Every component is token-bound, so a palette is values only.           */
 @theme {
-  --color-bg:          #FFF9F5;   /* warm cream page background            */
-  --color-surface:     #FFFFFF;   /* card clay faces                       */
-  --color-surface-2:   #F1F5F9;   /* chips, inputs, soft fills             */
-  --color-border:      #E2E8F0;   /* soft hairline (form frames, rails)    */
-  --color-ink:         #2D3748;   /* clay OUTLINE stroke color (+ base ink text) */
-  --color-ink-shadow:  #2D3748;   /* hard OFFSET shadows (split from ink in dark) */
-  --color-text:        #2D3748;   /* primary text (same ink)               */
-  --color-muted:       #556680;   /* secondary text (5.5:1 on surface-2)   */
-  --color-faint:       #5F7186;   /* captions, footers (4.8:1 on cream bg)  */
-  --color-accent:      #22C55E;   /* CTA green — button fills, focus ring  */
-  --color-accent-soft: #15803D;   /* green TEXT roles: links, hover, kbd (4.9:1 on card) */
-  --color-on-accent:   #2D3748;   /* ink text ON a green fill (5.26:1; white failed at 2.28) */
-  --color-on-pastel:   #2D3748;   /* ink text ON a pastel fill (identical value to text in light) */
-  --color-focus:       #15803D;   /* focus ring — accent-soft, so it clears 3:1 on paper */
+  --color-bg:          #EFE8DA;   /* manila cream page background         */
+  --color-surface:     #FBF7EF;   /* card clay faces                      */
+  --color-surface-2:   #E5DBC9;   /* chips, inputs, soft fills            */
+  --color-border:      #D3C7B2;   /* soft hairline (form frames, rails)   */
+  --color-ink:         #16284C;   /* clay OUTLINE stroke color (+ ink text) */
+  --color-ink-shadow:  #16284C;   /* hard OFFSET shadows (split from ink in dark) */
+  --color-text:        #16284C;   /* primary text — 11.9:1 on bg          */
+  --color-muted:       #4E5A73;   /* secondary text — 6.5:1 on surface    */
+  --color-faint:       #6B6455;   /* captions, footers — 4.8:1 on bg      */
+  --color-accent:      #FFB92E;   /* CTA amber fill                       */
+  --color-accent-soft: #8F5B00;   /* amber TEXT roles: links, hovers (5.4:1) */
+  --color-on-accent:   #16284C;   /* navy ink ON amber — 8.5:1 (white fails) */
+  --color-on-pastel:   #16284C;   /* ink text ON a pastel fill            */
+  --color-focus:       #16284C;   /* ring — the ink step, 11.9:1 on bg    */
 
   /* Pastel clay fill roles (cards, badges, decorative blobs)           */
-  --color-peach:       #FDBCB4;
-  --color-peach-deep:  #F5A69D;
-  --color-sky:         #ADD8E6;
-  --color-sky-deep:    #8BC4D6;
-  --color-mint:        #98FF98;
-  --color-lavender:    #E6E6FA;
+  --color-peach:       #E9C6A4;
+  --color-peach-deep:  #D9B183;
+  --color-sky:         #BFD3DA;
+  --color-sky-deep:    #A3BCC6;
+  --color-mint:        #C9D3AE;
+  --color-lavender:    #D6CBDE;
 
-  --color-success:     #15803D;   /* form success + "Open to work" dot (as text: 4.9:1) */
-  --color-danger:      #DC2626;   /* form errors ONLY (text: 4.8:1) */
+  --color-success:     #2F6B4F;   /* form success + "Open to work" (5.9:1) */
+  --color-danger:      #A33A2B;   /* form errors ONLY (6.2:1)              */
 }
 
 :root {
@@ -65,12 +65,12 @@
   --space-block:     clamp(1rem, 0.85rem + 0.6vw, 1.5rem);
   --pad-container:   clamp(1rem, 0.55rem + 1.8vw, 2rem);
 
-  /* Mode-dependent decorations, restyled for clay (light values only)  */
-  --gradient-frame: linear-gradient(135deg, #FDBCB4 0%, #ADD8E6 50%, #98FF98 100%);
-  --strip-1: #FDBCB4;
-  --strip-2: #ADD8E6;
-  --strip-3: #98FF98;
-  --strip-4: #E6E6FA;
+  /* Mode-dependent decorations, palette A light                          */
+  --gradient-frame: linear-gradient(135deg, #FFB92E 0%, #E9C6A4 50%, #BFD3DA 100%);
+  --strip-1: #FFB92E;
+  --strip-2: #E9C6A4;
+  --strip-3: #BFD3DA;
+  --strip-4: #D6CBDE;
 
   /* Site-wide paper fibre. Five offset tiles keep the repeat from reading
      as a regular pattern; all colour comes from the current ink token.   */
@@ -91,51 +91,45 @@
   color-scheme: light;            /* browser: native widgets & scrollbars */
 }
 
-/* ── "Clay Dusk" — dark mode (same clay shapes, dusk palette) ─────────
- * Derived from the light clay: the slate hue family is the ink #2D3748
- * pushed dark; pastels keep their hue but drop ~20 saturation points so
- * they don't vibrate on dark surfaces. Elevation inverts: bg is the
- * DARKEST value, cards sit lighter on top.
- *
+/* ── Palette A — "Dusk Ledger" dark counterpart ─────────────────────
  * Ink is split here (and only here):
- *   --color-ink        = the visible outline stroke (light slate)
+ *   --color-ink        = the visible outline stroke (per palette)
  *   --color-ink-shadow = the hard offset shadow (near-black)
- * In light mode both tokens equal #2D3748, shadows and strokes unified.
- * Contrast (WCAG 2.1, computed): text/bg 14.7 · text/card 12.9 ·
- * muted/card 6.8 · faint/card 5.4 · on-accent ink-on-green 8.5.
+ * Contrast (WCAG 2.1, computed): text/bg 14.9 · text/card 12.9 ·
+ * muted/card 6.8 · faint/card 5.4 · on-accent amber-on-navy 8.5.
  */
 .dark {
-  --color-bg:          #171C24;
-  --color-surface:     #202731;
-  --color-surface-2:   #2A323F;
-  --color-border:      #3A4451;
+  --color-bg:          #0E1830;
+  --color-surface:     #16284C;
+  --color-surface-2:   #1E3358;
+  --color-border:      #31456E;
 
-  --color-ink:         #93A5BA;   /* outline stroke — visible on dark clay */
-  --color-ink-shadow:  #0B0E13;   /* hard offsets read as depth (near-black) */
+  --color-ink:         #6E86AE;   /* outline stroke — visible on dark clay */
+  --color-ink-shadow:  #05090F;   /* hard offsets read as depth (near-black) */
 
-  --color-text:        #E9EEF5;
-  --color-muted:       #A5B0BD;
-  --color-faint:       #8F9DA9;
+  --color-text:        #EDE7DB;
+  --color-muted:       #B0B8C9;
+  --color-faint:       #8C96AB;
 
-  --color-accent:      #22C55E;   /* CTA green fill unchanged */
-  --color-accent-soft: #4ADE80;   /* green TEXT on dark (links, hovers) */
-  --color-on-accent:   #0B0E13;   /* ink on green — 7.0:1 (white was 2.28 fail) */
-  --color-on-pastel:   #0B0E13;   /* ink on desaturated pastels — 7.8:1 peach, 10.5 lavender */
-  --color-focus:       #4ADE80;   /* ring — the accent-soft step, not the fill step */
+  --color-accent:      #FFB92E;   /* CTA green fill unchanged */
+  --color-accent-soft: #FFD37A;   /* green TEXT on dark (links, hovers) */
+  --color-on-accent:   #16284C;   /* ink on green — 7.0:1 (white was 2.28 fail) */
+  --color-on-pastel:   #0E1830;   /* ink on desaturated pastels — 7.8:1 peach, 10.5 lavender */
+  --color-focus:       #FFD37A;   /* ring — the accent-soft step, not the fill step */
 
-  /* Desaturated dark pastels (hue kept, saturation down)                  */
-  --color-peach:       #E89A92;
-  --color-peach-deep:  #D98A81;
-  --color-sky:         #7FB0C7;
-  --color-sky-deep:    #6FA0B8;
-  --color-mint:        #8FDE9B;
-  --color-lavender:    #C6C6EF;
+  /* Warm dark pastels (hue kept, saturation down)                       */
+  --color-peach:       #C99E78;
+  --color-peach-deep:  #B88B66;
+  --color-sky:         #8FB0BC;
+  --color-sky-deep:    #7A9CA9;
+  --color-mint:        #A9B78C;
+  --color-lavender:    #BFAFC9;
 
-  --color-success:     #34D399;   /* bright variants — legible on dark clay  */
-  --color-danger:      #F87171;   /* form errors ONLY */
+  --color-success:     #6FCFA5;   /* bright variants — legible on dark clay  */
+  --color-danger:      #F08A7A;   /* form errors ONLY */
 
   /* Dark decorations                                                      */
-  --gradient-frame: linear-gradient(135deg, #E89A92 0%, #7FB0C7 50%, #8FDE9B 100%);
+  --gradient-frame: linear-gradient(135deg, #C99E78 0%, #8FB0BC 50%, #A9B78C 100%);
   --strip-1: #E89A92;
   --strip-2: #7FB0C7;
   --strip-3: #8FDE9B;
