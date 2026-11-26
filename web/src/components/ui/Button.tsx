@@ -52,14 +52,20 @@ export function Button({
     </motion.span>
   );
 
+  /* File downloads are not routes. A Next <Link> would prefetch the PDF as
+     an RSC route and log a 404 (?_rsc=...), so use a plain anchor here. */
+  if (href && download) {
+    return (
+      <a href={href} download className="rounded-chip inline-block">
+        {inner}
+      </a>
+    );
+  }
+
   /* Render as a Next.js Link when href is provided, otherwise as a button */
   if (href && !disabled) {
     return (
-      <Link
-        href={href}
-        download={download || undefined}
-        className="rounded-chip inline-block"
-      >
+      <Link href={href} className="rounded-chip inline-block">
         {inner}
       </Link>
     );
