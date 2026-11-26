@@ -42,5 +42,10 @@ export const fadeUp: Variants = {
 /* Standard stagger step between sibling cards */
 export const STAGGER = 0.07;
 
-/* Shared viewport config for scroll entrances: fire once, slightly early */
-export const revealViewport = { once: true, margin: "-40px" } as const;
+/*
+ * Shared viewport config for scroll entrances: fire once, and only after the
+ * element clears the sticky chrome. Percentage margins scale with viewport
+ * height, so the same rule works on a phone (84px mobile action bar), a
+ * tablet and a desktop (3.5rem top bar) without device-specific branches.
+ */
+export const revealViewport = { once: true, margin: "-10% 0px -12% 0px" } as const;

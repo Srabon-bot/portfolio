@@ -217,6 +217,18 @@
   }
 }
 
+/* Framer Motion renders hidden inline styles during SSR. Under reduced
+   motion every animated element carries data-motion, so pin it to its
+   settled state here. Doing this in CSS (rather than branching the JSX on
+   useReducedMotion) keeps server and client markup identical and avoids
+   hydration mismatches. */
+@media (prefers-reduced-motion: reduce) {
+  [data-motion] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Original pen's slide: each soft ribbon sweeps from just past the right
    edge to past the left edge. Staggered per-ribbon duration/delay (set in
    RainbowWave.tsx) chains them into a continuous wave.                     */

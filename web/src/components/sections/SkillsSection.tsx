@@ -19,7 +19,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
 import { Chip } from "@/components/ui/Chip";
-import { fadeUp } from "@/lib/motion";
+import { fadeUp, revealViewport } from "@/lib/motion";
 import type { Skill } from "@/types";
 
 interface SkillsSectionProps {
@@ -161,11 +161,13 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
             return (
             <motion.div
               key={group.title}
+              data-motion=""
               custom={index * 0.05}
-              initial={reduceMotion ? false : "hidden"}
-              whileInView={reduceMotion ? undefined : "visible"}
-              viewport={{ once: true, margin: "-40px" }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={revealViewport}
               variants={cardVariants}
+              transition={reduceMotion ? { duration: 0 } : undefined}
               className="rounded-card p-5 md:p-6 flex flex-col"
               style={{
                 background: "var(--color-surface)",

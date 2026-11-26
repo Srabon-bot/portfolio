@@ -29,16 +29,23 @@ interface RevealProps {
 export function Reveal({ children, delay = 0, y = 16, className }: RevealProps) {
   const reduceMotion = useReducedMotion();
 
-  if (reduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
+  /*
+   * Keep the exact same element tree on server and client — branching here
+   * on reduceMotion used to produce a hydration mismatch. Under reduced
+   * motion the CSS [data-motion] rule pins the element to its final state,
+   * and the zero-duration transition keeps Framer from doing visible work.
+   */
   return (
     <motion.div
+      data-motion=""
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={revealViewport}
-      transition={{ duration: 0.45, delay: Math.min(delay, 0.5), ease: "easeOut" }}
+      transition={
+        reduceMotion
+          ? { duration: 0 }
+          : { duration: 0.45, delay: Math.min(delay, 0.5), ease: "easeOut" }
+      }
       className={className}
     >
       {children}

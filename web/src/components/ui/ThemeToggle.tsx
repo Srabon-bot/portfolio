@@ -79,16 +79,17 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
 
   /* Which icon to render post-hydration: show the paper you will switch TO.
      Keyed by theme so the little clay spring flip replays on each toggle;
-     reduced-motion users get the plain icon swap. */
+     reduced-motion users get the same icon swap with no transition. */
   const iconEl = mounted && theme === "dark" ? <SunIcon /> : <MoonIcon />;
-  const icon = reduceMotion ? (
-    iconEl
-  ) : (
+  /* Always render the same element tree on server and client. Branching on
+     reduceMotion here used to swap <span> for <svg> during hydration and
+     threw a mismatch for reduced-motion users; only the transition differs. */
+  const icon = (
     <motion.span
       key={mounted && theme === "dark" ? "sun" : "moon"}
       initial={{ rotate: -60, scale: 0.6, opacity: 0 }}
       animate={{ rotate: 0, scale: 1, opacity: 1 }}
-      transition={CLAY_SPRING}
+      transition={reduceMotion ? { duration: 0 } : CLAY_SPRING}
       className="inline-flex"
     >
       {iconEl}

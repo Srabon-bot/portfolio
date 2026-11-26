@@ -58,6 +58,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
           <motion.div
             custom={0}
             variants={fadeUp}
+            data-motion=""
             initial="hidden"
             animate="visible"
             className="flex items-center gap-3 self-start"
@@ -79,6 +80,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
           <motion.h1
             custom={0.1}
             variants={fadeUp}
+            data-motion=""
             initial="hidden"
             animate="visible"
             className="font-semibold leading-[1.05] text-text"
@@ -95,6 +97,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
             aria-hidden="true"
             custom={0.15}
             variants={fadeUp}
+            data-motion=""
             initial="hidden"
             animate="visible"
             className="rule-gold"
@@ -105,6 +108,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
           <motion.p
             custom={0.2}
             variants={fadeUp}
+            data-motion=""
             initial="hidden"
             animate="visible"
             className="kicker font-semibold"
@@ -119,6 +123,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
           <motion.p
             custom={0.3}
             variants={fadeUp}
+            data-motion=""
             initial="hidden"
             animate="visible"
             className="text-base md:text-lg leading-relaxed max-w-md"
@@ -131,6 +136,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
           <motion.div
             custom={0.35}
             variants={fadeUp}
+            data-motion=""
             initial="hidden"
             animate="visible"
             className="flex flex-wrap items-center gap-2 pt-1"
@@ -145,6 +151,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
           <motion.div
             custom={0.4}
             variants={fadeUp}
+            data-motion=""
             initial="hidden"
             animate="visible"
             className="flex flex-col sm:flex-row sm:items-center gap-3 pt-2"
@@ -176,6 +183,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
             <motion.div
               custom={0.42}
               variants={fadeUp}
+              data-motion=""
               initial="hidden"
               animate="visible"
               className="flex flex-wrap items-center gap-2.5 pt-1"
@@ -210,6 +218,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
           <motion.nav
             custom={0.45}
             variants={fadeUp}
+            data-motion=""
             initial="hidden"
             animate="visible"
             aria-label="Quick social links"
@@ -265,6 +274,7 @@ export function HeroSection({ profile, stats }: HeroSectionProps) {
         <motion.div
           custom={0}
           variants={fadeUp}
+          data-motion=""
           initial="hidden"
           animate="visible"
           className="flex justify-center lg:justify-end"

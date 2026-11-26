@@ -95,9 +95,8 @@ export function SectionRail() {
                     className="relative flex items-center justify-center w-4 h-4 flex-shrink-0"
                   >
                     <span
+                      className="block w-2.5 h-2.5 rounded-full transition-transform duration-200"
                       style={{
-                        width: active ? "14px" : "10px",
-                        height: active ? "14px" : "10px",
                         borderRadius: "50%",
                         background: active
                           ? "var(--color-peach)"
@@ -106,8 +105,11 @@ export function SectionRail() {
                         boxShadow: active
                           ? "2px 2px 0 var(--color-ink)"
                           : "none",
+                        /* Fixed 10px box, scaled on activation: transform
+                           only, so the scroll-linked marker never relayouts. */
+                        transform: active ? "scale(1.4)" : "scale(1)",
+                        transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
                       }}
-                      className={`block transition-all duration-200 ${active ? "animate-bounce" : ""}`}
                     />
                   </span>
                 </a>
