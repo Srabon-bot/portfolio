@@ -7,7 +7,6 @@ import { Chip } from "@/components/ui/Chip";
 import { TechIcon } from "@/components/ui/TechIcon";
 import { ChapterNav } from "@/components/works/ChapterNav";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { isFloodOrMlProject } from "@/lib/project-texture";
 
 /* Chapters are data-driven: a project only shows the sections it has copy
  * for, so a research project never inherits another project's auth story. */
@@ -173,13 +172,11 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
         </aside>
 
         <article
-          className={`section-pad flex flex-col gap-10 min-w-0 ${
-            isFloodOrMlProject(project) ? "bg-contour" : "bg-dot-grid"
-          }`}
+          className="section-pad flex flex-col gap-10 min-w-0"
           style={{ paddingBottom: "var(--space-section)" }}
         >
         {/* Title, Badge & Tagline */}
-        <div className="flex flex-col gap-4 p-3 -m-3 md:p-4 md:-m-4 rounded-[16px] bg-blueprint">
+        <div className="flex flex-col gap-4 p-3 -m-3 md:p-4 md:-m-4 rounded-[16px]">
           <div className="flex items-center gap-3">
             <span
               className="text-xs font-mono font-semibold uppercase tracking-widest px-3 py-1 rounded-full"

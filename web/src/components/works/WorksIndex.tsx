@@ -10,7 +10,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { isFloodOrMlProject } from "@/lib/project-texture";
 import type { Project } from "@/types";
 
 interface WorksIndexProps {
@@ -87,9 +86,7 @@ export function WorksIndex({ projects }: WorksIndexProps) {
         {works.map((p, index) => (
           <div
             key={p._id || p.slug}
-            className={`group grid grid-cols-[auto_1fr] sm:grid-cols-[auto_1fr_auto] gap-x-4 sm:gap-x-6 gap-y-2 items-center py-5 border-b transition-colors duration-200 hover:bg-surface/60${
-              isFloodOrMlProject(p) ? " bg-contour" : ""
-            }`}
+            className="group grid grid-cols-[auto_1fr] sm:grid-cols-[auto_1fr_auto] gap-x-4 sm:gap-x-6 gap-y-2 items-center py-5 border-b transition-colors duration-200 hover:bg-surface/60"
             style={{ borderColor: "var(--color-border)" }}
           >
             {/* Plate number */}

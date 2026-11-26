@@ -16,7 +16,6 @@ import { Container } from "@/components/ui/Container";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { STAGGER } from "@/lib/motion";
-import { isFloodOrMlProject } from "@/lib/project-texture";
 import type { Project } from "@/types";
 
 interface ProjectsSectionProps {
@@ -40,7 +39,7 @@ export function ProjectsSection({
     <section
       id="projects"
       aria-label="Projects and case studies"
-      className="section-pad bg-dot-grid"
+      className="section-pad"
       style={{ scrollMarginTop: "4.5rem" }}
     >
       <Container>
@@ -96,9 +95,7 @@ export function ProjectsSection({
                */
               <Reveal key={project._id} delay={i * 0.05} y={10}>
               <div
-                className={`flex items-start justify-between gap-4 px-4 py-3 rounded-2xl transition-all duration-200 hover:-translate-y-0.5${
-                  isFloodOrMlProject(project) ? " bg-contour" : ""
-                }`}
+                className="flex items-start justify-between gap-4 px-4 py-3 rounded-2xl transition-all duration-200 hover:-translate-y-0.5"
                 style={{
                   backgroundColor: "var(--color-surface)",
                   border: "2px solid color-mix(in srgb, var(--color-ink) 45%, transparent)",
