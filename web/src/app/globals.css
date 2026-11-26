@@ -219,6 +219,84 @@
   color-scheme: dark;
 }
 
+/* ── Palette C — "Neon Night" (Midnight / Electric Blue / Cantaloupe) ──
+ * Exploration version C. */
+:root[data-palette="c"]:not(.dark) {
+  --color-bg:          #FDFEFF;
+  --color-surface:     #FFFFFF;
+  --color-surface-2:   #EDF1F5;
+  --color-border:      #D6DEE4;
+  --color-ink:         #02070A;
+  --color-ink-shadow:  #02070A;
+  --color-text:        #02070A;
+  --color-muted:       #4C5865;
+  --color-faint:       #5F6B78;
+  --color-accent:      #0297DE;
+  --color-accent-soft: #026FA3;
+  --color-on-accent:   #02070A;
+  --color-on-pastel:   #02070A;
+  --color-focus:       #026FA3;
+
+  --color-peach:       #FC734D;
+  --color-peach-deep:  #E85F39;
+  --color-sky:         #BFD3E0;
+  --color-sky-deep:    #A2BCCD;
+  --color-mint:        #C6D8C0;
+  --color-lavender:    #D9D2E8;
+
+  --color-success:     #1F7A4D;
+  --color-danger:      #C0392B;
+
+  --gradient-frame: linear-gradient(135deg, #BFD3E0 0%, #FC734D 50%, #C6D8C0 100%);
+  --strip-1: #FC734D;
+  --strip-2: #BFD3E0;
+  --strip-3: #C6D8C0;
+  --strip-4: #D9D2E8;
+
+  --contour-opacity: 0.16;
+}
+
+/* ── Palette C — "Neon Night" (dark counterpart) ───────────────────── */
+:root[data-palette="c"].dark {
+  --color-bg:          #02070A;
+  --color-surface:     #0B1319;
+  --color-surface-2:   #141F27;
+  --color-border:      #26323B;
+
+  --color-ink:         #6E8593;
+  --color-ink-shadow:  #000000;
+
+  --color-text:        #EAF1F4;
+  --color-muted:       #A3B3BC;
+  --color-faint:       #84939B;
+
+  --color-accent:      #0297DE;
+  --color-accent-soft: #5EC8F5;
+  --color-on-accent:   #02070A;
+  --color-on-pastel:   #02070A;
+  --color-focus:       #5EC8F5;
+
+  --color-peach:       #FC734D;
+  --color-peach-deep:  #E45F3A;
+  --color-sky:         #8FB6C9;
+  --color-sky-deep:    #79A0B3;
+  --color-mint:        #A9C6A2;
+  --color-lavender:    #C6BEDA;
+
+  --color-success:     #5EE0A8;
+  --color-danger:      #F87171;
+
+  --gradient-frame: linear-gradient(135deg, #8FB6C9 0%, #FC734D 50%, #A9C6A2 100%);
+  --strip-1: #FC734D;
+  --strip-2: #8FB6C9;
+  --strip-3: #A9C6A2;
+  --strip-4: #C6BEDA;
+
+  --contour-opacity: 0.22;
+
+  color-scheme: dark;
+}
+
 .dark .bar-shadow {
   box-shadow: 0 6px 20px rgb(0 0 0 / 0.45);
 }
