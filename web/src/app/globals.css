@@ -42,6 +42,7 @@
   --color-accent-soft: #15803D;   /* green TEXT roles: links, hover, kbd (4.9:1 on card) */
   --color-on-accent:   #2D3748;   /* ink text ON a green fill (5.26:1; white failed at 2.28) */
   --color-on-pastel:   #2D3748;   /* ink text ON a pastel fill (identical value to text in light) */
+  --color-focus:       #15803D;   /* focus ring — accent-soft, so it clears 3:1 on paper */
 
   /* Pastel clay fill roles (cards, badges, decorative blobs)           */
   --color-peach:       #FDBCB4;
@@ -120,6 +121,7 @@
   --color-accent-soft: #4ADE80;   /* green TEXT on dark (links, hovers) */
   --color-on-accent:   #0B0E13;   /* ink on green — 7.0:1 (white was 2.28 fail) */
   --color-on-pastel:   #0B0E13;   /* ink on desaturated pastels — 7.8:1 peach, 10.5 lavender */
+  --color-focus:       #4ADE80;   /* ring — the accent-soft step, not the fill step */
 
   /* Desaturated dark pastels (hue kept, saturation down)                  */
   --color-peach:       #E89A92;
@@ -186,7 +188,7 @@
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-accent);
+    outline: 3px solid var(--color-focus);
     outline-offset: 3px;
     border-radius: 8px;
   }

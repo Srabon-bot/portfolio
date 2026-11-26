@@ -228,7 +228,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
                   type="text"
                   required
                   placeholder="Your name"
-                  className="rounded-[14px] px-4 py-2.5 text-sm font-semibold outline-none transition-all focus:border-accent"
+                  className="rounded-[14px] px-4 py-2.5 text-sm font-semibold transition-all focus-visible:border-focus"
                   style={{
                     background: "var(--color-surface-2)",
                     border: "2px solid var(--color-ink)",
@@ -249,7 +249,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
                   type="email"
                   required
                   placeholder="your@email.com"
-                  className="rounded-[14px] px-4 py-2.5 text-sm font-semibold outline-none transition-all focus:border-accent"
+                  className="rounded-[14px] px-4 py-2.5 text-sm font-semibold transition-all focus-visible:border-focus"
                   style={{
                     background: "var(--color-surface-2)",
                     border: "2px solid var(--color-ink)",
@@ -270,7 +270,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
                   required
                   rows={4}
                   placeholder="What's on your mind?"
-                  className="rounded-[14px] px-4 py-2.5 text-sm font-semibold outline-none transition-all focus:border-accent resize-none"
+                  className="rounded-[14px] px-4 py-2.5 text-sm font-semibold transition-all focus-visible:border-focus resize-none"
                   style={{
                     background: "var(--color-surface-2)",
                     border: "2px solid var(--color-ink)",

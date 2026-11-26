@@ -12,6 +12,7 @@ import type { Metadata } from "next";
 import { Fredoka, Nunito } from "next/font/google";
 import { ProgressRule, BackToTop } from "@/components/ui/ScrollMarker";
 import { ThemeBootstrap } from "@/components/ThemeBootstrap";
+import { DevPaletteSwitcher } from "@/components/DevPaletteSwitcher";
 import "./globals.css";
 
 /* Fredoka — variable display face for h1–h3 and wordmarks */
@@ -88,6 +89,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* Pre-paint theme switch — injected into the SSR <head> outside the
             React tree via useServerInsertedHTML (see ThemeBootstrap.tsx). */}
         <ThemeBootstrap />
+        {/* TEMPORARY palette preview — gated behind NEXT_PUBLIC_PALETTE_SWITCH */}
+        {process.env.NEXT_PUBLIC_PALETTE_SWITCH === "1" && <DevPaletteSwitcher />}
         {/* Scroll furniture — reading progress + back-to-top */}
         <ProgressRule />
         <BackToTop />

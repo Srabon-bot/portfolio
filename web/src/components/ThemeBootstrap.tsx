@@ -29,7 +29,7 @@
 import { useEffect } from "react";
 import { useServerInsertedHTML } from "next/navigation";
 
-const THEME_BOOTSTRAP = `(function(){try{var t=localStorage.getItem("theme");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark");}catch(e){}})();`;
+const THEME_BOOTSTRAP = `(function(){try{var t=localStorage.getItem("theme");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark");var p=localStorage.getItem("palette");if(p)document.documentElement.setAttribute("data-palette",p);}catch(e){}})();`;
 
 export function ThemeBootstrap() {
   useServerInsertedHTML(() => (
@@ -47,6 +47,15 @@ export function ThemeBootstrap() {
       dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     }
     document.documentElement.classList.toggle("dark", dark);
+
+    /* TEMPORARY (palette exploration): React can drop attributes it does not
+       own on <html>, so re-apply the preview palette after mount. */
+    try {
+      const palette = localStorage.getItem("palette");
+      if (palette) document.documentElement.setAttribute("data-palette", palette);
+    } catch {
+      /* no storage — leave the default palette in place */
+    }
   }, []);
 
   return null;
