@@ -2,7 +2,7 @@
 
 # Srabon's Portfolio
 
-A dark purple, full-stack MERN developer portfolio with a private admin dashboard. Recruiters get everything in one scroll, and I update projects, skills, my bio and my resume without touching code.
+A full-stack MERN developer portfolio with a private admin dashboard. Recruiters get everything in one scroll, and I update projects, skills, my bio and my resume without touching code.
 
 [![Live Site](https://img.shields.io/badge/Live%20Site-portfolio2--0--seven--liart.vercel.app-22c55e?style=for-the-badge&logo=vercel&logoColor=white)](https://portfolio2-0-seven-liart.vercel.app)
 &nbsp;

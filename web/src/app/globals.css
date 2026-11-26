@@ -7,10 +7,9 @@
  *   - clay cards: thick ink borders, hard offset shadows, press-on-hover
  *   - warm paper + ink base, one saturated accent, muted pastel fills
  *
- * Palette system: `@theme` below holds the default (palette A) light values,
+ * Palette system: `@theme` holds the default (palette C) light values,
  * `:root` holds the shared paper/contour machinery, and `.dark` holds the
- * dark counterpart. The temporary [data-palette] blocks after `.dark` are
- * exploration only and get deleted once a direction is picked.
+ * dark counterpart. That pair is now the live palette.
  */
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -26,202 +25,9 @@
   --radius-chip: 16px;
 }
 
-/* ── Palette A — "Dusk Ledger" (Persian Blue / Cream / Amber) ─────────
- * Every component is token-bound, so a palette is values only.           */
-@theme {
-  --color-bg:          #EFE8DA;   /* manila cream page background         */
-  --color-surface:     #FBF7EF;   /* card clay faces                      */
-  --color-surface-2:   #E5DBC9;   /* chips, inputs, soft fills            */
-  --color-border:      #D3C7B2;   /* soft hairline (form frames, rails)   */
-  --color-ink:         #16284C;   /* clay OUTLINE stroke color (+ ink text) */
-  --color-ink-shadow:  #16284C;   /* hard OFFSET shadows (split from ink in dark) */
-  --color-text:        #16284C;   /* primary text — 11.9:1 on bg          */
-  --color-muted:       #4E5A73;   /* secondary text — 6.5:1 on surface    */
-  --color-faint:       #6B6455;   /* captions, footers — 4.8:1 on bg      */
-  --color-accent:      #FFB92E;   /* CTA amber fill                       */
-  --color-accent-soft: #8F5B00;   /* amber TEXT roles: links, hovers (5.4:1) */
-  --color-on-accent:   #16284C;   /* navy ink ON amber — 8.5:1 (white fails) */
-  --color-on-pastel:   #16284C;   /* ink text ON a pastel fill            */
-  --color-focus:       #16284C;   /* ring — the ink step, 11.9:1 on bg    */
-
-  /* Pastel clay fill roles (cards, badges, decorative blobs)           */
-  --color-peach:       #E9C6A4;
-  --color-peach-deep:  #D9B183;
-  --color-sky:         #BFD3DA;
-  --color-sky-deep:    #A3BCC6;
-  --color-mint:        #C9D3AE;
-  --color-lavender:    #D6CBDE;
-
-  --color-success:     #2F6B4F;   /* form success + "Open to work" (5.9:1) */
-  --color-danger:      #A33A2B;   /* form errors ONLY (6.2:1)              */
-}
-
-:root {
-  --font-nunito:  "Nunito", system-ui, sans-serif;
-  --font-fredoka: "Fredoka", "Comic Sans MS", system-ui, sans-serif;
-
-  /* ── Fluid rhythm (unchanged mechanics from the editorial theme) ── */
-  --space-section:   clamp(3rem, 2.2rem + 3.2vw, 6rem);
-  --space-block:     clamp(1rem, 0.85rem + 0.6vw, 1.5rem);
-  --pad-container:   clamp(1rem, 0.55rem + 1.8vw, 2rem);
-
-  /* Mode-dependent decorations, palette A light                          */
-  --gradient-frame: linear-gradient(135deg, #FFB92E 0%, #E9C6A4 50%, #BFD3DA 100%);
-  --strip-1: #FFB92E;
-  --strip-2: #E9C6A4;
-  --strip-3: #BFD3DA;
-  --strip-4: #D6CBDE;
-
-  /* Site-wide paper fibre. Five offset tiles keep the repeat from reading
-     as a regular pattern; all colour comes from the current ink token.   */
-  --paper-texture:
-    radial-gradient(circle at 18% 24%, color-mix(in srgb, var(--color-ink) 5%, transparent) 0 0.6px, transparent 0.9px),
-    radial-gradient(circle at 72% 61%, color-mix(in srgb, var(--color-ink) 4%, transparent) 0 0.5px, transparent 0.8px),
-    radial-gradient(circle at 41% 83%, color-mix(in srgb, var(--color-ink) 5%, transparent) 0 0.7px, transparent 1px),
-    repeating-linear-gradient(94deg, transparent 0 11px, color-mix(in srgb, var(--color-ink) 2.5%, transparent) 11px 12px),
-    repeating-linear-gradient(2deg, transparent 0 17px, color-mix(in srgb, var(--color-ink) 2%, transparent) 17px 18px);
-  --paper-texture-size: 137px 119px, 173px 151px, 97px 131px, 61px 71px, 83px 89px;
-
-  /* Topographic contour tile — deliberately uneven, not concentric rings.
-     Stored as an alpha mask, so the colour comes from --color-ink at paint
-     time and every palette tints it without duplicating the path data.  */
-  --contour-opacity: 0.16;
-  --contour-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='220' viewBox='0 0 320 220' fill='none' stroke='%23fff' stroke-opacity='1' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M-20 28C34 6 86 14 126 36S210 72 264 48S330 24 352 44'/%3E%3Cpath d='M-18 56C28 34 84 38 124 62S206 102 260 78S326 52 350 72'/%3E%3Cpath d='M-12 86C26 60 80 60 124 86S202 128 256 106S322 80 350 100'/%3E%3Cpath d='M18 190C44 150 86 134 126 148S184 196 224 188S288 142 330 150'/%3E%3Cpath d='M4 166C36 120 88 100 132 116S192 170 234 162S302 116 340 124'/%3E%3Cpath d='M-8 140C28 92 84 70 132 86S198 142 242 134S314 88 352 96'/%3E%3Cpath d='M92 58C118 42 152 46 172 66S188 112 164 126S104 136 88 114S76 70 92 58Z'/%3E%3Cpath d='M110 76C128 66 150 70 160 84S166 116 150 124S112 126 104 112S100 84 110 76Z'/%3E%3C/svg%3E");
-
-  color-scheme: light;            /* browser: native widgets & scrollbars */
-}
-
-/* ── Palette A — "Dusk Ledger" dark counterpart ─────────────────────
- * Ink is split here (and only here):
- *   --color-ink        = the visible outline stroke (per palette)
- *   --color-ink-shadow = the hard offset shadow (near-black)
- * Contrast (WCAG 2.1, computed): text/bg 14.9 · text/card 12.9 ·
- * muted/card 6.8 · faint/card 5.4 · on-accent amber-on-navy 8.5.
- */
-.dark {
-  --color-bg:          #0E1830;
-  --color-surface:     #16284C;
-  --color-surface-2:   #1E3358;
-  --color-border:      #31456E;
-
-  --color-ink:         #6E86AE;   /* outline stroke — visible on dark clay */
-  --color-ink-shadow:  #05090F;   /* hard offsets read as depth (near-black) */
-
-  --color-text:        #EDE7DB;
-  --color-muted:       #B0B8C9;
-  --color-faint:       #8C96AB;
-
-  --color-accent:      #FFB92E;   /* CTA green fill unchanged */
-  --color-accent-soft: #FFD37A;   /* green TEXT on dark (links, hovers) */
-  --color-on-accent:   #16284C;   /* ink on green — 7.0:1 (white was 2.28 fail) */
-  --color-on-pastel:   #0E1830;   /* ink on desaturated pastels — 7.8:1 peach, 10.5 lavender */
-  --color-focus:       #FFD37A;   /* ring — the accent-soft step, not the fill step */
-
-  /* Warm dark pastels (hue kept, saturation down)                       */
-  --color-peach:       #C99E78;
-  --color-peach-deep:  #B88B66;
-  --color-sky:         #8FB0BC;
-  --color-sky-deep:    #7A9CA9;
-  --color-mint:        #A9B78C;
-  --color-lavender:    #BFAFC9;
-
-  --color-success:     #6FCFA5;   /* bright variants — legible on dark clay  */
-  --color-danger:      #F08A7A;   /* form errors ONLY */
-
-  /* Dark decorations                                                      */
-  --gradient-frame: linear-gradient(135deg, #C99E78 0%, #8FB0BC 50%, #A9B78C 100%);
-  --strip-1: #E89A92;
-  --strip-2: #7FB0C7;
-  --strip-3: #8FDE9B;
-  --strip-4: #C6C6EF;
-
-  /* Same contour drawing, ink-coloured for the dark paper. */
-  --contour-opacity: 0.22;   /* dark paper needs a touch more */
-
-  color-scheme: dark;             /* native widgets & scrollbars follow */
-}
-
-/* ── Palette B — "Violet Foil" (White / Royal Purple / Gold) ─────────
- * Exploration version B. */
-:root[data-palette="b"]:not(.dark) {
-  --color-bg:          #FCFFFF;
-  --color-surface:     #FFFFFF;
-  --color-surface-2:   #F1EDF8;
-  --color-border:      #DED6EC;
-  --color-ink:         #1E1630;
-  --color-ink-shadow:  #1E1630;
-  --color-text:        #1E1630;
-  --color-muted:       #5B5270;
-  --color-faint:       #6F6685;
-  --color-accent:      #723CD6;
-  --color-accent-soft: #5B2BB0;
-  --color-on-accent:   #FFFFFF;
-  --color-on-pastel:   #1E1630;
-  --color-focus:       #723CD6;
-
-  --color-peach:       #EDB158;
-  --color-peach-deep:  #D29536;
-  --color-sky:         #C6D6E6;
-  --color-sky-deep:    #A9C0D6;
-  --color-mint:        #C8DFC4;
-  --color-lavender:    #E2D8F5;
-
-  --color-success:     #1F7A4D;
-  --color-danger:      #C0392B;
-
-  --gradient-frame: linear-gradient(135deg, #EDB158 0%, #E2D8F5 50%, #C6D6E6 100%);
-  --strip-1: #EDB158;
-  --strip-2: #C6D6E6;
-  --strip-3: #C8DFC4;
-  --strip-4: #E2D8F5;
-
-  --contour-opacity: 0.16;
-}
-
-/* ── Palette B — "Violet Foil" (dark counterpart) ─────────────────── */
-:root[data-palette="b"].dark {
-  --color-bg:          #140F1F;
-  --color-surface:     #1E1730;
-  --color-surface-2:   #2A2142;
-  --color-border:      #3B3059;
-
-  --color-ink:         #8A7AA8;
-  --color-ink-shadow:  #0A0712;
-
-  --color-text:        #F1ECF8;
-  --color-muted:       #B4AAC6;
-  --color-faint:       #948AA8;
-
-  --color-accent:      #9B7BF0;
-  --color-accent-soft: #C4B0FF;
-  --color-on-accent:   #140F1F;
-  --color-on-pastel:   #140F1F;
-  --color-focus:       #B49CFF;
-
-  --color-peach:       #E8B76A;
-  --color-peach-deep:  #D29F55;
-  --color-sky:         #8FA8C4;
-  --color-sky-deep:    #7890AC;
-  --color-mint:        #A3C4A0;
-  --color-lavender:    #C9B8E0;
-
-  --color-success:     #5EE0A8;
-  --color-danger:      #F08A8A;
-
-  --gradient-frame: linear-gradient(135deg, #E8B76A 0%, #C9B8E0 50%, #8FA8C4 100%);
-  --strip-1: #E8B76A;
-  --strip-2: #8FA8C4;
-  --strip-3: #A3C4A0;
-  --strip-4: #C9B8E0;
-
-  --contour-opacity: 0.22;
-
-  color-scheme: dark;
-}
-
 /* ── Palette C — "Neon Night" (Midnight / Electric Blue / Cantaloupe) ──
- * Exploration version C. */
-:root[data-palette="c"]:not(.dark) {
+ * Promoted to the live default.                                           */
+@theme {
   --color-bg:          #FDFEFF;
   --color-surface:     #FFFFFF;
   --color-surface-2:   #EDF1F5;
@@ -246,18 +52,45 @@
 
   --color-success:     #1F7A4D;
   --color-danger:      #C0392B;
+}
 
+:root {
+  --font-nunito:  "Nunito", system-ui, sans-serif;
+  --font-fredoka: "Fredoka", "Comic Sans MS", system-ui, sans-serif;
+
+  /* ── Fluid rhythm (unchanged mechanics from the editorial theme) ── */
+  --space-section:   clamp(3rem, 2.2rem + 3.2vw, 6rem);
+  --space-block:     clamp(1rem, 0.85rem + 0.6vw, 1.5rem);
+  --pad-container:   clamp(1rem, 0.55rem + 1.8vw, 2rem);
+
+  /* Mode-dependent decorations, palette C light                        */
   --gradient-frame: linear-gradient(135deg, #BFD3E0 0%, #FC734D 50%, #C6D8C0 100%);
   --strip-1: #FC734D;
   --strip-2: #BFD3E0;
   --strip-3: #C6D8C0;
   --strip-4: #D9D2E8;
 
+  /* Site-wide paper fibre. Five offset tiles keep the repeat from reading
+     as a regular pattern; all colour comes from the current ink token.   */
+  --paper-texture:
+    radial-gradient(circle at 18% 24%, color-mix(in srgb, var(--color-ink) 5%, transparent) 0 0.6px, transparent 0.9px),
+    radial-gradient(circle at 72% 61%, color-mix(in srgb, var(--color-ink) 4%, transparent) 0 0.5px, transparent 0.8px),
+    radial-gradient(circle at 41% 83%, color-mix(in srgb, var(--color-ink) 5%, transparent) 0 0.7px, transparent 1px),
+    repeating-linear-gradient(94deg, transparent 0 11px, color-mix(in srgb, var(--color-ink) 2.5%, transparent) 11px 12px),
+    repeating-linear-gradient(2deg, transparent 0 17px, color-mix(in srgb, var(--color-ink) 2%, transparent) 17px 18px);
+  --paper-texture-size: 137px 119px, 173px 151px, 97px 131px, 61px 71px, 83px 89px;
+
+  /* Topographic contour tile — deliberately uneven, not concentric rings.
+     Stored as an alpha mask, so the colour comes from --color-ink at paint
+     time and every palette tints it without duplicating the path data.  */
   --contour-opacity: 0.16;
+  --contour-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='220' viewBox='0 0 320 220' fill='none' stroke='%23fff' stroke-opacity='1' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M-20 28C34 6 86 14 126 36S210 72 264 48S330 24 352 44'/%3E%3Cpath d='M-18 56C28 34 84 38 124 62S206 102 260 78S326 52 350 72'/%3E%3Cpath d='M-12 86C26 60 80 60 124 86S202 128 256 106S322 80 350 100'/%3E%3Cpath d='M18 190C44 150 86 134 126 148S184 196 224 188S288 142 330 150'/%3E%3Cpath d='M4 166C36 120 88 100 132 116S192 170 234 162S302 116 340 124'/%3E%3Cpath d='M-8 140C28 92 84 70 132 86S198 142 242 134S314 88 352 96'/%3E%3Cpath d='M92 58C118 42 152 46 172 66S188 112 164 126S104 136 88 114S76 70 92 58Z'/%3E%3Cpath d='M110 76C128 66 150 70 160 84S166 116 150 124S112 126 104 112S100 84 110 76Z'/%3E%3C/svg%3E");
+
+  color-scheme: light;            /* browser: native widgets & scrollbars */
 }
 
 /* ── Palette C — "Neon Night" (dark counterpart) ───────────────────── */
-:root[data-palette="c"].dark {
+.dark {
   --color-bg:          #02070A;
   --color-surface:     #0B1319;
   --color-surface-2:   #141F27;
@@ -286,6 +119,7 @@
   --color-success:     #5EE0A8;
   --color-danger:      #F87171;
 
+  /* Dark decorations                                                      */
   --gradient-frame: linear-gradient(135deg, #8FB6C9 0%, #FC734D 50%, #A9C6A2 100%);
   --strip-1: #FC734D;
   --strip-2: #8FB6C9;
@@ -294,7 +128,7 @@
 
   --contour-opacity: 0.22;
 
-  color-scheme: dark;
+  color-scheme: dark;             /* native widgets & scrollbars follow */
 }
 
 .dark .bar-shadow {

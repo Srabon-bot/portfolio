@@ -17,7 +17,7 @@
 | Animation | Framer Motion (`motion.div`, `motion.span`, spring & ease micro-interactions) |
 | Icons | Inline SVG only — **strictly no external icon libraries** |
 | Language | TypeScript strict |
-| Theming | Dual "papers": light **Cream** edition (default) + dark **Ink** edition, class-based |
+| Theming | Dual "papers": light **Paper** edition (default) + dark **Onyx** edition, class-based |
 
 ---
 
@@ -27,19 +27,19 @@ All tokens are defined in `web/src/app/globals.css`. Light values sit in `@theme
 (emitted as `:root` custom properties); the `.dark` block overrides the same variable
 names, so **every component is token-bound and re-skins automatically**.
 
-| Token | CSS Variable | Light ("Cream") | Dark ("Ink") | Usage |
+| Token | CSS Variable | Light ("Ink") | Dark ("Onyx") | Usage |
 |---|---|---|---|---|
-| Background | `--color-bg` | `#FBF8F1` | `#16130E` | Page background — warm paper |
-| Surface | `--color-surface` | `#F4EFE4` | `#1F1B14` | Cards, modals, drawers |
-| Surface 2 | `--color-surface-2` | `#EAE3D4` | `#2A251B` | Chips, inputs, icon badges |
-| Border | `--color-border` | `#DCD3C0` | `#3A3324` | Hairline rules, card/input borders |
-| Text | `--color-text` | `#2A261C` | `#F3EFE4` | Primary body text (warm ink / cream) |
-| Muted | `--color-muted` | `#6E6759` | `#A8A18E` | Secondary text, descriptions |
-| Faint | `--color-faint` | `#99927F` | `#7E7765` | Captions, uppercase tags, footer |
-| Accent | `--color-accent` | `#A47612` | `#F5A524` | Gold foil — button fills, active bars, focus ring |
-| Accent Soft | `--color-accent-soft` | `#8A6210` | `#FFC65C` | Gold TEXT roles: links, hover, active |
-| On Accent | `--color-on-accent` | `#FFF9EC` | `#1C1408` | Text ON a gold fill (contrast rule) |
-| Success | `--color-success` | `#1F8A4C` | `#4ADE80` | **ONLY** "Open to work" dot + form success |
+| Background | `--color-bg` | `#FDFEFF` | `#02070A` | Page background — cool paper |
+| Surface | `--color-surface` | `#FFFFFF` | `#0B1319` | Cards, modals, drawers |
+| Surface 2 | `--color-surface-2` | `#EDF1F5` | `#141F27` | Chips, inputs, icon badges |
+| Border | `--color-border` | `#D6DEE4` | `#26323B` | Hairline rules, card/input borders |
+| Text | `--color-text` | `#02070A` | `#EAF1F4` | Primary body text (ink / chalk) |
+| Muted | `--color-muted` | `#4C5865` | `#A3B3BC` | Secondary text, descriptions |
+| Faint | `--color-faint` | `#5F6B78` | `#84939B` | Captions, uppercase tags, footer |
+| Accent | `--color-accent` | `#0297DE` | `#0297DE` | Electric blue — button fills, active bars, focus ring |
+| Accent Soft | `--color-accent-soft` | `#026FA3` | `#5EC8F5` | Electric blue TEXT roles: links, hover, active |
+| On Accent | `--color-on-accent` | `#02070A` | `#02070A` | Ink text ON the blue fill (contrast rule) |
+| Success | `--color-success` | `#1F7A4D` | `#5EE0A8` | **ONLY** "Open to work" dot + form success |
 | Danger | `--color-danger` | `#C0392B` | `#F87171` | **ONLY** form errors & critical alerts |
 
 ### Tailwind Usage
@@ -62,12 +62,12 @@ with tokens for inline styles (`color-mix(in srgb, var(--color-accent) 30%, tran
 - `color-scheme` is `light`/`dark` respectively (native widgets & scrollbars follow).
 
 ### Accent contrast rule
-Gold fill + white text is forbidden. Text on any `bg-accent` fill uses `text-on-accent`
-(cream in light mode, dark ink in dark mode).
+Electric blue fill + ink text is forbidden. Text on any `bg-accent` fill uses
+`text-on-accent` (ink in light mode, ink in dark mode).
 
 ### Mode-dependent gradients & strips
 - `--gradient-frame` — hero portrait frame gradient (two-tone, defined per paper)
-- `--strip-1 … --strip-4` — footer strip gold family (`#A47612 · #C49A32 · #E0C578 · #6B4F0E` in light)
+- `--strip-1 … --strip-4` — footer strip family (`#FC734D · #8FB6C9 · #A9C6A2 · #C6BEDA` in light, dark equivalents in `.dark`)
 
 ---
 
@@ -84,14 +84,14 @@ Three fonts loaded via `next/font/google` in `layout.tsx`:
 
 ### Scale & Minimum Size Rules
 - Heading 1 (masthead): Fraunces `clamp(2.5rem, 1.4rem + 4.2vw, 4.25rem)`, weight 600, leading `1.05`.
-- Heading 2: `clamp(1.5rem, 1.2rem + 1vw, 2rem)`, font-bold with 34×3px gold underline bar.
+- Heading 2: `clamp(1.5rem, 1.2rem + 1vw, 2rem)`, font-bold with 34×3px accent underline bar.
 - Heading 3: `text-base md:text-lg`, font-bold.
 - Body: `text-base` (16px), line-height 1.6.
 - Small: `text-xs` (12px) — **Minimum size everywhere**. Never sub-12px (`text-[11px]`).
 
 ### Editorial ornaments (globals.css `@layer components`)
-- `.kicker` — mono uppercase numbered chapter label (`01 — Selected Work`), gold
-- `.rule-gold` — engraved fading gold hairline
+- `.kicker` — mono uppercase numbered chapter label (`01 — Selected Work`), accent
+- `.rule-gold` — fading accent hairline
 - `.paper-shadow` — warm paper shadow, deeper variant in `.dark`
 
 ---
@@ -99,7 +99,7 @@ Three fonts loaded via `next/font/google` in `layout.tsx`:
 ## 4. Layout & Spacing
 
 ### Section Order (home page, hallmark editorial)
-1. **Hero** (`#hero`) — masthead: serif name, gold rules, kicker row, CTAs, portrait with engraved frame
+1. **Hero** (`#hero`) — masthead: serif name, accent rules, kicker row, CTAs, portrait with engraved frame
 2. **Projects** (`#projects`) — `01 — Selected Work`, asymmetric 3/5–2/5 gallery + Research & ML strip
 3. **Skills** (`#skills`) — `02 — My Toolbox`, 2-column engraved panels, MERN highlight chips
 4. **About** (`#about`) — `03 — The Story`, serif pull-quote (first bio paragraph) + Currently list
@@ -118,7 +118,7 @@ case studies use chapter TOCs `1. Problem … 7. Local Setup`.
 | `xl` | TopBar inline links + centered Projects link; hamburger/drawer retired (drawer lives < xl); rails visible (`SectionRail` diamonds, `SocialRail`); works index rows two-sided |
 | `2xl` | Rail labels on hover/active; container expands to 1200px |
 
-**Nav declutter rule (Part 7):** below `xl` the TopBar carries only wordmark · ThemeToggle (md+) · Resume pill (md+) · hamburger — the drawer is the navigation (numbered mono contents `01…05`, gold Resume pill, email, socials). Like the rails, inline links exist only in the roomy ≥1280px band.
+**Nav declutter rule (Part 7):** below `xl` the TopBar carries only wordmark · ThemeToggle (md+) · Resume pill (md+) · hamburger — the drawer is the navigation (numbered mono contents `01…05`, accent Resume pill, email, socials). Like the rails, inline links exist only in the roomy ≥1280px band.
 
 ### Fluid Sizing Rules
 - **Fluid rhythm (Part 7):** spacing and gutters scale continuously with the viewport via
@@ -145,20 +145,20 @@ case studies use chapter TOCs `1. Problem … 7. Local Setup`.
 - Persists to `localStorage["theme"]`; aria-pressed; 44×44 target
 
 ### ScrollMarker (`ui/ScrollMarker.tsx`)
-- `ProgressRule`: 2px gold hairline, top of viewport, rAF-throttled reading progress
+- `ProgressRule`: 2px accent hairline, top of viewport, rAF-throttled reading progress
 - `BackToTop`: engraved circular arrow after 600px; cleared of the mobile action bar
 
 ### Button (`ui/Button.tsx`)
-- `primary`: gold fill + `text-on-accent`; `secondary`: surface + hairline border
+- `primary`: accent fill + `text-on-accent`; `secondary`: surface + hairline border
 - Print corners (`rounded-lg`), Framer Motion scale 1.02/0.98
 
 ### SectionHeading (`ui/SectionHeading.tsx`)
 - Optional `index` + `kicker` → `.kicker`-styled numbered chapter label above title
-- Optional subtitle in muted; gold 34×3px underline seal
+- Optional subtitle in muted; accent 34×3px underline seal
 
 ### ProjectCard (`ui/ProjectCard.tsx`)
 - 16:9 `next/image` preview, engr-paper card (`rounded-[10px]`, `paper-shadow`)
-- Gold metric seal (`text-accent-soft` on surface-2, accent/40 border)
+- Accent metric seal (`text-accent-soft` on surface-2, accent/40 border)
 - Stack chips (mono) + Live / Code / Case-study links
 
 ### WorksIndex (`works/WorksIndex.tsx`) — `/projects`
@@ -166,19 +166,19 @@ case studies use chapter TOCs `1. Problem … 7. Local Setup`.
 - Numbered rows (`No. 01`), serif titles, mono stack ledger, Live ↗ / Code ↗ / Study →
 
 ### ChapterNav (`works/ChapterNav.tsx`) — case studies
-- Sticky mono chapter TOC; IntersectionObserver active gold diamond + `aria-current`
+- Sticky mono chapter TOC; IntersectionObserver active accent diamond + `aria-current`
 
 ### SectionRail (`ui/SectionRail.tsx`) · SocialRail (`ui/SocialRail.tsx`)
-- Gold diamond markers with active pulse; engraved labels at 2xl; correct chapter order
-- Left social rail: inline SVG, gold hover, inert on mobile (footer renders them)
+- Accent diamond markers with active pulse; engraved labels at 2xl; correct chapter order
+- Left social rail: inline SVG, accent hover, inert on mobile (footer renders them)
 
 ### TopBar (`ui/TopBar.tsx`) · MobileActionBar (`ui/MobileActionBar.tsx`)
 - 3-col bar: Fraunces wordmark | centered Projects link (xl-only) | inline links (xl+) + ThemeToggle (md+) + Resume pill (md+) + hamburger (<xl)
-- Warm `paper-shadow` appears after scrolling; drawer = journal contents (numbered mono chapters, gold Resume pill, email, socials, dark-paper row)
-- `MobileActionBar` = mobile "correspondence slip" (`md:hidden`): LinkedIn/GitHub monogram icons + gold Resume + Contact buttons, all ≥ 44px
+- Warm `paper-shadow` appears after scrolling; drawer = journal contents (numbered mono chapters, accent Resume pill, email, socials, dark-paper row)
+- `MobileActionBar` = mobile "correspondence slip" (`md:hidden`): LinkedIn/GitHub monogram icons + accent Resume + Contact buttons, all ≥ 44px
 
 ### Hero signature block (`HeroSection.tsx`)
-- Engraved social monogram row (gold diamond · LinkedIn · GitHub · Email) at the foot of the
+- Engraved social monogram row (accent diamond · LinkedIn · GitHub · Email) at the foot of the
   hero text column — "letter signature" placement, visible on **every** breakpoint,
   crosses the mobile slip + footer + drawer as a third social surface
 
@@ -208,7 +208,7 @@ case studies use chapter TOCs `1. Problem … 7. Local Setup`.
    use tokens (incl. `color-mix`), never raw hexes outside `globals.css`/`--strip-*`/`--gradient-frame`.
 3. **NO icon libraries**: inline SVG with `aria-hidden="true"` only.
 4. **NO sub-12px text**: minimum `text-xs` (12px) everywhere.
-5. **NO white text on gold**: any accent fill gets `text-on-accent` (both papers).
+5. **NO white text on the accent fill**: any accent fill gets `text-on-accent` (both papers).
 6. **NO hardcoded `text-white`/`text-black`**: use `text-text` / `text-on-accent`.
 7. **NO percentage progress bars in Skills**: grouped mono chips only.
 8. **NO horizontal scroll**: verified at 360px; `overflow-wrap: anywhere` on dynamic text.
