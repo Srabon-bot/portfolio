@@ -71,9 +71,9 @@
   --strip-3: #C6D8C0;
   --strip-4: #D9D2E8;
 
-  /* Wave field — the pen's 25 diagonal glow columns, recoloured to palette
-     C (lavender / electric blue / mint). Geometry + 45s loop come from the
-     original; only hue and opacity are tuned for this site.                */
+  /* Wave field — the pen's diagonal glow sweep, recoloured to palette C
+     (lavender / electric blue / mint). Geometry + 45s loop come from the
+     original; only hue, opacity and edge softness are tuned for this site. */
   --wave-center: 24%;
   --wave-mid: 16%;
   --wave-outer: 9%;
@@ -203,9 +203,9 @@
   }
 }
 
-/* Original pen's slide: each zero-width column sweeps from just past the
-   right edge to past the left edge. Staggered per-column duration/delay
-   (set in RainbowWave.tsx) chains the columns into a continuous wave.     */
+/* Original pen's slide: each soft ribbon sweeps from just past the right
+   edge to past the left edge. Staggered per-ribbon duration/delay (set in
+   RainbowWave.tsx) chains them into a continuous wave.                     */
 @keyframes wave-slide {
   from {
     translate: 25vw 0;
@@ -227,25 +227,32 @@
   z-index: -1;
 }
 
-.rainbow-wave__column {
+.rainbow-wave__ribbon {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 100vh;
+  top: -10vh;
+  right: -15vw;
+  width: 30vw;
+  height: 120vh;
+  /* A soft gradient ribbon, not a shadow rectangle: no edges to stack into
+     visible lines. The mask fades both ends so ribbons melt into the base. */
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--wave-color) var(--wave-outer), transparent) 22%,
+    color-mix(in srgb, var(--wave-color) var(--wave-mid), transparent) 38%,
+    color-mix(in srgb, var(--wave-color) var(--wave-center), transparent) 50%,
+    color-mix(in srgb, var(--wave-color) var(--wave-mid), transparent) 62%,
+    color-mix(in srgb, var(--wave-color) var(--wave-outer), transparent) 78%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
   transform: rotate(10deg);
   transform-origin: top right;
   /* `translate` composes on the GPU and keeps the sweep horizontal while
-     `transform` holds the pen's 10° tilt. Animating `right` instead would
-     relayout the page on every frame. */
+     `transform` holds the pen's 10° tilt. */
   translate: 25vw 0;
   will-change: translate;
-  box-shadow:
-    -140px 0 110px 30px color-mix(in srgb, var(--wave-color) var(--wave-outer), transparent),
-     -55px 0  80px 20px color-mix(in srgb, var(--wave-color) var(--wave-mid), transparent),
-       0  0   80px 20px color-mix(in srgb, var(--wave-color) var(--wave-center), transparent),
-      55px 0  80px 20px color-mix(in srgb, var(--wave-color) var(--wave-mid), transparent),
-     140px 0 110px 30px color-mix(in srgb, var(--wave-color) var(--wave-outer), transparent);
   animation: wave-slide var(--wave-duration) linear infinite var(--wave-delay);
 }
 
