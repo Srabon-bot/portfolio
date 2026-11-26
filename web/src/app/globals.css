@@ -81,8 +81,11 @@
     repeating-linear-gradient(2deg, transparent 0 17px, color-mix(in srgb, var(--color-ink) 2%, transparent) 17px 18px);
   --paper-texture-size: 137px 119px, 173px 151px, 97px 131px, 61px 71px, 83px 89px;
 
-  /* Topographic contour tile — deliberately uneven, not concentric rings. */
-  --contour-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='220' viewBox='0 0 320 220' fill='none' stroke='%232D3748' stroke-opacity='0.16' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M-20 28C34 6 86 14 126 36S210 72 264 48S330 24 352 44'/%3E%3Cpath d='M-18 56C28 34 84 38 124 62S206 102 260 78S326 52 350 72'/%3E%3Cpath d='M-12 86C26 60 80 60 124 86S202 128 256 106S322 80 350 100'/%3E%3Cpath d='M18 190C44 150 86 134 126 148S184 196 224 188S288 142 330 150'/%3E%3Cpath d='M4 166C36 120 88 100 132 116S192 170 234 162S302 116 340 124'/%3E%3Cpath d='M-8 140C28 92 84 70 132 86S198 142 242 134S314 88 352 96'/%3E%3Cpath d='M92 58C118 42 152 46 172 66S188 112 164 126S104 136 88 114S76 70 92 58Z'/%3E%3Cpath d='M110 76C128 66 150 70 160 84S166 116 150 124S112 126 104 112S100 84 110 76Z'/%3E%3C/svg%3E");
+  /* Topographic contour tile — deliberately uneven, not concentric rings.
+     Stored as an alpha mask, so the colour comes from --color-ink at paint
+     time and every palette tints it without duplicating the path data.  */
+  --contour-opacity: 0.16;
+  --contour-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='220' viewBox='0 0 320 220' fill='none' stroke='%23fff' stroke-opacity='1' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M-20 28C34 6 86 14 126 36S210 72 264 48S330 24 352 44'/%3E%3Cpath d='M-18 56C28 34 84 38 124 62S206 102 260 78S326 52 350 72'/%3E%3Cpath d='M-12 86C26 60 80 60 124 86S202 128 256 106S322 80 350 100'/%3E%3Cpath d='M18 190C44 150 86 134 126 148S184 196 224 188S288 142 330 150'/%3E%3Cpath d='M4 166C36 120 88 100 132 116S192 170 234 162S302 116 340 124'/%3E%3Cpath d='M-8 140C28 92 84 70 132 86S198 142 242 134S314 88 352 96'/%3E%3Cpath d='M92 58C118 42 152 46 172 66S188 112 164 126S104 136 88 114S76 70 92 58Z'/%3E%3Cpath d='M110 76C128 66 150 70 160 84S166 116 150 124S112 126 104 112S100 84 110 76Z'/%3E%3C/svg%3E");
 
   color-scheme: light;            /* browser: native widgets & scrollbars */
 }
@@ -137,7 +140,7 @@
   --strip-4: #C6C6EF;
 
   /* Same contour drawing, ink-coloured for the dark paper. */
-  --contour-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='220' viewBox='0 0 320 220' fill='none' stroke='%2393A5BA' stroke-opacity='0.22' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M-20 28C34 6 86 14 126 36S210 72 264 48S330 24 352 44'/%3E%3Cpath d='M-18 56C28 34 84 38 124 62S206 102 260 78S326 52 350 72'/%3E%3Cpath d='M-12 86C26 60 80 60 124 86S202 128 256 106S322 80 350 100'/%3E%3Cpath d='M18 190C44 150 86 134 126 148S184 196 224 188S288 142 330 150'/%3E%3Cpath d='M4 166C36 120 88 100 132 116S192 170 234 162S302 116 340 124'/%3E%3Cpath d='M-8 140C28 92 84 70 132 86S198 142 242 134S314 88 352 96'/%3E%3Cpath d='M92 58C118 42 152 46 172 66S188 112 164 126S104 136 88 114S76 70 92 58Z'/%3E%3Cpath d='M110 76C128 66 150 70 160 84S166 116 150 124S112 126 104 112S100 84 110 76Z'/%3E%3C/svg%3E");
+  --contour-opacity: 0.22;   /* dark paper needs a touch more */
 
   color-scheme: dark;             /* native widgets & scrollbars follow */
 }
@@ -336,10 +339,25 @@
     background-repeat: repeat;
   }
 
-  /* Flood/ML work only: irregular watershed contours.                  */
+  /* Flood/ML work only: irregular watershed contours. Painted as a masked
+     pseudo-element so the host keeps whatever background-color it sets.  */
   .bg-contour {
-    background-image: var(--contour-lines);
-    background-size: 320px 220px;
-    background-repeat: repeat;
+    position: relative;
+    isolation: isolate;
+  }
+  .bg-contour::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: var(--color-ink);
+    -webkit-mask-image: var(--contour-mask);
+    mask-image: var(--contour-mask);
+    -webkit-mask-size: 320px 220px;
+    mask-size: 320px 220px;
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+    opacity: var(--contour-opacity);
   }
 }
