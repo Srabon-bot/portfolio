@@ -11,6 +11,7 @@
 import type { Metadata } from "next";
 import { Fredoka, Nunito } from "next/font/google";
 import { ProgressRule, BackToTop } from "@/components/ui/ScrollMarker";
+import { RainbowWave } from "@/components/ui/RainbowWave";
 import { ThemeBootstrap } from "@/components/ThemeBootstrap";
 import "./globals.css";
 
@@ -85,6 +86,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           this element's attributes before hydration; our theme bootstrap may
           also adjust the html class pre-paint. Only silences for this element. */}
       <body suppressHydrationWarning>
+        {/* Decorative wave sweep — 25 token-tinted glow columns, aria-hidden
+            and disabled under prefers-reduced-motion (see globals.css). */}
+        <RainbowWave />
         {/* Pre-paint theme switch — injected into the SSR <head> outside the
             React tree via useServerInsertedHTML (see ThemeBootstrap.tsx). */}
         <ThemeBootstrap />

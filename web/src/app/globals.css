@@ -71,14 +71,16 @@
   --strip-3: #C6D8C0;
   --strip-4: #D9D2E8;
 
-  /* Additive background beams — soft, brand-tinted glow layers over the
-     page base (palette C: electric blue + cantaloupe). Animated as two
-     sweeping beams (the CodePen "waves", toned down for this palette).    */
+  /* Wave field — the pen's 25 diagonal glow columns, recoloured to palette
+     C (lavender / electric blue / mint). Geometry + 45s loop come from the
+     original; only hue and opacity are tuned for this site.                */
+  --wave-center: 30%;
+  --wave-mid: 22%;
+  --wave-outer: 13%;
+
+  /* Static fallback when the wave animation is disabled by the OS.        */
   --bg-rainbow: radial-gradient(ellipse 60% 60% at 18% 22%, color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 70%),
                 radial-gradient(ellipse 55% 55% at 82% 78%, color-mix(in srgb, var(--color-peach) 12%, transparent), transparent 70%);
-  --bg-rainbow-size: 200% 200%, 200% 200%;
-  --bg-rainbow-pos: 0% 50%, 100% 50%;
-  --bg-rainbow-duration: 26s;
 
   color-scheme: light;            /* browser: native widgets & scrollbars */
 }
@@ -120,12 +122,14 @@
   --strip-3: #A9C6A2;
   --strip-4: #C6BEDA;
 
-  /* Additive background beams — softened for the dark base.            */
+  /* Dark wave field — pastels read brighter on ink, so soften the glows. */
+  --wave-center: 22%;
+  --wave-mid: 16%;
+  --wave-outer: 9%;
+
+  /* Static fallback when the wave animation is disabled by the OS.        */
   --bg-rainbow: radial-gradient(ellipse 60% 60% at 18% 22%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 70%),
                 radial-gradient(ellipse 55% 55% at 82% 78%, color-mix(in srgb, var(--color-peach) 16%, transparent), transparent 70%);
-  --bg-rainbow-size: 200% 200%, 200% 200%;
-  --bg-rainbow-pos: 0% 50%, 100% 50%;
-  --bg-rainbow-duration: 32s;
 
   color-scheme: dark;             /* native widgets & scrollbars follow */
 }
@@ -142,11 +146,6 @@
 
   body {
     background-color: var(--color-bg);
-    background-image: var(--bg-rainbow);
-    background-size: var(--bg-rainbow-size);
-    background-position: var(--bg-rainbow-pos);
-    background-repeat: no-repeat;
-    animation: bg-rainbow-sweep var(--bg-rainbow-duration) linear infinite;
     color: var(--color-text);
     font-family: var(--font-nunito), system-ui, sans-serif;
     font-size: 1rem;                /* 16px */
@@ -204,14 +203,53 @@
   }
 }
 
-/* Additive background beams: two soft brand-tinted glows sweeping in
-   opposite directions (the "waves"). Static fallback = the gradients.    */
-@keyframes bg-rainbow-sweep {
+/* Original pen's slide: each zero-width column sweeps from just past the
+   right edge to past the left edge. Staggered per-column duration/delay
+   (set in RainbowWave.tsx) chains the columns into a continuous wave.     */
+@keyframes wave-slide {
   from {
-    background-position: 0% 50%, 100% 50%;
+    right: -25vw;
   }
   to {
-    background-position: 100% 50%, 0% 50%;
+    right: 125vw;
+  }
+}
+
+/* ── Wave field (background layer) ─────────────────────────────────────
+ * The pen's pure-CSS rainbow, rebuilt from site tokens. Fixed, invisible
+ * to assistive tech and pointer events; sits behind all page content.
+ * Kept outside @layer components so Tailwind never tree-shakes it.        */
+.rainbow-wave {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.rainbow-wave__column {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 100vh;
+  transform: rotate(10deg);
+  transform-origin: top right;
+  box-shadow:
+    -130px 0 80px 40px color-mix(in srgb, var(--wave-color) var(--wave-outer), transparent),
+     -50px 0 50px 25px color-mix(in srgb, var(--wave-color) var(--wave-mid), transparent),
+       0  0 50px 25px color-mix(in srgb, var(--wave-color) var(--wave-center), transparent),
+      50px 0 50px 25px color-mix(in srgb, var(--wave-color) var(--wave-mid), transparent),
+     130px 0 80px 40px color-mix(in srgb, var(--wave-color) var(--wave-outer), transparent);
+  animation: wave-slide var(--wave-duration) linear infinite var(--wave-delay);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rainbow-wave {
+    display: none;
+  }
+
+  body {
+    background-image: var(--bg-rainbow);
   }
 }
 
