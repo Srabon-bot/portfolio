@@ -9,7 +9,7 @@
 import type { ChangeEvent, ReactNode } from "react";
 
 export const inputClass =
-  "w-full rounded-lg px-3 py-2 text-sm outline-none transition-colors";
+  "w-full rounded-lg px-3 py-2 text-sm transition-colors";
 export const inputStyle: React.CSSProperties = {
   background: "var(--color-surface-2)",
   border: "1px solid var(--color-border)",

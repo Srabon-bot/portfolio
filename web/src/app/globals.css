@@ -2,14 +2,14 @@
 @import "tailwindcss";
 
 /*
- * CLAY PLAYFUL theme (branch redesign/clay-playful).
- * Re-skins the original "Hallmark Editorial" token system with the
- * uupm.cc "Educational Platform" claymorphism recipe:
+ * CLAY PLAYFUL theme.
  *   - Fredoka (round display) + Nunito (soft body)
- *   - pastel palette (peach / sky / mint / lavender) + green CTA
  *   - clay cards: thick ink borders, hard offset shadows, press-on-hover
- * The branch is LIGHT-ONLY for now: the .dark overrides are intentionally
- * dormant (nothing sets a dark palette), the toggle is removed in Phase 2.
+ *   - warm paper + ink base, one saturated accent, muted pastel fills
+ *
+ * Palette system: `@theme` holds the default (palette C) light values,
+ * `:root` holds the shared paper/contour machinery, and `.dark` holds the
+ * dark counterpart. That pair is now the live palette.
  */
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -25,34 +25,33 @@
   --radius-chip: 16px;
 }
 
-/* ── Theme tokens — "Clay" values (light only in this branch) ─────────
- * Same token NAMES as the editorial theme so every component re-skins
- * from this file alone. New tokens below only ADD roles.              */
+/* ── Palette C — "Neon Night" (Midnight / Electric Blue / Cantaloupe) ──
+ * Promoted to the live default.                                           */
 @theme {
-  --color-bg:          #FFF9F5;   /* warm cream page background            */
-  --color-surface:     #FFFFFF;   /* card clay faces                       */
-  --color-surface-2:   #F1F5F9;   /* chips, inputs, soft fills             */
-  --color-border:      #E2E8F0;   /* soft hairline (form frames, rails)    */
-  --color-ink:         #2D3748;   /* clay OUTLINE stroke color (+ base ink text) */
-  --color-ink-shadow:  #2D3748;   /* hard OFFSET shadows (split from ink in dark) */
-  --color-text:        #2D3748;   /* primary text (same ink)               */
-  --color-muted:       #556680;   /* secondary text (5.5:1 on surface-2)   */
-  --color-faint:       #5F7186;   /* captions, footers (4.8:1 on cream bg)  */
-  --color-accent:      #22C55E;   /* CTA green — button fills, focus ring  */
-  --color-accent-soft: #15803D;   /* green TEXT roles: links, hover, kbd (4.9:1 on card) */
-  --color-on-accent:   #2D3748;   /* ink text ON a green fill (5.26:1; white failed at 2.28) */
-  --color-on-pastel:   #2D3748;   /* ink text ON a pastel fill (identical value to text in light) */
+  --color-bg:          #FDFEFF;
+  --color-surface:     #FFFFFF;
+  --color-surface-2:   #EDF1F5;
+  --color-border:      #D6DEE4;
+  --color-ink:         #02070A;
+  --color-ink-shadow:  #02070A;
+  --color-text:        #02070A;
+  --color-muted:       #4C5865;
+  --color-faint:       #5F6B78;
+  --color-accent:      #0297DE;
+  --color-accent-soft: #026FA3;
+  --color-on-accent:   #02070A;
+  --color-on-pastel:   #02070A;
+  --color-focus:       #026FA3;
 
-  /* Pastel clay fill roles (cards, badges, decorative blobs)           */
-  --color-peach:       #FDBCB4;
-  --color-peach-deep:  #F5A69D;
-  --color-sky:         #ADD8E6;
-  --color-sky-deep:    #8BC4D6;
-  --color-mint:        #98FF98;
-  --color-lavender:    #E6E6FA;
+  --color-peach:       #FC734D;
+  --color-peach-deep:  #E85F39;
+  --color-sky:         #BFD3E0;
+  --color-sky-deep:    #A2BCCD;
+  --color-mint:        #C6D8C0;
+  --color-lavender:    #D9D2E8;
 
-  --color-success:     #15803D;   /* form success + "Open to work" dot (as text: 4.9:1) */
-  --color-danger:      #DC2626;   /* form errors ONLY (text: 4.8:1) */
+  --color-success:     #1F7A4D;
+  --color-danger:      #C0392B;
 }
 
 :root {
@@ -64,12 +63,12 @@
   --space-block:     clamp(1rem, 0.85rem + 0.6vw, 1.5rem);
   --pad-container:   clamp(1rem, 0.55rem + 1.8vw, 2rem);
 
-  /* Mode-dependent decorations, restyled for clay (light values only)  */
-  --gradient-frame: linear-gradient(135deg, #FDBCB4 0%, #ADD8E6 50%, #98FF98 100%);
-  --strip-1: #FDBCB4;
-  --strip-2: #ADD8E6;
-  --strip-3: #98FF98;
-  --strip-4: #E6E6FA;
+  /* Mode-dependent decorations, palette C light                        */
+  --gradient-frame: linear-gradient(135deg, #BFD3E0 0%, #FC734D 50%, #C6D8C0 100%);
+  --strip-1: #FC734D;
+  --strip-2: #BFD3E0;
+  --strip-3: #C6D8C0;
+  --strip-4: #D9D2E8;
 
   /* Site-wide paper fibre. Five offset tiles keep the repeat from reading
      as a regular pattern; all colour comes from the current ink token.   */
@@ -81,63 +80,53 @@
     repeating-linear-gradient(2deg, transparent 0 17px, color-mix(in srgb, var(--color-ink) 2%, transparent) 17px 18px);
   --paper-texture-size: 137px 119px, 173px 151px, 97px 131px, 61px 71px, 83px 89px;
 
-  /* Topographic contour tile — deliberately uneven, not concentric rings. */
-  --contour-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='220' viewBox='0 0 320 220' fill='none' stroke='%232D3748' stroke-opacity='0.16' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M-20 28C34 6 86 14 126 36S210 72 264 48S330 24 352 44'/%3E%3Cpath d='M-18 56C28 34 84 38 124 62S206 102 260 78S326 52 350 72'/%3E%3Cpath d='M-12 86C26 60 80 60 124 86S202 128 256 106S322 80 350 100'/%3E%3Cpath d='M18 190C44 150 86 134 126 148S184 196 224 188S288 142 330 150'/%3E%3Cpath d='M4 166C36 120 88 100 132 116S192 170 234 162S302 116 340 124'/%3E%3Cpath d='M-8 140C28 92 84 70 132 86S198 142 242 134S314 88 352 96'/%3E%3Cpath d='M92 58C118 42 152 46 172 66S188 112 164 126S104 136 88 114S76 70 92 58Z'/%3E%3Cpath d='M110 76C128 66 150 70 160 84S166 116 150 124S112 126 104 112S100 84 110 76Z'/%3E%3C/svg%3E");
+  /* Topographic contour tile — deliberately uneven, not concentric rings.
+     Stored as an alpha mask, so the colour comes from --color-ink at paint
+     time and every palette tints it without duplicating the path data.  */
+  --contour-opacity: 0.16;
+  --contour-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='220' viewBox='0 0 320 220' fill='none' stroke='%23fff' stroke-opacity='1' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M-20 28C34 6 86 14 126 36S210 72 264 48S330 24 352 44'/%3E%3Cpath d='M-18 56C28 34 84 38 124 62S206 102 260 78S326 52 350 72'/%3E%3Cpath d='M-12 86C26 60 80 60 124 86S202 128 256 106S322 80 350 100'/%3E%3Cpath d='M18 190C44 150 86 134 126 148S184 196 224 188S288 142 330 150'/%3E%3Cpath d='M4 166C36 120 88 100 132 116S192 170 234 162S302 116 340 124'/%3E%3Cpath d='M-8 140C28 92 84 70 132 86S198 142 242 134S314 88 352 96'/%3E%3Cpath d='M92 58C118 42 152 46 172 66S188 112 164 126S104 136 88 114S76 70 92 58Z'/%3E%3Cpath d='M110 76C128 66 150 70 160 84S166 116 150 124S112 126 104 112S100 84 110 76Z'/%3E%3C/svg%3E");
 
   color-scheme: light;            /* browser: native widgets & scrollbars */
 }
 
-/* ── "Clay Dusk" — dark mode (same clay shapes, dusk palette) ─────────
- * Derived from the light clay: the slate hue family is the ink #2D3748
- * pushed dark; pastels keep their hue but drop ~20 saturation points so
- * they don't vibrate on dark surfaces. Elevation inverts: bg is the
- * DARKEST value, cards sit lighter on top.
- *
- * Ink is split here (and only here):
- *   --color-ink        = the visible outline stroke (light slate)
- *   --color-ink-shadow = the hard offset shadow (near-black)
- * In light mode both tokens equal #2D3748, shadows and strokes unified.
- * Contrast (WCAG 2.1, computed): text/bg 14.7 · text/card 12.9 ·
- * muted/card 6.8 · faint/card 5.4 · on-accent ink-on-green 8.5.
- */
+/* ── Palette C — "Neon Night" (dark counterpart) ───────────────────── */
 .dark {
-  --color-bg:          #171C24;
-  --color-surface:     #202731;
-  --color-surface-2:   #2A323F;
-  --color-border:      #3A4451;
+  --color-bg:          #02070A;
+  --color-surface:     #0B1319;
+  --color-surface-2:   #141F27;
+  --color-border:      #26323B;
 
-  --color-ink:         #93A5BA;   /* outline stroke — visible on dark clay */
-  --color-ink-shadow:  #0B0E13;   /* hard offsets read as depth (near-black) */
+  --color-ink:         #6E8593;
+  --color-ink-shadow:  #000000;
 
-  --color-text:        #E9EEF5;
-  --color-muted:       #A5B0BD;
-  --color-faint:       #8F9DA9;
+  --color-text:        #EAF1F4;
+  --color-muted:       #A3B3BC;
+  --color-faint:       #84939B;
 
-  --color-accent:      #22C55E;   /* CTA green fill unchanged */
-  --color-accent-soft: #4ADE80;   /* green TEXT on dark (links, hovers) */
-  --color-on-accent:   #0B0E13;   /* ink on green — 7.0:1 (white was 2.28 fail) */
-  --color-on-pastel:   #0B0E13;   /* ink on desaturated pastels — 7.8:1 peach, 10.5 lavender */
+  --color-accent:      #0297DE;
+  --color-accent-soft: #5EC8F5;
+  --color-on-accent:   #02070A;
+  --color-on-pastel:   #02070A;
+  --color-focus:       #5EC8F5;
 
-  /* Desaturated dark pastels (hue kept, saturation down)                  */
-  --color-peach:       #E89A92;
-  --color-peach-deep:  #D98A81;
-  --color-sky:         #7FB0C7;
-  --color-sky-deep:    #6FA0B8;
-  --color-mint:        #8FDE9B;
-  --color-lavender:    #C6C6EF;
+  --color-peach:       #FC734D;
+  --color-peach-deep:  #E45F3A;
+  --color-sky:         #8FB6C9;
+  --color-sky-deep:    #79A0B3;
+  --color-mint:        #A9C6A2;
+  --color-lavender:    #C6BEDA;
 
-  --color-success:     #34D399;   /* bright variants — legible on dark clay  */
-  --color-danger:      #F87171;   /* form errors ONLY */
+  --color-success:     #5EE0A8;
+  --color-danger:      #F87171;
 
   /* Dark decorations                                                      */
-  --gradient-frame: linear-gradient(135deg, #E89A92 0%, #7FB0C7 50%, #8FDE9B 100%);
-  --strip-1: #E89A92;
-  --strip-2: #7FB0C7;
-  --strip-3: #8FDE9B;
-  --strip-4: #C6C6EF;
+  --gradient-frame: linear-gradient(135deg, #8FB6C9 0%, #FC734D 50%, #A9C6A2 100%);
+  --strip-1: #FC734D;
+  --strip-2: #8FB6C9;
+  --strip-3: #A9C6A2;
+  --strip-4: #C6BEDA;
 
-  /* Same contour drawing, ink-coloured for the dark paper. */
-  --contour-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='220' viewBox='0 0 320 220' fill='none' stroke='%2393A5BA' stroke-opacity='0.22' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M-20 28C34 6 86 14 126 36S210 72 264 48S330 24 352 44'/%3E%3Cpath d='M-18 56C28 34 84 38 124 62S206 102 260 78S326 52 350 72'/%3E%3Cpath d='M-12 86C26 60 80 60 124 86S202 128 256 106S322 80 350 100'/%3E%3Cpath d='M18 190C44 150 86 134 126 148S184 196 224 188S288 142 330 150'/%3E%3Cpath d='M4 166C36 120 88 100 132 116S192 170 234 162S302 116 340 124'/%3E%3Cpath d='M-8 140C28 92 84 70 132 86S198 142 242 134S314 88 352 96'/%3E%3Cpath d='M92 58C118 42 152 46 172 66S188 112 164 126S104 136 88 114S76 70 92 58Z'/%3E%3Cpath d='M110 76C128 66 150 70 160 84S166 116 150 124S112 126 104 112S100 84 110 76Z'/%3E%3C/svg%3E");
+  --contour-opacity: 0.22;
 
   color-scheme: dark;             /* native widgets & scrollbars follow */
 }
@@ -183,7 +172,7 @@
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-accent);
+    outline: 3px solid var(--color-focus);
     outline-offset: 3px;
     border-radius: 8px;
   }
@@ -336,10 +325,25 @@
     background-repeat: repeat;
   }
 
-  /* Flood/ML work only: irregular watershed contours.                  */
+  /* Flood/ML work only: irregular watershed contours. Painted as a masked
+     pseudo-element so the host keeps whatever background-color it sets.  */
   .bg-contour {
-    background-image: var(--contour-lines);
-    background-size: 320px 220px;
-    background-repeat: repeat;
+    position: relative;
+    isolation: isolate;
+  }
+  .bg-contour::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: var(--color-ink);
+    -webkit-mask-image: var(--contour-mask);
+    mask-image: var(--contour-mask);
+    -webkit-mask-size: 320px 220px;
+    mask-size: 320px 220px;
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+    opacity: var(--contour-opacity);
   }
 }
