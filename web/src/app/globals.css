@@ -72,11 +72,18 @@
   --strip-4: #D9D2E8;
 
   /* Wave field — the pen's diagonal glow sweep, recoloured to palette C
-     (lavender / electric blue / mint). Geometry + 45s loop come from the
-     original; only hue, opacity and edge softness are tuned for this site. */
+     (lavender / electric blue / mint / cantaloupe). Geometry + 45s loop come
+     from the original; only hue, opacity and edge softness are site-tuned. */
   --wave-center: 24%;
   --wave-mid: 16%;
   --wave-outer: 9%;
+
+  /* Per-hue weight: the pastel tokens are far less chromatic than the
+     accent, so they need more alpha to read at the same visual strength. */
+  --wave-scale-lavender: 2.33;
+  --wave-scale-accent:    0.75;
+  --wave-scale-mint:      2.17;
+  --wave-scale-peach:     0.92;
 
   /* Static fallback when the wave animation is disabled by the OS.        */
   --bg-rainbow: radial-gradient(ellipse 60% 60% at 18% 22%, color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 70%),
@@ -126,6 +133,13 @@
   --wave-center: 18%;
   --wave-mid: 12%;
   --wave-outer: 7%;
+
+  /* Dark pastels already shift lightness strongly; they need less alpha
+     than the accent so they don't wash the page out. */
+  --wave-scale-lavender: 0.56;
+  --wave-scale-accent:    0.72;
+  --wave-scale-mint:      0.56;
+  --wave-scale-peach:     0.67;
 
   /* Static fallback when the wave animation is disabled by the OS.        */
   --bg-rainbow: radial-gradient(ellipse 60% 60% at 18% 22%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 70%),
@@ -235,14 +249,15 @@
   height: 120vh;
   /* A soft gradient ribbon, not a shadow rectangle: no edges to stack into
      visible lines. The mask fades both ends so ribbons melt into the base. */
+  --wave-scale: 1;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    color-mix(in srgb, var(--wave-color) var(--wave-outer), transparent) 22%,
-    color-mix(in srgb, var(--wave-color) var(--wave-mid), transparent) 38%,
-    color-mix(in srgb, var(--wave-color) var(--wave-center), transparent) 50%,
-    color-mix(in srgb, var(--wave-color) var(--wave-mid), transparent) 62%,
-    color-mix(in srgb, var(--wave-color) var(--wave-outer), transparent) 78%,
+    color-mix(in srgb, var(--wave-color) calc(var(--wave-outer) * var(--wave-scale)), transparent) 22%,
+    color-mix(in srgb, var(--wave-color) calc(var(--wave-mid) * var(--wave-scale)), transparent) 38%,
+    color-mix(in srgb, var(--wave-color) calc(var(--wave-center) * var(--wave-scale)), transparent) 50%,
+    color-mix(in srgb, var(--wave-color) calc(var(--wave-mid) * var(--wave-scale)), transparent) 62%,
+    color-mix(in srgb, var(--wave-color) calc(var(--wave-outer) * var(--wave-scale)), transparent) 78%,
     transparent 100%
   );
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
@@ -255,6 +270,12 @@
   will-change: translate;
   animation: wave-slide var(--wave-duration) linear infinite var(--wave-delay);
 }
+
+/* Per-hue weight, remapped for each theme in :root / .dark above. */
+.rainbow-wave__ribbon[data-hue="lavender"] { --wave-scale: var(--wave-scale-lavender); }
+.rainbow-wave__ribbon[data-hue="accent"]   { --wave-scale: var(--wave-scale-accent); }
+.rainbow-wave__ribbon[data-hue="mint"]     { --wave-scale: var(--wave-scale-mint); }
+.rainbow-wave__ribbon[data-hue="peach"]    { --wave-scale: var(--wave-scale-peach); }
 
 @media (prefers-reduced-motion: reduce) {
   .rainbow-wave {
