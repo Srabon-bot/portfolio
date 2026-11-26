@@ -72,9 +72,13 @@
   --strip-4: #D9D2E8;
 
   /* Additive background beams — soft, brand-tinted glow layers over the
-     page base (palette C: electric blue + cantaloupe).                   */
+     page base (palette C: electric blue + cantaloupe). Animated as two
+     sweeping beams (the CodePen "waves", toned down for this palette).    */
   --bg-rainbow: radial-gradient(ellipse 60% 60% at 18% 22%, color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 70%),
                 radial-gradient(ellipse 55% 55% at 82% 78%, color-mix(in srgb, var(--color-peach) 12%, transparent), transparent 70%);
+  --bg-rainbow-size: 200% 200%, 200% 200%;
+  --bg-rainbow-pos: 0% 50%, 100% 50%;
+  --bg-rainbow-duration: 26s;
 
   color-scheme: light;            /* browser: native widgets & scrollbars */
 }
@@ -119,6 +123,9 @@
   /* Additive background beams — softened for the dark base.            */
   --bg-rainbow: radial-gradient(ellipse 60% 60% at 18% 22%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 70%),
                 radial-gradient(ellipse 55% 55% at 82% 78%, color-mix(in srgb, var(--color-peach) 16%, transparent), transparent 70%);
+  --bg-rainbow-size: 200% 200%, 200% 200%;
+  --bg-rainbow-pos: 0% 50%, 100% 50%;
+  --bg-rainbow-duration: 32s;
 
   color-scheme: dark;             /* native widgets & scrollbars follow */
 }
@@ -136,7 +143,10 @@
   body {
     background-color: var(--color-bg);
     background-image: var(--bg-rainbow);
+    background-size: var(--bg-rainbow-size);
+    background-position: var(--bg-rainbow-pos);
     background-repeat: no-repeat;
+    animation: bg-rainbow-sweep var(--bg-rainbow-duration) linear infinite;
     color: var(--color-text);
     font-family: var(--font-nunito), system-ui, sans-serif;
     font-size: 1rem;                /* 16px */
@@ -191,6 +201,17 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+  }
+}
+
+/* Additive background beams: two soft brand-tinted glows sweeping in
+   opposite directions (the "waves"). Static fallback = the gradients.    */
+@keyframes bg-rainbow-sweep {
+  from {
+    background-position: 0% 50%, 100% 50%;
+  }
+  to {
+    background-position: 100% 50%, 0% 50%;
   }
 }
 
